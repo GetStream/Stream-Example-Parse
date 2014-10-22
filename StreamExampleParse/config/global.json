@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "_default": {
+            "link": "getstream.io & parse cloud"
+        }, 
+        "getstream.io & parse cloud": {
+            "applicationId": "jybMJ0LPeOwp0dZZPDIeqw7Pjp9qyt6RBH2fekGe", 
+            "masterKey": "8A2aLGDx8EF43hSCGzvETQbopHUe6zKs8LoCL9vU"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.3.1"
+    }
+}

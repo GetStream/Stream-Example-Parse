@@ -1,0 +1,108 @@
+<!doctype html>
+<head>
+	<meta charset="utf-8">
+
+	<title>My Parse App</title>
+	<meta name="description" content="My Parse App">
+	<meta name="viewport" content="width=device-width">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.1.min.js"></script>
+</head>
+
+<body>
+
+	<div id="main">
+		<h1>You're ready to use Parse!</h1>
+
+		<p>
+			Read the documentation and start building your JavaScript app:
+		</p>
+
+		<ul>
+			<li>
+				<a href="https://www.parse.com/docs/js_guide">Parse JavaScript Guide</a>
+			</li>
+			<li>
+				<a href="https://www.parse.com/docs/js">Parse JavaScript API Documentation</a>
+			</li>
+		</ul>
+
+		<div style="display:none" class="error">
+			Looks like there was a problem saving the test object. Make sure you've set your application ID and javascript key correctly in the call to <code>
+				Parse.initialize</code>
+			in this file.
+		</div>
+
+		<div>
+			Parse, Ember &amp; GetStream.io
+			A scalable Twitter/Ello style newsfeed.
+			
+			To figure out:
+			- github login (https://parse.com/tutorials/adding-third-party-authentication-to-your-web-app)
+			- parse cloud integration getstream.io
+			
+			<input type="file" id="profilePhotoFileUpload">
+		</div>
+
+		<div style="display:none" class="success">
+			<p>
+				We've also just created your first object using the following code:
+			</p>
+
+			<code>
+				var TestObject = Parse.Object.extend("TestObject");
+				<br/>
+				var testObject = new TestObject();
+				<br/>
+				testObject.save({foo: "bar"});
+			</code>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		Parse.initialize("eYaDAkPu3pObti3oCu10sTXce0qK8V3bisyKnsJ6", "DZF7EtGS5ydFSurkyueRj7QOLLnKoNWVdKVSCRtz");
+		
+		Activity = Parse.Object.extend("Activity");
+
+		Follow = Activity.extend("Follow");
+		Tweet = Activity.extend("Tweet");
+		Picture = Activity.extend("Picture");
+
+		var fileUploadControl = $("#profilePhotoFileUpload")[0];
+		if (fileUploadControl.files.length > 0) {
+			var file = fileUploadControl.files[0];
+			var name = "photo.jpg";
+
+			var parseFile = new Parse.File(name, file);
+			parseFile.save().then(function() {
+				// The file has been saved to Parse.
+			}, function(error) {
+				// The file either could not be read, or could not be saved to Parse.
+			});
+			var picture = new Picture();
+			picture.save({
+				'image' : parseFile
+			}).then(function() {
+				console.log('saved succeed', arguments);
+			}, function() {
+				console.log('save failed', arguments);
+			});
+		}
+
+		var testObject = new Follow();
+		testObject.save({
+			foo : "bar"
+		}, {
+			success : function(object) {
+				$(".success").show();
+			},
+			error : function(model, error) {
+				$(".error").show();
+			}
+		});
+	</script>
+</body>
+
+</html>
