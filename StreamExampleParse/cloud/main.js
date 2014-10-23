@@ -34,6 +34,22 @@ Parse.Cloud.define("hello", function(request, response) {
 	response.success("Hello world!");
 });
 
+Parse.Cloud.define("feed", function(request, response) {
+	var activities = [];
+	var feedIdentifier = request.params.feed;
+
+	var feed = client.feed(feedIdentifier);
+	feed.get({
+		limit : 20
+	}, function(httpResponse) {
+		activities = httpResponse.data;
+		response.success({
+			activities : activities,
+			feed : feedIdentifier
+		});
+	});
+});
+
 Parse.Cloud.afterSave("Tweet", function(request, response) {
 	// trigger fanout
 	var parseObject = request.object;
@@ -59,7 +75,13 @@ Parse.Cloud.afterDelete("Picture", function(request) {
 });
 
 Parse.Cloud.afterSave("Follow", function(request, response) {
-	// set the follow
+	// trigger fanout
+	var parseObject = request.object;
+	var activity = parseToActivity(parseObject);
+	user1 = client.feed('user:1');
+	user1.addActivity(activity);
+	flat1 = client.feed('flat:' + parseObject.get('user'));
+	flat1.follow('user:' + parseObject.get('target_user'));
 });
 
 Parse.Cloud.afterDelete("Follow", function(request) {
