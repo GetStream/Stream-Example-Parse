@@ -30,20 +30,34 @@
 		</ul>
 
 		<div style="display:none" class="error">
-			Looks like there was a problem saving the test object. Make sure you've set your application ID and javascript key correctly in the call to <code>
-				Parse.initialize</code>
+			Looks like there was a problem saving the test object. Make sure you've set your application ID and javascript key correctly in the call to
+			<code>
+				Parse.initialize
+			</code>
 			in this file.
 		</div>
 
 		<div>
 			Parse, Ember &amp; GetStream.io
 			A scalable Twitter/Ello style newsfeed.
-			
+
 			To figure out:
 			- github login (https://parse.com/tutorials/adding-third-party-authentication-to-your-web-app)
 			- parse cloud integration getstream.io
-			
-			<input type="file" id="profilePhotoFileUpload">
+
+			<form>
+				<input type="file" id="profilePhotoFileUpload">
+				<input type="submit" onclick="submitPicture(); return false;"/>
+			</form>
+		</div>
+
+		<div>
+			<form>
+				</br>
+				<textarea id="tweet" name="tweet"></textarea>																				
+			</br>
+ <input type="submit" onclick="submitTweet(); return false;"/>
+			</form>
 		</div>
 
 		<div style="display:none" class="success">
@@ -62,33 +76,58 @@
 	</div>
 
 	<script type="text/javascript">
-		Parse.initialize("eYaDAkPu3pObti3oCu10sTXce0qK8V3bisyKnsJ6", "DZF7EtGS5ydFSurkyueRj7QOLLnKoNWVdKVSCRtz");
-		
+		Parse.initialize("jybMJ0LPeOwp0dZZPDIeqw7Pjp9qyt6RBH2fekGe", "atz5SiuIdVklUx7T0YZXQ9pLIzS5WehDKojrIdG6");
+
 		Activity = Parse.Object.extend("Activity");
 
 		Follow = Activity.extend("Follow");
 		Tweet = Activity.extend("Tweet");
 		Picture = Activity.extend("Picture");
 
-		var fileUploadControl = $("#profilePhotoFileUpload")[0];
-		if (fileUploadControl.files.length > 0) {
-			var file = fileUploadControl.files[0];
-			var name = "photo.jpg";
+		function submitTweet() {
+			tweet = new Tweet();
+			tweet.save({
+				actor : 1,
+				verb : 'tweet',
+				object : 1,
+				target : 1,
+				tweet : $('#tweet').val()
+			}, {
+				success : function(object) {
+					console.log('saved');
+				},
+				error : function(model, error) {
+					console.log('error');
+				}
+			});
+		}
 
-			var parseFile = new Parse.File(name, file);
-			parseFile.save().then(function() {
-				// The file has been saved to Parse.
-			}, function(error) {
-				// The file either could not be read, or could not be saved to Parse.
-			});
-			var picture = new Picture();
-			picture.save({
-				'image' : parseFile
-			}).then(function() {
-				console.log('saved succeed', arguments);
-			}, function() {
-				console.log('save failed', arguments);
-			});
+		function submitPicture() {
+			var fileUploadControl = $("#profilePhotoFileUpload")[0];
+			if (fileUploadControl.files.length > 0) {
+				var file = fileUploadControl.files[0];
+				var name = "photo.jpg";
+
+				var parseFile = new Parse.File(name, file);
+				parseFile.save().then(function() {
+					// The file has been saved to Parse.
+				}, function(error) {
+					// The file either could not be read, or could not be saved to Parse.
+				});
+				var picture = new Picture();
+				picture.save({
+					actor : 1,
+					verb : 'watch',
+					youtube_id: 'z_AbfPXTKms',
+					object : 1,
+					target : 1,
+					image : parseFile
+				}).then(function() {
+					console.log('saved succeed', arguments);
+				}, function() {
+					console.log('save failed', arguments);
+				});
+			}
 		}
 
 		var testObject = new Follow();

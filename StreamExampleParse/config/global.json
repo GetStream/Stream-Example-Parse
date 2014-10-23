@@ -1,9 +1,9 @@
 {
     "applications": {
         "_default": {
-            "link": "getstream.io & parse cloud"
+            "link": "stream"
         }, 
-        "getstream.io & parse cloud": {
+        "stream": {
             "applicationId": "jybMJ0LPeOwp0dZZPDIeqw7Pjp9qyt6RBH2fekGe", 
             "masterKey": "8A2aLGDx8EF43hSCGzvETQbopHUe6zKs8LoCL9vU"
         }
