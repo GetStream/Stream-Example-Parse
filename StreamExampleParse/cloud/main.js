@@ -1,6 +1,10 @@
 stream = require('cloud/getstream.js');
 client = stream.connect('hdhuew2dzq5k', 'enqn9tj4ktmpm777kwwtzwm7zk7qnsgm485p6ekt8twjv5ms7t98yvazs3szakqc', '738');
 
+parseConfig = Parse.Config.current();
+console.log('config:');
+console.log(parseConfig.get('test'));
+
 function parseToActivity(parseObject) {
 	var activity = {};
 	var activityProperties = ["actor", "verb", "object", "target", "tweet"];

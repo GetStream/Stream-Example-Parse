@@ -1,0 +1,32 @@
+
+<h2>Your feed</h2>
+
+<div id="update_status">
+	<form>
+		<div>
+			Update your status
+		</div>
+		<div>
+			{{textarea value=status cols="40" rows="3" placeholder="What's on your mind?"}}
+		</div>
+		<div>
+			Or upload an image
+			<input type="file" id="profilePhotoFileUpload">
+		</div>
+		
+		<button {{action 'status'}}>Update Status</button>
+	</form>
+</div>
+<div id="newsfeed">
+	{{# each model.activities.results }}
+	<li>
+		{{ verb }}
+		{{ this.image }}
+		{{ image.url }}
+		{{ tweet }}
+		<button {{action 'like' this}}>
+			Like
+		</button>
+	</li>
+	{{/each }}
+</div>

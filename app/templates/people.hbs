@@ -1,0 +1,11 @@
+<h2>Follow some people</h2>
+
+{{# each model }}
+<li>
+	{{ this }}
+	{{ username }}
+	<button {{action 'follow' this}}>
+		Follow
+	</button>
+</li>
+{{/each }}

@@ -1,0 +1,16 @@
+{
+  "name": "ember-app",
+  "version": "0.0.0",
+  "dependencies": {
+    "ember": "1.5.0",
+    "handlebars": "1.2.1",
+    "ember-data": "1.0.0-beta.7",
+    "bootstrap-sass-official": "3.1.1",
+    "moment": "~2.8.1",
+    "jquery-cookie": "~1.4.1",
+    "ember-uploader": "~0.2.8"
+  },
+  "devDependencies": {
+    "ember-mocha-adapter": "0.1.2"
+  }
+}
