@@ -30,7 +30,7 @@ function plumberError(error) {
 
 
 gulp.task('css', function() {
-  gulp.src('app/styles/*.scss')
+  gulp.src('styles/*.scss')
   .pipe(plumber())
   .pipe(compass({
     config_file: './config.rb',
@@ -43,7 +43,7 @@ gulp.task('css', function() {
 });
 
 gulp.task('templates', function() {
-  gulp.src(['app/templates/**/*.hbs'])
+  gulp.src(['templates/**/*.hbs'])
   	.pipe(plumber())
     .pipe(handlebars({
       outputType: 'browser',
@@ -54,17 +54,9 @@ gulp.task('templates', function() {
 });
 
 var scriptSrc = [
-  	'app/scripts/*.js',
-    'app/scripts/libs/**/*.js',
-    'app/scripts/adapters/**/*.js',
-    'app/scripts/components/**/*.js',
-    'app/scripts/controllers/**/*.js',
-    'app/scripts/models/**/*.js',
-    'app/scripts/routes/**/*.js',
-    'app/scripts/helpers/**/*.js',
-    'app/scripts/serializers/**/*.js',
-    'app/scripts/transformers/**/*.js',
-    'app/scripts/views/**/*.js',
+  	'js/*.js',
+  	'js/controllers/*.js',
+  	'js/routes/*.js',
 ];
 
 gulp.task('scripts_dev', function() {

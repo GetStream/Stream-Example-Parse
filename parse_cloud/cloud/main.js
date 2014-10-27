@@ -49,7 +49,8 @@ Parse.Cloud.define("feed", function(request, response) {
 		activities = httpResponse.data;
 		response.success({
 			activities : activities,
-			feed : feedIdentifier
+			feed : feedIdentifier,
+			token: feed.token
 		});
 	});
 });
