@@ -8,7 +8,8 @@
     "bootstrap-sass-official": "3.1.1",
     "moment": "~2.8.1",
     "jquery-cookie": "~1.4.1",
-    "ember-uploader": "~0.2.8"
+    "ember-uploader": "~0.2.8",
+    "getstream": "1.0.7"
   },
   "devDependencies": {
     "ember-mocha-adapter": "0.1.2"
