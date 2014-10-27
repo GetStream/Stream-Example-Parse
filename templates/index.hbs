@@ -18,6 +18,10 @@
 	</form>
 </div>
 <div id="newsfeed">
+	{{# if newActivities }}
+	Yeaaa there are new activities
+	{{/if}}
+	
 	{{# each model.activities.results }}
 	<li>
 		{{ verb }}

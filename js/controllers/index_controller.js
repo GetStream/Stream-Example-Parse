@@ -1,5 +1,21 @@
 App.IndexController = Ember.Controller.extend({
 	status : '',
+	feedId : 'user:1',
+	newActivities: false,
+	
+	feed: function() {
+		var token = this.get('model.token');
+		var feed = StreamClient.feed(this.get('feedId'), token);
+		return feed;
+	}.property('model.token'),
+	
+	listenToChanges: function() {
+		var feed = this.get('feed');
+		var controller = this;
+		feed.subscribe(function callback(data) {
+		    controller.set('newActivities', true);
+		});
+	}.observes('model'),
 
 	actions : {
 		status : function() {

@@ -13,6 +13,7 @@
 	<script src="js/libs/jquery-1.10.2.js"></script>
 	<script src="js/libs/handlebars-1.1.2.js"></script>
 	<script src="js/libs/ember-1.7.0.js"></script>
+	<script src="bower_components/getstream/dist/js/getstream.js"></script>
 	<script src="dist/scripts/main.js"></script>
 	<script src="dist/scripts/templates.js"></script>
 	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
@@ -26,6 +27,7 @@
 
 	<script type="text/javascript">
 		Parse.initialize("jybMJ0LPeOwp0dZZPDIeqw7Pjp9qyt6RBH2fekGe", "atz5SiuIdVklUx7T0YZXQ9pLIzS5WehDKojrIdG6");
+		StreamClient = stream.connect('hdhuew2dzq5k', null, '738');
 		Activity = Parse.Object.extend("Activity");
 		Follow = Activity.extend("Follow");
 		Tweet = Activity.extend("Tweet");

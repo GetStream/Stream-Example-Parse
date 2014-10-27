@@ -96,11 +96,11 @@ gulp.task('watch', function() {
   // start the live reload
   livereload.listen();
   //watches SCSS files for changes
-  gulp.watch('app/styles/**/*.*', ['css']).on(signal, handler);
+  gulp.watch('styles/**/*.*', ['css']).on(signal, handler);
   //watches handlebars files for changes
-  gulp.watch('app/templates/**/*.hbs', ['templates']).on(signal, handler);
+  gulp.watch('templates/**/*.hbs', ['templates']).on(signal, handler);
   //watches JavaScript files for changes
-  gulp.watch('app/scripts/**/*.js', ['scripts_dev']).on(signal, handler);
+  gulp.watch('js/**/*.js', ['scripts_dev']).on(signal, handler);
   // open the url
   gulp.run("url");
 });

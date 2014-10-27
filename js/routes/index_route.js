@@ -5,6 +5,11 @@ App.IndexRoute = Ember.Route.extend({
 			feed : 'user:1'
 		});
 		return promise;
+	},
+	actions: {
+		reload: function () {
+			this.refresh();
+		}
 	}
 }); 	
 		
