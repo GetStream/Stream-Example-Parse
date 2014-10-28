@@ -18,6 +18,24 @@ App.IndexController = Ember.Controller.extend({
 	}.observes('model'),
 
 	actions : {
+		like: function(activity) {
+			like = new Like();
+			like.save({
+				actor : 1,
+				verb : 'like',
+				object : 1,
+				target : 1,
+				item : activity.foreign_id
+			}, {
+				success : function(object) {
+					console.log('saved like');
+				},
+				error : function(model, error) {
+					console.log('error like');
+				}
+			});
+		},
+		
 		status : function() {
 			var msg = this.get('status');
 			if (msg) {
