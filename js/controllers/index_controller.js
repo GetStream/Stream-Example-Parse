@@ -25,7 +25,8 @@ App.IndexController = Ember.Controller.extend({
 				verb : 'like',
 				object : 1,
 				target : 1,
-				item : activity.foreign_id
+				item : activity.foreign_id,
+				user: users[0]
 			}, {
 				success : function(object) {
 					console.log('saved like');

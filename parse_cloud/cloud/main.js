@@ -76,6 +76,10 @@ Parse.Cloud.define("feed", function(request, response) {
 	});
 });
 
+function enrich(activities) {
+	
+}
+
 
 
 
