@@ -72,80 +72,15 @@ Parse.Cloud.define("feed", function(request, response) {
 		limit : 20
 	}, function(httpResponse) {
 		activities = httpResponse.data;
-		response.success({
-			activities : enrich(activities.results),
-			feed : feedIdentifier,
-			token : feed.token
+		var promise = utils.enrich(activities.results);
+		promise.then(function(activities) {
+			response.success({
+				activities : activities,
+				feed : feedIdentifier,
+				token : feed.token
+			});
 		});
 	});
 });
 
-function enrich(activities) {
-	/*
-	 * TODO:
-	 *
-	 * Figure out the format for promise.when
-	 * Turn that into a dictionary
-	 * And set it on the data
-	 *
-	 */
-	var lookup = {};
-	for (var i = 0; i < activities.length; i++) {
-		var activity = activities[0];
-		for (var field in activity) {
-			if (activity.hasOwnProperty(field)) {
-				var value = activity[field];
-				if (value.indexOf('ref') == 0) {
-					var parts = value.split(':');
-					if (!(parts[1] in lookup)) {
-						lookup[parts[1]] = [];
-					}
-					lookup[parts[1]].push(parts[2]);
-				}
-			}
-		}
-	}
-
-	console.log(lookup);
-
-	var promises = [];
-	for (var field in lookup) {
-		if (lookup.hasOwnProperty(field)) {
-			var query = new Parse.Query(Parse.User);
-			query.containedIn("id", lookup[field]);
-			var promise = query.find();
-			promises.push(promise);
-		}
-	}
-	var all = Parse.Promise.when(promises);
-	var resultHash = {};
-	console.log('pre the then');
-	var promise = all.then(function(result_sets) {
-		_.each(result_sets, function(result_set) {
-			resultHash['c1'] = {};
-			_.each(result_set, function(result) {
-				resultsHash['c1'][result.id] = result;				
-			});
-		});
-
-		// now we set the data
-		for (var i = 0; i < activities.length; i++) {
-			var activity = activities[0];
-			for (var field in activity) {
-				if (activity.hasOwnProperty(field)) {
-					var value = activity[field];
-					if (value.indexOf('ref') == 0) {
-						var parts = value.split(':');
-						activity[field + '_object'] = resultHash[parts[1]][parts[2]];
-					}
-				}
-			}
-		}
-		return activities;
-	}, function() {
-		console.log('neeee');
-	});
-
-	return promise;
-}
 
