@@ -20,17 +20,12 @@
 <div id="newsfeed">
 	{{# if newActivities }}
 	Yeaaa there are new activities
+	<button {{action 'reload'}}>Show them</button>
 	{{/if}}
 	
 	{{# each model.activities }}
 	<li>
-		{{ verb }}
-		{{ this.image }}
-		{{ image.url }}
-		{{ tweet }}
-		<button {{action 'like' this}}>
-			Like
-		</button>
+		{{app-activity activity=this}}
 	</li>
 	{{/each }}
 </div>

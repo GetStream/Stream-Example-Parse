@@ -1,0 +1,8 @@
+{{ activity.verb }}
+{{ activity.actor_parse }}
+
+<img {{ bind-attr src=imageUrl}} width="200px"/>
+
+<button {{action 'like' activity}}>
+	Like
+</button>

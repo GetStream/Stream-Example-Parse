@@ -55,6 +55,7 @@ gulp.task('templates', function() {
 
 var scriptSrc = [
   	'js/*.js',
+  	'js/components/*.js',
   	'js/controllers/*.js',
   	'js/routes/*.js',
 ];

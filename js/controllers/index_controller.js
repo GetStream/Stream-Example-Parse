@@ -71,9 +71,7 @@ App.IndexController = Ember.Controller.extend({
 					var picture = new Picture();
 					picture.save({
 						actor : 1,
-						verb : 'watch',
-						youtube_id : 'z_AbfPXTKms',
-						object : 1,
+						verb : 'upload',
 						target : 1,
 						image : parseFile
 					}).then(function() {
