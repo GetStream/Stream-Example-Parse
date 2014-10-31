@@ -9,6 +9,7 @@ var streamSite = '738';
 var activityModels = ['Tweet', 'Picture', 'Like'];
 var followModel = 'Follow';
 
+
 client = stream.connect(streamApiKey, streamApiSecret, streamSite);
 
 /*

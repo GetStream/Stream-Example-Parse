@@ -5,18 +5,16 @@
 	<title>My Parse App</title>
 	<meta name="description" content="My Parse App">
 	<meta name="viewport" content="width=device-width">
-	<link rel="stylesheet" href="css/reset.css">
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="css/styles.css">
+	<link rel="stylesheet" href="dist/styles/screen.css">
 	<script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.3.1.min.js"></script>
-	<script src="js/libs/jquery-1.10.2.js"></script>
-	<script src="js/libs/handlebars-1.1.2.js"></script>
-	<script src="js/libs/ember-1.7.0.js"></script>
-	<script src="bower_components/getstream/dist/js/getstream.js"></script>
+	<script src="dist/scripts/libs.js"></script>
 	<script src="dist/scripts/main.js"></script>
 	<script src="dist/scripts/templates.js"></script>
-	<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
+	<script>
+	if (document.location.protocol == 'file:') {
+		document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+	}
+	</script>
 </head>
 
 <body>

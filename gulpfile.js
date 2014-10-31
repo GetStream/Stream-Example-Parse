@@ -34,12 +34,12 @@ gulp.task('css', function() {
   .pipe(plumber())
   .pipe(compass({
     config_file: './config.rb',
-    sass: 'app/styles',
-    css: 'dist/styles'
+    sass: 'styles',
+    css: 'public/dist/styles'
   }))
   .pipe(minifyCSS())
   .pipe(autoprefixer())
-  .pipe(gulp.dest('dist/styles'));
+  .pipe(gulp.dest('public/dist/styles'));
 });
 
 gulp.task('templates', function() {
@@ -50,7 +50,7 @@ gulp.task('templates', function() {
       namespace: 'Ember.TEMPLATES'
     }))
     .pipe(concat('templates.js'))
-    .pipe(gulp.dest('dist/scripts'));
+    .pipe(gulp.dest('public/dist/scripts'));
 });
 
 var scriptSrc = [
@@ -65,7 +65,22 @@ gulp.task('scripts_dev', function() {
   	.pipe(plumber({'errorHandler': plumberError}))
     .pipe(neuter("app.js").on('error', gutil.log))
     .pipe(concat('main.js').on('error', gutil.log))
-    .pipe(gulp.dest('dist/scripts').on('error', gutil.log));
+    .pipe(gulp.dest('public/dist/scripts').on('error', gutil.log));
+});
+
+
+var libsSrc = [
+  	'js/libs/jquery-1.10.2.js',
+  	'js/libs/handlebars-1.1.2.js',
+  	'js/libs/ember-1.7.0.js',
+  	'bower_components/getstream/dist/js/getstream.js',
+];
+
+gulp.task('libs_dev', function() {
+  return gulp.src(libsSrc)
+  	.pipe(plumber({'errorHandler': plumberError}))
+    .pipe(concat('libs.js').on('error', gutil.log))
+    .pipe(gulp.dest('public/dist/scripts').on('error', gutil.log));
 });
 
 gulp.task('scripts_prod', function() {
@@ -74,7 +89,7 @@ gulp.task('scripts_prod', function() {
     .pipe(neuter("app.js"))
     .pipe(uglify())
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/scripts'));
+    .pipe(gulp.dest('public/dist/scripts'));
 });
 
 gulp.task("url", function(){
@@ -106,7 +121,7 @@ gulp.task('watch', function() {
   gulp.run("url");
 });
 
-gulp.task('default', ['css', 'templates', 'scripts_dev', 'watch']);
+gulp.task('default', ['css', 'templates', 'scripts_dev', 'libs_dev', 'watch']);
 
 gulp.task('build', ['css', 'templates', 'scripts_prod']);
 

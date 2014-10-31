@@ -4,16 +4,16 @@ require 'compass/import-once/activate'
 # Set this to the root of your project when deployed:
 http_path = "/"
 
-sass_dir = "app/styles"
-css_dir = "dist2/styles"
+sass_dir = "styles"
+css_dir = "public/dist/styles"
 
-generated_images_dir = 'dist2/images'
-images_dir = "app/images"
+generated_images_dir = 'public/dist//images'
+images_dir = "images"
 
-javascripts_dir = "app/scripts"
-fonts_dir = 'app/styles/fonts'
+javascripts_dir = "js"
+fonts_dir = 'styles/fonts'
 
-import_path = 'app/bower_components'
+import_path = 'bower_components'
 http_images_path = '/images'
 http_generated_images_path = '/images/generated'
 http_fonts_path = '/styles/fonts'
