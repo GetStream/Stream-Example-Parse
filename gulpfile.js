@@ -64,9 +64,9 @@ var scriptSrc = [
 gulp.task('scripts_dev', function() {
   return gulp.src(scriptSrc)
   	.pipe(plumber({'errorHandler': plumberError}))
-    .pipe(es6ModuleTranspiler({
-        type: "amd"
-    }))
+    // .pipe(es6ModuleTranspiler({
+        // type: "amd"
+    // }))
     .pipe(neuter("app.js").on('error', gutil.log))
     .pipe(concat('main.js').on('error', gutil.log))
     .pipe(gulp.dest('public/dist/scripts').on('error', gutil.log));
@@ -80,8 +80,8 @@ var libsSrc = [
   	'bower_components/ember-data/ember-data.js',
   	'js/libs/ember-parse-adapter.js',
   	'bower_components/getstream/dist/js/getstream.js',
-  	'js/libs/require.js',
-  	'bower_components/ember-simple-auth/simple-auth.amd.js',
+  	//'js/libs/require.js',
+  	'bower_components/ember-simple-auth/simple-auth.js',
 ];
 
 gulp.task('libs_dev', function() {

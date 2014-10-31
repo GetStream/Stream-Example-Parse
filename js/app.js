@@ -1,10 +1,8 @@
 
-import Base from 'simple-auth/authenticators/base';
-var ParseAuthenticator, ParseUser;
 
 ParseUser = EmberParseAdapter.ParseUser;
 
-ParseAuthenticator = Base.extend({
+ParseAuthenticator = SimpleAuth.Authenticators.Base.extend({
   restore: function(data) {
     var adapter, sessionToken, store;
     if (data == null) {
@@ -62,7 +60,6 @@ ParseAuthenticator = Base.extend({
   }
 });
 
-export default ParseAuthenticator;
 
 Ember.Application.initializer({
   name: 'authentication',
