@@ -19,6 +19,7 @@ function normalizeModelClass(className) {
 exports.normalizeModelClass = normalizeModelClass;
 
 exports.parseToActivity = function parseToActivity(parseObject) {
+	console.log('parse to activity');
 	var activity = {};
 	var activityProperties = ["actor", "verb", "object", "target", "to", "time"];
 	var arrayLength = activityProperties.length;
@@ -29,6 +30,9 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 			activity[field] = value;
 		}
 	}
+	activity.actor = serializeId(parseObject.get('actor'));
+	console.log('actor');
+	console.log(activity.actor);
 	activity.object = serializeId(parseObject);
 	activity.foreign_id = serializeId(parseObject);
 	return activity;

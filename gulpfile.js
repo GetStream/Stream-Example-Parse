@@ -11,8 +11,9 @@ var gulp = require('gulp'),
   autoprefixer = require('gulp-autoprefixer'),
   gutil = require('gulp-util'),
   stripDebug = require('gulp-strip-debug'),
-  concat = require('gulp-concat');
-
+  concat = require('gulp-concat'),
+  es6ModuleTranspiler = require("gulp-es6-module-transpiler");
+  
 /*
 Usage:
 
@@ -63,6 +64,9 @@ var scriptSrc = [
 gulp.task('scripts_dev', function() {
   return gulp.src(scriptSrc)
   	.pipe(plumber({'errorHandler': plumberError}))
+    .pipe(es6ModuleTranspiler({
+        type: "amd"
+    }))
     .pipe(neuter("app.js").on('error', gutil.log))
     .pipe(concat('main.js').on('error', gutil.log))
     .pipe(gulp.dest('public/dist/scripts').on('error', gutil.log));
@@ -73,7 +77,11 @@ var libsSrc = [
   	'js/libs/jquery-1.10.2.js',
   	'js/libs/handlebars-1.1.2.js',
   	'js/libs/ember-1.7.0.js',
+  	'bower_components/ember-data/ember-data.js',
+  	'js/libs/ember-parse-adapter.js',
   	'bower_components/getstream/dist/js/getstream.js',
+  	'js/libs/require.js',
+  	'bower_components/ember-simple-auth/simple-auth.amd.js',
 ];
 
 gulp.task('libs_dev', function() {

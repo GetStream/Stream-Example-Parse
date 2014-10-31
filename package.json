@@ -1,17 +1,15 @@
 {
   "name": "ember-app",
   "version": "0.0.0",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "connect-livereload": "~0.2.0",
-    "neuter": "https://github.com/squarewolf/node-neuter/archive/master.tar.gz",
-    "gulp-util": "^3.0.0",
     "gulp": "^3.8.7",
     "gulp-autoprefixer": "0.0.8",
     "gulp-compass": "^1.2.0",
     "gulp-concat": "^2.3.4",
     "gulp-ember-handlebars": "^0.6.0",
+    "gulp-es6-module-transpiler": "^0.1.3",
     "gulp-livereload": "^2.1.0",
     "gulp-minify-css": "^0.3.7",
     "gulp-neuter": "^0.1.2",
@@ -19,8 +17,10 @@
     "gulp-plumber": "^0.6.4",
     "gulp-strip-debug": "^1.0.0",
     "gulp-uglify": "^0.3.1",
+    "gulp-util": "^3.0.0",
     "gulp-watch": "^0.6.9",
-    "jshint-stylish": "~0.1.3"
+    "jshint-stylish": "~0.1.3",
+    "neuter": "https://github.com/squarewolf/node-neuter/archive/master.tar.gz"
   },
   "engines": {
     "node": ">=0.8.0"

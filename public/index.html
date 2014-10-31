@@ -11,9 +11,9 @@
 	<script src="dist/scripts/main.js"></script>
 	<script src="dist/scripts/templates.js"></script>
 	<script>
-	if (document.location.protocol == 'file:') {
-		document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
-	}
+		if (document.location.protocol == 'file:') {
+			document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
+		}
 	</script>
 </head>
 
@@ -26,6 +26,8 @@
 	<script type="text/javascript">
 		Parse.initialize("jybMJ0LPeOwp0dZZPDIeqw7Pjp9qyt6RBH2fekGe", "atz5SiuIdVklUx7T0YZXQ9pLIzS5WehDKojrIdG6");
 		StreamClient = stream.connect('hdhuew2dzq5k', null, '738');
+		require(['app']);
+		
 		Activity = Parse.Object.extend("Activity");
 		Follow = Activity.extend("Follow");
 		Tweet = Activity.extend("Tweet");

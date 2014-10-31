@@ -3,7 +3,9 @@ App.AppActivityComponent = Ember.Component.extend({
 		var parseObject = this.get('activity').object_parse;
 		if (parseObject) {
 			var image = parseObject.get('image');
-			return image.url();
+			if (image) {
+				return image.url();
+			}
 		}
 	}.property('activity')
 });

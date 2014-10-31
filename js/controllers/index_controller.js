@@ -39,26 +39,19 @@ App.IndexController = Ember.Controller.extend({
 		
 		status : function() {
 			var msg = this.get('status');
-			if (msg) {
-				tweet = new Tweet();
-				tweet.save({
-					actor : 1,
-					verb : 'tweet',
-					object : 1,
-					target : 1,
-					tweet : msg
-				}, {
-					success : function(object) {
-						console.log('saved');
-					},
-					error : function(model, error) {
-						console.log('error');
-					}
-				});
-			} else {
-				// file upload
-				var fileUploadControl = $("#profilePhotoFileUpload")[0];
-				if (fileUploadControl.files.length > 0) {
+			var fileUploadControl = $("#profilePhotoFileUpload")[0];
+			var imageUpload = fileUploadControl.files.length > 0;
+			
+			if (msg || imageUpload) {
+				
+				var update = (imageUpload) ? new Picture() : new Tweet();
+				var verb = (imageUpload) ? 'upload' : 'tweet';
+				
+				update.set('actor', Parse.User.current);
+				update.set('verb', verb);
+				update.set('tweet', msg);
+				
+				if (imageUpload) {
 					var file = fileUploadControl.files[0];
 					var name = "photo.jpg";
 
@@ -68,18 +61,17 @@ App.IndexController = Ember.Controller.extend({
 					}, function(error) {
 						// The file either could not be read, or could not be saved to Parse.
 					});
-					var picture = new Picture();
-					picture.save({
-						actor : 1,
-						verb : 'upload',
-						target : 1,
-						image : parseFile
-					}).then(function() {
-						console.log('saved succeed', arguments);
-					}, function() {
-						console.log('save failed', arguments);
-					});
+					update.set('image', parseFile);
 				}
+				 
+				update.save(null, {
+					success : function(object) {
+						console.log('saved', verb);
+					},
+					error : function(model, error) {
+						console.log('error', verb);
+					}
+				});
 			}
 		}
 	}

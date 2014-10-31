@@ -36,6 +36,21 @@ function program5(depth0,data) {
   return buffer;
   }
 
+function program7(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n  <a ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "invalidateSession", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Logout</a>\n");
+  return buffer;
+  }
+
+function program9(depth0,data) {
+  
+  
+  data.buffer.push("\n	please login with github\n");
+  }
+
   data.buffer.push("\n<div id=\"main\">\n	\n<ol class=\"navigation\">\n");
   stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
     'tagName': ("li"),
@@ -54,7 +69,10 @@ function program5(depth0,data) {
     'href': (false)
   },hashTypes:{'tagName': "STRING",'href': "BOOLEAN"},hashContexts:{'tagName': depth0,'href': depth0},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0,depth0],types:["STRING","STRING"],data:data},helper ? helper.call(depth0, "profile", "admin", options) : helperMissing.call(depth0, "link-to", "profile", "admin", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</ol>\n\n<h2>Hello, Welcome to Ember.js</h2>\n\n<ul>\n	<li>\n		<a href=\"https://www.parse.com/docs/js_guide\">Parse JavaScript Guide</a>\n	</li>\n	<li>\n		<a href=\"https://getstream.io/get_started/#intro\">GetStream.io Tutorial</a>\n	</li>\n	<li>\n		<a href=\"http://emberjs.com/\">EmberJS</a>\n	</li>\n</ul>\n\n\n\n");
+  data.buffer.push("\n</ol>\n\n<h2>Hello, Welcome to Ember.js</h2>\n\n<ul>\n	<li>\n		<a href=\"https://www.parse.com/docs/js_guide\">Parse JavaScript Guide</a>\n	</li>\n	<li>\n		<a href=\"https://getstream.io/get_started/#intro\">GetStream.io Tutorial</a>\n	</li>\n	<li>\n		<a href=\"http://emberjs.com/\">EmberJS</a>\n	</li>\n</ul>\n\n");
+  stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(9, program9, data),fn:self.program(7, program7, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n\n\n");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n\n</div>");

@@ -21,6 +21,11 @@
 	</li>
 </ul>
 
+{{#if session.isAuthenticated}}
+  <a {{ action 'invalidateSession' }}>Logout</a>
+{{else}}
+	please login with github
+{{/if}}
 
 
 {{outlet}}
