@@ -40,9 +40,6 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 
 function enrich(activities) {
 	/*
-	 * TODO:
-	 *
-	 * Figure out how to get a model instance' name
 	 *
 	 */
 	// Find all the references and add them to the lookup object

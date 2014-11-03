@@ -1,6 +1,14 @@
 
 <div id="main">
 	
+<div id="auth">	
+	{{#if session.isAuthenticated}}
+	  <p>Hi {{ username }}</p>
+	  <a {{ action 'logout' }}>Logout</a>
+	{{else}}
+		<a {{ action 'login' }}>Login with Github</a>
+	{{/if}}
+</div>
 <ol class="navigation">
 {{#link-to "index" tagName="li" href=false}}<a {{bind-attr href="view.href"}}>Feed</a>{{/link-to}}
 {{#link-to "people" tagName="li" href=false}}<a {{bind-attr href="view.href"}}>People</a>{{/link-to}}
@@ -21,11 +29,6 @@
 	</li>
 </ul>
 
-{{#if session.isAuthenticated}}
-  <a {{ action 'invalidateSession' }}>Logout</a>
-{{else}}
-	please login with github
-{{/if}}
 
 
 {{outlet}}

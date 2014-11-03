@@ -12,18 +12,18 @@ ParseAuthenticator = SimpleAuth.Authenticators.Base.extend({
     }
     store = this.container.lookup('store:main');
     adapter = store.adapterFor('application');
+    
     sessionToken = data.sessionToken;
 
     adapter.set('sessionToken', sessionToken);
+    var currentUser = Parse.User.current();
+    var currentSessionToken = currentUser && currentUser._sessionToken;
+    
+    if (sessionToken && currentSessionToken != sessionToken){
+    	Parse.User.become(sessionToken);	
+    }
+    adapter.set('sessionToken', user._sessionToken);
 
-    return store.modelFor('parseUser').current(store, data).then(function(user) {
-      adapter.set('sessionToken', user.get('sessionToken'));
-      data = {
-        userId: user.get('id'),
-        sessionToken: user.get('sessionToken')
-      };
-      return data;
-    });
   },
 
   authenticate: function(data) {
@@ -34,26 +34,20 @@ ParseAuthenticator = SimpleAuth.Authenticators.Base.extend({
     store = this.container.lookup('store:main');
     adapter = store.adapterFor('application');
     user = data.user;
+    
     if (user) {
-      adapter.set('sessionToken', user.get('sessionToken'));
+      adapter.set('sessionToken', user._sessionToken);
       data = {
         userId: user.get('id'),
+        user: user,
         sessionToken: user.get('sessionToken')
       };
       return Ember.RSVP.resolve(data);
-    } else {
-      return store.modelFor('user').login(store, data).then(function(user) {
-        adapter.set('sessionToken', user.get('sessionToken'));
-        data = {
-          userId: user.get('id'),
-          sessionToken: user.get('sessionToken')
-        };
-        return data;
-      });
     }
   },
   invalidate: function() {
     var adapter;
+    Parse.User.logOut();
     adapter = this.container.lookup('adapter:application');
     return new Ember.RSVP.Promise(function(resolve, reject) {
       adapter.set('sessionToken', null);
@@ -111,6 +105,18 @@ App.AppActivityComponent = Ember.Component.extend({
 	}.property('activity')
 });
 
+
+})();
+(function() {
+
+App.ApplicationController = Ember.Controller.extend({
+	username: function() {
+		var user = this.get('session.content.user');
+		if (user) {
+			return user.get('username');
+		}
+	}.property('session.content.user')
+});
 
 })();
 (function() {
@@ -198,10 +204,22 @@ App.IndexController = Ember.Controller.extend({
 })();
 (function() {
 
-App.ApplicationRoute = Ember.Route.extend({
+App.ApplicationRoute = Ember.Route.extend(SimpleAuth.ApplicationRouteMixin, {
 	model: function() {
 		session = this.get('session');
-		session.authenticate('authenticator:parse', {});
+		var user = Parse.User.current();
+		if (user) {
+			session.authenticate('authenticator:parse', {user: user});
+		}
+		//session.authenticate('authenticator:parse', {});
+	},
+	
+	actions: {
+		logout: function() {
+			this.send('invalidateSession');
+		},
+		login: function() {
+			document.location = '/authorize';		}
 	}
 }); 
 

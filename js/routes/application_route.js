@@ -1,6 +1,18 @@
-App.ApplicationRoute = Ember.Route.extend({
+App.ApplicationRoute = Ember.Route.extend(SimpleAuth.ApplicationRouteMixin, {
 	model: function() {
 		session = this.get('session');
-		session.authenticate('authenticator:parse', {});
+		var user = Parse.User.current();
+		if (user) {
+			session.authenticate('authenticator:parse', {user: user});
+		}
+		//session.authenticate('authenticator:parse', {});
+	},
+	
+	actions: {
+		logout: function() {
+			this.send('invalidateSession');
+		},
+		login: function() {
+			document.location = '/authorize';		}
 	}
 }); 

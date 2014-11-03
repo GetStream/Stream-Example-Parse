@@ -98,7 +98,8 @@ app.get('/authorize', function(req, res) {
 		 */
 		res.redirect(githubRedirectEndpoint + querystring.stringify({
 			client_id : githubClientId,
-			state : obj.id
+			state : obj.id,
+			scope: 'user:email'
 		}));
 	}, function(error) {
 		// If there's an error storing the request, render the error page.
@@ -321,28 +322,45 @@ var upsertGitHubUser = function(accessToken, githubData) {
 var newGitHubUser = function(accessToken, githubData) {
 	var user = new Parse.User();
 	// Generate a random username and password.
-	var username = new Buffer(24);
-	var password = new Buffer(24);
-	_.times(24, function(i) {
-		username.set(i, _.random(0, 255));
-		password.set(i, _.random(0, 255));
-	});
-	user.set("username", username.toString('base64'));
-	user.set("password", password.toString('base64'));
-	// Sign up the new User
-	return user.signUp().then(function(user) {
-		// create a new TokenStorage object to store the user+GitHub association.
-		var ts = new TokenStorage();
-		ts.set('githubId', githubData.id);
-		ts.set('githubLogin', githubData.login);
-		ts.set('accessToken', accessToken);
-		ts.set('user', user);
-		ts.setACL(restrictedAcl);
-		// Use the master key because TokenStorage objects should be protected.
-		return ts.save(null, {
-			useMasterKey : true
+	var userDetailsPromise = getGitHubUserDetails(accessToken);
+	var promise = userDetailsPromise.then(function(response) {
+		var userDetails = response.data;
+		var username = userDetails.name;
+		// create a fake password	
+		var password = new Buffer(24);
+		_.times(24, function(i) {
+			password.set(i, _.random(0, 255));
 		});
-	}).then(function(tokenStorage) {
-		return upsertGitHubUser(accessToken, githubData);
+		user.set("password", password.toString('base64'));
+		// write the rest of the github data
+		user.set("username", userDetails.login);
+		user.set("name", userDetails.name);
+		user.set("email", userDetails.email);
+		user.set("location", userDetails.location);
+		user.set("blog", userDetails.blog);
+		user.set("company", userDetails.company);
+		user.set("followers", userDetails.followers);
+		user.set("following", userDetails.following);
+		console.log('userdetails');
+		console.log(userDetails);
+		// Sign up the new User
+		return user.signUp().then(function(user) {
+			// create a new TokenStorage object to store the user+GitHub association.
+			var ts = new TokenStorage();
+			ts.set('githubId', githubData.id);
+			ts.set('githubLogin', githubData.login);
+			ts.set('accessToken', accessToken);
+			ts.set('user', user);
+			ts.setACL(restrictedAcl);
+			// Use the master key because TokenStorage objects should be protected.
+			return ts.save(null, {
+				useMasterKey : true
+			});
+		}).then(function(tokenStorage) {
+			return upsertGitHubUser(accessToken, githubData);
+		});
+		
 	});
+	return promise;
+
 };

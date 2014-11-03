@@ -11,32 +11,27 @@ var followModel = 'Follow';
 
 
 client = stream.connect(streamApiKey, streamApiSecret, streamSite);
-console.log('deployed');
 /*
  * Listen to the activityModels afterSave and afterDelete
  * and send the activities to getstream.io
  */
-for (var i = 0; i < activityModels.length; i++) {
-	var model = activityModels[i];
+_.each(activityModels, function(model) {
 	Parse.Cloud.afterSave(model, function(request, response) {
 		// trigger fanout
-		console.log('after save');
-		var parseObject = request.object;
-		var activity = utils.parseToActivity(parseObject);
+		var activity = utils.parseToActivity(request.object);
 		user1 = client.feed('user:1');
 		user1.addActivity(activity);
 	});
 
 	Parse.Cloud.afterDelete(model, function(request) {
 		// trigger fanout to remove
-		var parseObject = request.object;
-		var activity = utils.parseToActivity(parseObject);
+		var activity = utils.parseToActivity(request.object);
 		user1 = client.feed('user:1');
 		user1.removeActivity({
 			foreignId : activity.foreign_id
 		});
 	});
-}
+});
 
 /*
  * Sync the follow state to getstream.io
