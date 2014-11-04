@@ -49,27 +49,6 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 
 function program1(depth0,data) {
   
-  var buffer = '', stack1;
-  data.buffer.push("\n	  <p>Hi ");
-  stack1 = helpers._triageMustache.call(depth0, "username", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("</p>\n	  <a ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "logout", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Logout</a>\n	");
-  return buffer;
-  }
-
-function program3(depth0,data) {
-  
-  var buffer = '';
-  data.buffer.push("\n		<a ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "login", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Login with Github</a>\n	");
-  return buffer;
-  }
-
-function program5(depth0,data) {
-  
   var buffer = '';
   data.buffer.push("<a ");
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
@@ -79,7 +58,7 @@ function program5(depth0,data) {
   return buffer;
   }
 
-function program7(depth0,data) {
+function program3(depth0,data) {
   
   var buffer = '';
   data.buffer.push("<a ");
@@ -90,7 +69,19 @@ function program7(depth0,data) {
   return buffer;
   }
 
-function program9(depth0,data) {
+function program5(depth0,data) {
+  
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n							");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
+    'tagName': ("li"),
+    'href': (false)
+  },hashTypes:{'tagName': "STRING",'href': "BOOLEAN"},hashContexts:{'tagName': depth0,'href': depth0},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0,depth0],types:["STRING","ID"],data:data},helper ? helper.call(depth0, "profile", "username", options) : helperMissing.call(depth0, "link-to", "profile", "username", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n						");
+  return buffer;
+  }
+function program6(depth0,data) {
   
   var buffer = '';
   data.buffer.push("<a ");
@@ -101,31 +92,49 @@ function program9(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("\n<div id=\"main\">\n	\n<div id=\"auth\">	\n	");
-  stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(3, program3, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
+function program8(depth0,data) {
+  
+  var buffer = '', stack1;
+  data.buffer.push("\n						<li>\n							Hi ");
+  stack1 = helpers._triageMustache.call(depth0, "username", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</div>\n<ol class=\"navigation\">\n");
+  data.buffer.push("\n						</li>\n						<li>\n							<a ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "logout", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Logout</a>\n						</li>\n						");
+  return buffer;
+  }
+
+function program10(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n						<li>\n							<a ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "login", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
+  data.buffer.push(">Login with Github</a>\n						</li>\n						");
+  return buffer;
+  }
+
+  data.buffer.push("<div class=\"container\">\n	<div class=\"row clearfix\">\n		<div class=\"col-md-12 column\">\n			<nav class=\"navbar navbar-default\" role=\"navigation\">\n				<div class=\"navbar-header\">\n					<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n						<span class=\"sr-only\">Toggle navigation</span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>\n					</button>\n					<a class=\"navbar-brand\" href=\"#\">Brand</a>\n				</div>	\n				\n				<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n					<ul class=\"nav navbar-nav\">\n						");
   stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
     'tagName': ("li"),
     'href': (false)
-  },hashTypes:{'tagName': "STRING",'href': "BOOLEAN"},hashContexts:{'tagName': depth0,'href': depth0},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "index", options) : helperMissing.call(depth0, "link-to", "index", options));
+  },hashTypes:{'tagName': "STRING",'href': "BOOLEAN"},hashContexts:{'tagName': depth0,'href': depth0},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "index", options) : helperMissing.call(depth0, "link-to", "index", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
+  data.buffer.push("\n						");
   stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
     'tagName': ("li"),
     'href': (false)
-  },hashTypes:{'tagName': "STRING",'href': "BOOLEAN"},hashContexts:{'tagName': depth0,'href': depth0},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "people", options) : helperMissing.call(depth0, "link-to", "people", options));
+  },hashTypes:{'tagName': "STRING",'href': "BOOLEAN"},hashContexts:{'tagName': depth0,'href': depth0},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "people", options) : helperMissing.call(depth0, "link-to", "people", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
-    'tagName': ("li"),
-    'href': (false)
-  },hashTypes:{'tagName': "STRING",'href': "BOOLEAN"},hashContexts:{'tagName': depth0,'href': depth0},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0,depth0],types:["STRING","STRING"],data:data},helper ? helper.call(depth0, "profile", "admin", options) : helperMissing.call(depth0, "link-to", "profile", "admin", options));
+  data.buffer.push("\n						");
+  stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(5, program5, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n</ol>\n\n<h2>Hello, Welcome to Ember.js</h2>\n\n<ul>\n	<li>\n		<a href=\"https://www.parse.com/docs/js_guide\">Parse JavaScript Guide</a>\n	</li>\n	<li>\n		<a href=\"https://getstream.io/get_started/#intro\">GetStream.io Tutorial</a>\n	</li>\n	<li>\n		<a href=\"http://emberjs.com/\">EmberJS</a>\n	</li>\n</ul>\n\n\n\n");
+  data.buffer.push("\n					</ul>\n					<ul class=\"nav navbar-nav navbar-right\">\n						");
+  stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(10, program10, data),fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n					</ul>\n				</div>\n\n			</nav>\n			<div class=\"jumbotron\">\n				<h1>Parse Cloud &amp; GetStream.io example app</h1>\n				<p>\n					Hi There,\n\n					This EmberJS based example app shows you how to build scalable newsfeeds using GetStream.io from the Parse Cloud.\n					The code can be found on GitHub.\n\n					Cool links:\n					<ul>\n						<li>\n							<a href=\"https://www.parse.com/docs/js_guide\">Parse JavaScript Guide</a>\n						</li>\n						<li>\n							<a href=\"https://getstream.io/get_started/#intro\">GetStream.io Tutorial</a>\n						</li>\n						<li>\n							<a href=\"http://emberjs.com/\">EmberJS</a>\n						</li>\n					</ul>\n				</p>\n			</div>\n			<div class=\"row clearfix\">\n				<div class=\"col-md-12 column\">\n					");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n\n\n</div>");
+  data.buffer.push("\n				</div>\n			</div>\n		</div>\n	</div>\n</div>\n\n\n\n\n\n\n\n");
   return buffer;
   
 });

@@ -31,7 +31,10 @@ function plumberError(error) {
 
 
 gulp.task('css', function() {
-  gulp.src('styles/*.scss')
+  gulp.src([
+  	'bower_components/bootstrap-sass-official/vendor/stylesheets/bootstrap.scss',
+  	'styles/*.scss'
+  	])
   .pipe(plumber())
   .pipe(compass({
     config_file: './config.rb',

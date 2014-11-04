@@ -3,14 +3,22 @@ var github = require('cloud/github.js');
 var utils = require('cloud/utils.js');
 var _ = require('underscore');
 
+/*
+ * Settings are defined below
+ */
+
+// define your stream connection details
 var streamApiKey = 'hdhuew2dzq5k';
 var streamApiSecret = 'enqn9tj4ktmpm777kwwtzwm7zk7qnsgm485p6ekt8twjv5ms7t98yvazs3szakqc';
 var streamSite = '738';
+// define which parse models you want to treat as getstream.io activities
 var activityModels = ['Tweet', 'Picture', 'Like'];
+// define which parse model stores your follow state
 var followModel = 'Follow';
 
 
-client = stream.connect(streamApiKey, streamApiSecret, streamSite);
+var client = stream.connect(streamApiKey, streamApiSecret, streamSite);
+
 /*
  * Listen to the activityModels afterSave and afterDelete
  * and send the activities to getstream.io
