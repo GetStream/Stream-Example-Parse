@@ -6,5 +6,10 @@ App.ApplicationController = Ember.Controller.extend({
 			return user.attributes.username;
 		}
 	}.property('user'),
+	userImageUrl: function() {
+		var user = this.get('user');
+		var image = user.get('image');
+		return image.url();
+	}.property('user')
 
 }); 

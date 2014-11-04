@@ -19,7 +19,8 @@
 					<ul class="nav navbar-nav navbar-right">
 						{{#if session.isAuthenticated}}
 						<li>
-							Hi {{ username }}
+							Hi {{ username }}, having a good day?
+							<img {{ bind-attr src=userImageUrl }} width="64px"/>
 						</li>
 						<li>
 							<a {{ action 'logout' }}>Logout</a>

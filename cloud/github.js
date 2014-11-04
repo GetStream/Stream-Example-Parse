@@ -22,6 +22,7 @@ var express = require('express');
 var querystring = require('querystring');
 var _ = require('underscore');
 var Buffer = require('buffer').Buffer;
+var Image = require("parse-image");
 
 /**
  * Create an express application instance
@@ -99,7 +100,7 @@ app.get('/authorize', function(req, res) {
 		res.redirect(githubRedirectEndpoint + querystring.stringify({
 			client_id : githubClientId,
 			state : obj.id,
-			scope: 'user:email'
+			scope : 'user:email'
 		}));
 	}, function(error) {
 		// If there's an error storing the request, render the error page.
@@ -326,7 +327,7 @@ var newGitHubUser = function(accessToken, githubData) {
 	var promise = userDetailsPromise.then(function(response) {
 		var userDetails = response.data;
 		var username = userDetails.name;
-		// create a fake password	
+		// create a fake password
 		var password = new Buffer(24);
 		_.times(24, function(i) {
 			password.set(i, _.random(0, 255));
@@ -337,29 +338,61 @@ var newGitHubUser = function(accessToken, githubData) {
 		user.set("name", userDetails.name);
 		user.set("email", userDetails.email);
 		user.set("location", userDetails.location);
-		user.set("blog", userDetails.blog);
-		user.set("company", userDetails.company);
-		user.set("followers", userDetails.followers);
-		user.set("following", userDetails.following);
-		console.log('userdetails');
-		console.log(userDetails);
-		// Sign up the new User
-		return user.signUp().then(function(user) {
-			// create a new TokenStorage object to store the user+GitHub association.
-			var ts = new TokenStorage();
-			ts.set('githubId', githubData.id);
-			ts.set('githubLogin', githubData.login);
-			ts.set('accessToken', accessToken);
-			ts.set('user', user);
-			ts.setACL(restrictedAcl);
-			// Use the master key because TokenStorage objects should be protected.
-			return ts.save(null, {
-				useMasterKey : true
+		user.set("avatar_url", userDetails.avatar_url);
+
+		var promise = Parse.Promise.as(null);
+		if (userDetails.avatar_url) {
+			var url = userDetails.avatar_url;
+			var avatarPromise = Parse.Cloud.httpRequest({
+				url : url
 			});
-		}).then(function(tokenStorage) {
-			return upsertGitHubUser(accessToken, githubData);
-		});
+			promise = avatarPromise.then(function(response) {
+				// Create an Image from the data.
+				var image = new Image();
+				return image.setData(response.buffer);
+			}).then(function(image) {
+				// Scale the image to a certain size.
+				return image.scale({
+					width : 460,
+					height : 460
+				});
+			}).then(function(image) {
+				// Get the bytes of the new image.
+				return image.data();
+			}).then(function(buffer) {
+				// Save the bytes to a new file.
+				var imageName = userDetails.login + ".jpg";
+				var file = new Parse.File(imageName, {
+					base64 : buffer.toString("base64")
+				});
+				return file.save();
+			});
+		}
 		
+		return promise.then(function(image) {
+			user.set("image", image);
+			user.set("blog", userDetails.blog);
+			user.set("company", userDetails.company);
+			user.set("followers", userDetails.followers);
+			user.set("following", userDetails.following);
+			// Sign up the new User
+			return user.signUp().then(function(user) {
+				// create a new TokenStorage object to store the user+GitHub association.
+				var ts = new TokenStorage();
+				ts.set('githubId', githubData.id);
+				ts.set('githubLogin', githubData.login);
+				ts.set('accessToken', accessToken);
+				ts.set('user', user);
+				ts.setACL(restrictedAcl);
+				// Use the master key because TokenStorage objects should be protected.
+				return ts.save(null, {
+					useMasterKey : true
+				});
+			}).then(function(tokenStorage) {
+				return upsertGitHubUser(accessToken, githubData);
+			});
+		});
+
 	});
 	return promise;
 

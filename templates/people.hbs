@@ -10,6 +10,7 @@
 	{{# each model }}
 	<li>
 		{{#link-to 'profile' attributes.username}}{{attributes.name}}{{/link-to}}
+		<img {{ bind-attr src=attributes.image._url }} width="64px"/>
 		{{#if authenticated}}
 			<button {{action 'follow' this}}>
 				Follow

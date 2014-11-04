@@ -175,6 +175,11 @@ App.ApplicationController = Ember.Controller.extend({
 			return user.attributes.username;
 		}
 	}.property('user'),
+	userImageUrl: function() {
+		var user = this.get('user');
+		var image = user.get('image');
+		return image.url();
+	}.property('user')
 
 }); 
 
@@ -189,6 +194,11 @@ App.IndexController = Ember.Controller.extend({
 	feedId : 'user:1',
 	newActivities: false,
 	user: Ember.computed.alias('session.content.user'),
+	userImageUrl: function() {
+		var user = this.get('user');
+		var image = user.get('image');
+		return image.url();
+	}.property('user'),
 	
 	feed: function() {
 		var token = this.get('model.token');
