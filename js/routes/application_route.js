@@ -5,7 +5,6 @@ App.ApplicationRoute = Ember.Route.extend(SimpleAuth.ApplicationRouteMixin, {
 		if (user) {
 			session.authenticate('authenticator:parse', {user: user});
 		}
-		//session.authenticate('authenticator:parse', {});
 	},
 	
 	actions: {

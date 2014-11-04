@@ -1,8 +1,33 @@
-{{ activity.verb }}
-{{ activity.actor_parse }}
+<li class="activity">
+	
+	<div class="activity-detail">
+		details: {{ isTweet }}, {{ isUpload }}
+	{{# if isTweet }}
+		<p>
+			Tweet: {{ activity.object_parse.attributes.tweet }}
+		</p>
+	{{/if }}
 
-<img {{ bind-attr src=imageUrl}} width="200px"/>
-
-<button {{action 'like' activity}}>
-	Like
-</button>
+	{{# if isUpload }}
+		<p>
+			Tweet: {{ activity.object_parse.attributes.tweet }}
+		</p>
+		<img {{ bind-attr src=imageUrl}} width="200px"/>
+	{{/if }}
+	
+	{{# if isLike }}
+	
+	{{/if }}
+	</div>
+	
+	<footer>
+		<p><span class="verb">{{ activity.verb }}</span> 
+			by {{#link-to 'profile' username}}{{username}}{{/link-to}}
+			<span class="ago">{{ ago }}</span></p>
+		{{# unless isLike }}
+			<button {{action 'like' activity}}>
+				Like
+			</button>
+		{{/unless }}
+	</footer>
+</li>

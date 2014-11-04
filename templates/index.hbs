@@ -15,17 +15,23 @@
 		</div>
 		
 		<button {{action 'status'}}>Update Status</button>
+		{{# if errors.status }}
+			{{ errors.status }}
+		{{/if }}
 	</form>
 </div>
-<div id="newsfeed">
-	{{# if newActivities }}
-	Yeaaa there are new activities
-	<button {{action 'reload'}}>Show them</button>
-	{{/if}}
-	
-	{{# each model.activities }}
-	<li>
-		{{app-activity activity=this}}
-	</li>
-	{{/each }}
+
+<div>
+	User:
+	{{ user }}
+	attributes
+	{{ user.attributes }}
+	username
+	{{ user.attributes.username }}
 </div>
+
+{{# if loading }}
+	{{ partial 'loading' }}
+{{/if }}
+
+{{ partial 'feed' }}

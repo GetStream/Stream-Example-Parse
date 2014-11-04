@@ -94,6 +94,21 @@ App.Router.map(function () {
 (function() {
 
 App.AppActivityComponent = Ember.Component.extend({
+	isTweet: Ember.computed.equal('activity.verb', 'tweet'),
+	isUpload: Ember.computed.equal('activity.verb', 'upload'),
+	isLike: Ember.computed.equal('activity.verb', 'like'),
+	
+	ago : function() {
+		var parsedDate = this.get('time');
+		var ago = moment(parsedDate).fromNow();
+		return ago;
+	}.property('time'),
+	
+	username: function() {
+		var username = this.get('activity.actor_parse.attributes.username');
+		return username;
+	}.property('user'),
+	
 	imageUrl : function() {
 		var parseObject = this.get('activity').object_parse;
 		if (parseObject) {
@@ -110,12 +125,13 @@ App.AppActivityComponent = Ember.Component.extend({
 (function() {
 
 App.ApplicationController = Ember.Controller.extend({
+	user: Ember.computed.alias('session.content.user'),
 	username: function() {
-		var user = this.get('session.content.user');
+		var user = this.get('user');
 		if (user) {
-			return user.get('username');
+			return user.attributes.username;
 		}
-	}.property('session.content.user')
+	}.property('user')
 });
 
 })();
@@ -123,8 +139,12 @@ App.ApplicationController = Ember.Controller.extend({
 
 App.IndexController = Ember.Controller.extend({
 	status : '',
+	errors: {},
+	loading: null,
+	
 	feedId : 'user:1',
 	newActivities: false,
+	user: Ember.computed.alias('session.content.user'),
 	
 	feed: function() {
 		var token = this.get('model.token');
@@ -164,13 +184,15 @@ App.IndexController = Ember.Controller.extend({
 			var msg = this.get('status');
 			var fileUploadControl = $("#profilePhotoFileUpload")[0];
 			var imageUpload = fileUploadControl.files.length > 0;
+			var controller = this;
+			
 			
 			if (msg || imageUpload) {
-				
+				controller.set('loading', true);
 				var update = (imageUpload) ? new Picture() : new Tweet();
 				var verb = (imageUpload) ? 'upload' : 'tweet';
 				
-				update.set('actor', Parse.User.current);
+				update.set('actor', Parse.User.current());
 				update.set('verb', verb);
 				update.set('tweet', msg);
 				
@@ -189,12 +211,19 @@ App.IndexController = Ember.Controller.extend({
 				 
 				update.save(null, {
 					success : function(object) {
+						controller.set('loading', false);
 						console.log('saved', verb);
+						$("form").get(0).reset()
 					},
 					error : function(model, error) {
-						console.log('error', verb);
+						controller.set('loading', false);
+						var errors = {status: error};
+						controller.set('errors', errors);
 					}
 				});
+			} else {
+				var errors = {status: 'Please write a status message or select a picture'};
+				controller.set('errors', errors);
 			}
 		}
 	}
@@ -211,7 +240,6 @@ App.ApplicationRoute = Ember.Route.extend(SimpleAuth.ApplicationRouteMixin, {
 		if (user) {
 			session.authenticate('authenticator:parse', {user: user});
 		}
-		//session.authenticate('authenticator:parse', {});
 	},
 	
 	actions: {
@@ -267,10 +295,15 @@ App.PeopleRoute = Ember.Route.extend({
 (function() {
 
 		
-App.ProfileRoute = Ember.Route.extend({
+App.ProfileRoute = Ember.Route.extend(
+	SimpleAuth.AuthenticatedRouteMixin,
+	{
+	user: Ember.computed.alias('session.content.user'),
 	model : function(params) {
+		var user = this.get('user');
+		var feedId = 'user:' + user.id;
 		var promise = Parse.Cloud.run('feed', {
-			feed : 'user:1'
+			feed : feedId
 		});
 		return promise;
 	}

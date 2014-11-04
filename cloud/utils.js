@@ -9,6 +9,10 @@ function serializeId(parseObject) {
 exports.serializeId = serializeId;
 
 function normalizeModelClass(className) {
+	/*
+	 * Take a string value of a className and return something we can use in
+	 * A query
+	 */
 	var modelClass = className;
 	var map = {'_User': Parse.User};
 	if (className in map) {
@@ -19,7 +23,10 @@ function normalizeModelClass(className) {
 exports.normalizeModelClass = normalizeModelClass;
 
 exports.parseToActivity = function parseToActivity(parseObject) {
-	console.log('parse to activity');
+	/*
+	 * Take the parse activity and converts it into the required
+	 * activity information for getstream.io
+	 */
 	var activity = {};
 	var activityProperties = ["actor", "verb", "object", "target", "to", "time"];
 	var arrayLength = activityProperties.length;
@@ -31,8 +38,6 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 		}
 	}
 	activity.actor = serializeId(parseObject.get('actor'));
-	console.log('actor');
-	console.log(activity.actor);
 	activity.object = serializeId(parseObject);
 	activity.foreign_id = serializeId(parseObject);
 	return activity;
@@ -40,10 +45,10 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 
 function enrich(activities) {
 	/*
-	 *
+	 * Takes the given activities from getstream.io and looks up the needed
+	 * references from the parse database
 	 */
 	// Find all the references and add them to the lookup object
-	console.log(Parse.Collection.models);
 	var lookup = {};
 	_.each(activities, function(activity) {
 		_.each(activity, function(value, field) {

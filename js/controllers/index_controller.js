@@ -1,7 +1,11 @@
 App.IndexController = Ember.Controller.extend({
 	status : '',
+	errors: {},
+	loading: null,
+	
 	feedId : 'user:1',
 	newActivities: false,
+	user: Ember.computed.alias('session.content.user'),
 	
 	feed: function() {
 		var token = this.get('model.token');
@@ -41,13 +45,15 @@ App.IndexController = Ember.Controller.extend({
 			var msg = this.get('status');
 			var fileUploadControl = $("#profilePhotoFileUpload")[0];
 			var imageUpload = fileUploadControl.files.length > 0;
+			var controller = this;
+			
 			
 			if (msg || imageUpload) {
-				
+				controller.set('loading', true);
 				var update = (imageUpload) ? new Picture() : new Tweet();
 				var verb = (imageUpload) ? 'upload' : 'tweet';
 				
-				update.set('actor', Parse.User.current);
+				update.set('actor', Parse.User.current());
 				update.set('verb', verb);
 				update.set('tweet', msg);
 				
@@ -66,12 +72,19 @@ App.IndexController = Ember.Controller.extend({
 				 
 				update.save(null, {
 					success : function(object) {
+						controller.set('loading', false);
 						console.log('saved', verb);
+						$("form").get(0).reset()
 					},
 					error : function(model, error) {
-						console.log('error', verb);
+						controller.set('loading', false);
+						var errors = {status: error};
+						controller.set('errors', errors);
 					}
 				});
+			} else {
+				var errors = {status: 'Please write a status message or select a picture'};
+				controller.set('errors', errors);
 			}
 		}
 	}

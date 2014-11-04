@@ -1,0 +1,12 @@
+<div id="newsfeed">
+	{{# if newActivities }}
+	Yeaaa there are new activities
+	<button {{action 'reload'}}>Show them</button>
+	{{/if}}
+	
+	<ol>
+	{{# each model.activities }}
+		{{app-activity activity=this}}
+	{{/each }}
+	</ol>
+</div>

@@ -75,6 +75,7 @@ gulp.task('scripts_dev', function() {
 
 var libsSrc = [
   	'js/libs/jquery-1.10.2.js',
+  	'bower_components/momentjs/moment.js',
   	'js/libs/handlebars-1.1.2.js',
   	'js/libs/ember-1.7.0.js',
   	'bower_components/ember-data/ember-data.js',
