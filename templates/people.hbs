@@ -1,11 +1,20 @@
 <h2>Follow some people</h2>
 
-{{# each model }}
-<li>
-	{{ attributes.username }}
-	{{ attributes.name }}
-	<button {{action 'follow' this}}>
-		Follow
-	</button>
-</li>
-{{/each }}
+{{#unless session.isAuthenticated}}
+<div>
+	<a {{ action 'login' }}>Login with Github to follow people</a>
+</div>
+{{/unless}}
+
+{{#with session.isAuthenticated as authenticated}}
+	{{# each model }}
+	<li>
+		{{#link-to 'profile' attributes.username}}{{attributes.name}}{{/link-to}}
+		{{#if authenticated}}
+			<button {{action 'follow' this}}>
+				Follow
+			</button>
+		{{/if}}
+	</li>
+	{{/each }}
+{{/with}}

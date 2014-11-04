@@ -1,4 +1,5 @@
-App.ApplicationRoute = Ember.Route.extend(SimpleAuth.ApplicationRouteMixin, {
+App.ApplicationRoute = Ember.Route.extend(
+	SimpleAuth.ApplicationRouteMixin, {
 	model: function() {
 		session = this.get('session');
 		var user = Parse.User.current();

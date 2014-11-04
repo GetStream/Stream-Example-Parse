@@ -107,6 +107,15 @@ App.AppActivityComponent = Ember.Component.extend({
 		var ago = moment(parsedDate).fromNow();
 		return ago;
 	}.property('time'),
+	
+	likedActivity: function() {
+		var likeActivity = this.get('activity.object_parse');
+		if (likeActivity) {
+			var activityType = likeActivity.get('activity_type');
+			var activity = likeActivity.get('activity_' + activityType);
+			return activity;
+		}
+	}.property('activity.object_parse'),
 
 	username : function() {
 		var username = this.get('activity.actor_parse.attributes.username');
@@ -128,10 +137,17 @@ App.AppActivityComponent = Ember.Component.extend({
 			var component = this;
 			component.set('loading', true);
             var like = new Like();
+            // polymorphism is weird with parse
+            var activity = component.get('activity.object_parse');
+            var activity_type = activity.className;
+            var activity_field = 'activity_' + activity.className;
+            like.set(activity_field, activity);
+            
 			like.save({
 				actor : Parse.User.current(),
 				verb : 'like',
-				item : component.get('activity.foreign_id'),
+				// the activity you like
+				activity_type : activity_type
 			}, {
 				success : function(object) {
 					component.set('loading', false);
@@ -242,7 +258,8 @@ App.IndexController = Ember.Controller.extend({
 })();
 (function() {
 
-App.ApplicationRoute = Ember.Route.extend(SimpleAuth.ApplicationRouteMixin, {
+App.ApplicationRoute = Ember.Route.extend(
+	SimpleAuth.ApplicationRouteMixin, {
 	model: function() {
 		session = this.get('session');
 		var user = Parse.User.current();

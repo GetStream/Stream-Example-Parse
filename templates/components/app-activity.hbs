@@ -16,7 +16,7 @@
 		{{/if }}
 
 		{{# if isLike }}
-		I like {{ activity.item_parse.verb }}
+			{{ username }} likes a {{ activity.object_parse.attributes.activity_type }} activity
 		{{/if }}
 		
 		{{# if isFollow }}
