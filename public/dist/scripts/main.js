@@ -132,6 +132,7 @@ App.AppActivityComponent = Ember.Component.extend({
 			var component = this;
 			component.set('loading', true);
             var like = new Like();
+            var user = Parse.User.current();
             // polymorphism is weird with parse
             var activity = component.get('activity.object_parse');
             var activity_type = activity.className;
@@ -139,7 +140,9 @@ App.AppActivityComponent = Ember.Component.extend({
             like.set(activity_field, activity);
             
 			like.save({
-				actor : Parse.User.current(),
+				// write to the user feed
+				feedId: 'user:' + user.id,
+				actor : user,
 				verb : 'like',
 				// the activity you like
 				activity_type : activity_type
@@ -225,7 +228,10 @@ App.IndexController = Ember.Controller.extend({
 				var update = (imageUpload) ? new Picture() : new Tweet();
 				var verb = (imageUpload) ? 'upload' : 'tweet';
 				
-				update.set('actor', Parse.User.current());
+				var user = Parse.User.current();
+				// we write to the user feed
+				update.set('feedId', 'user:' + user.id);
+				update.set('actor', user);
 				update.set('verb', verb);
 				update.set('tweet', msg);
 				
@@ -283,10 +289,12 @@ App.ApplicationRoute = Ember.Route.extend(
 		login: function() {
 			document.location = '/authorize';		},
 		follow : function(user) {
-			alert(user);
 			var follow = new Follow();
+			var user = Parse.User.current();
 			follow.save({
-				actor : Parse.User.current(),
+				// write to the user feed
+				feedId: 'user:' + user.id,
+				actor : user,
 				verb : 'follow',
 				object : user
 			}, {

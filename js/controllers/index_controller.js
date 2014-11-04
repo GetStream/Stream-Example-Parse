@@ -39,7 +39,10 @@ App.IndexController = Ember.Controller.extend({
 				var update = (imageUpload) ? new Picture() : new Tweet();
 				var verb = (imageUpload) ? 'upload' : 'tweet';
 				
-				update.set('actor', Parse.User.current());
+				var user = Parse.User.current();
+				// we write to the user feed
+				update.set('feedId', 'user:' + user.id);
+				update.set('actor', user);
 				update.set('verb', verb);
 				update.set('tweet', msg);
 				

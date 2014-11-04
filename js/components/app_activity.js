@@ -42,6 +42,7 @@ App.AppActivityComponent = Ember.Component.extend({
 			var component = this;
 			component.set('loading', true);
             var like = new Like();
+            var user = Parse.User.current();
             // polymorphism is weird with parse
             var activity = component.get('activity.object_parse');
             var activity_type = activity.className;
@@ -49,7 +50,9 @@ App.AppActivityComponent = Ember.Component.extend({
             like.set(activity_field, activity);
             
 			like.save({
-				actor : Parse.User.current(),
+				// write to the user feed
+				feedId: 'user:' + user.id,
+				actor : user,
 				verb : 'like',
 				// the activity you like
 				activity_type : activity_type

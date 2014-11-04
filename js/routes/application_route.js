@@ -15,10 +15,12 @@ App.ApplicationRoute = Ember.Route.extend(
 		login: function() {
 			document.location = '/authorize';		},
 		follow : function(user) {
-			alert(user);
 			var follow = new Follow();
+			var user = Parse.User.current();
 			follow.save({
-				actor : Parse.User.current(),
+				// write to the user feed
+				feedId: 'user:' + user.id,
+				actor : user,
 				verb : 'follow',
 				object : user
 			}, {
