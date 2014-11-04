@@ -23,6 +23,7 @@ var querystring = require('querystring');
 var _ = require('underscore');
 var Buffer = require('buffer').Buffer;
 var Image = require("parse-image");
+var settings = require('cloud/settings.js');
 
 /**
  * Create an express application instance
@@ -32,9 +33,9 @@ var app = express();
 /**
  * GitHub specific details, including application id and secret
  */
-var githubClientId = '3143108e65106284af77';
-var githubClientSecret = '3d082d0a1483bbbf05276c54c87f9617d17b8c69';
 
+var githubClientId = settings.githubClientId;
+var githubClientSecret = settings.githubClientSecret;
 var githubRedirectEndpoint = 'https://github.com/login/oauth/authorize?';
 var githubValidateEndpoint = 'https://github.com/login/oauth/access_token';
 var githubUserEndpoint = 'https://api.github.com/user';

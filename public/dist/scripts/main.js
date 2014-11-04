@@ -71,11 +71,6 @@ var App = window.App = Ember.Application.create({
 });
 
 
-App.ApplicationAdapter = EmberParseAdapter.Adapter.extend({
-  applicationId: 'jybMJ0LPeOwp0dZZPDIeqw7Pjp9qyt6RBH2fekGe',
-  restApiId: 'YPiCDgt10jpVCgg65EXmOc5wUFnnDs9Cxti1OLWW',
-  javascriptId: 'atz5SiuIdVklUx7T0YZXQ9pLIzS5WehDKojrIdG6'
-});
 
 
 
@@ -168,6 +163,10 @@ App.AppActivityComponent = Ember.Component.extend({
 (function() {
 
 App.ApplicationController = Ember.Controller.extend({
+	init: function() {
+		this._super();
+		$('#preember').hide();
+	},
 	user : Ember.computed.alias('session.content.user'),
 	username : function() {
 		var user = this.get('user');
@@ -180,7 +179,6 @@ App.ApplicationController = Ember.Controller.extend({
 		var image = user.get('image');
 		return image.url();
 	}.property('user')
-
 }); 
 
 })();

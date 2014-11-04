@@ -19,18 +19,42 @@
 
 <body>
 
-	<div id="main">
-
+	<div id="preember">
+		Loading Application
 	</div>
 
 	<script type="text/javascript">
-		Parse.initialize("jybMJ0LPeOwp0dZZPDIeqw7Pjp9qyt6RBH2fekGe", "atz5SiuIdVklUx7T0YZXQ9pLIzS5WehDKojrIdG6");
-		StreamClient = stream.connect('hdhuew2dzq5k', null, '738');
+		// the configs
+		config = {
+			parse: {
+				applicationId: 'jybMJ0LPeOwp0dZZPDIeqw7Pjp9qyt6RBH2fekGe',
+				restApiId: 'YPiCDgt10jpVCgg65EXmOc5wUFnnDs9Cxti1OLWW',
+				javascriptId: 'atz5SiuIdVklUx7T0YZXQ9pLIzS5WehDKojrIdG6'
+			},
+			stream: {
+				key: 'hdhuew2dzq5k',
+				site: '738'
+			}
+		}
+		// hookup parse to ember with ember parse adapter
+		App.ApplicationAdapter = EmberParseAdapter.Adapter.extend({
+		  applicationId: config.parse.applicationId,
+		  restApiId: config.parse.restApiId,
+		  javascriptId: config.parse.javascriptId
+		});
+	
+		// initialize parse
+		Parse.initialize(config.parse.applicationId, config.parse.javascriptId);
+		
+		// setup our models
 		Activity = Parse.Object.extend("Activity");
 		Follow = Activity.extend("Follow");
 		Tweet = Activity.extend("Tweet");
 		Picture = Activity.extend("Picture");
 		Like = Activity.extend("Like");
+		
+		// initialize stream
+		StreamClient = stream.connect(config.stream.key, null, config.stream.site);
 	</script>
 </body>
 
