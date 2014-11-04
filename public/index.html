@@ -31,34 +31,6 @@
 		Tweet = Activity.extend("Tweet");
 		Picture = Activity.extend("Picture");
 		Like = Activity.extend("Like");
-
-		q = new Parse.Query(Parse.User);
-		q.limit(10);
-		q.find(function(users) {
-			window.users = users;
-			var firstUser = users[0];
-			users = [];
-			$(users).each(function(index, user) {
-				console.log(user.get('username'), user.get('email'));
-				follow = new Follow();
-				follow.save({
-					actor : 1,
-					verb : 'follow',
-					object : 1,
-					target : 1,
-					user : user.id,
-					target_user : firstUser.id
-				}, {
-					success : function(object) {
-						console.log('saved follow');
-					},
-					error : function(model, error) {
-						console.log('error follow');
-					}
-				});
-			});
-		});
-
 	</script>
 </body>
 

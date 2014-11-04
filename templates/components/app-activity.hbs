@@ -1,33 +1,43 @@
 <li class="activity">
-	
-	<div class="activity-detail">
-		details: {{ isTweet }}, {{ isUpload }}
-	{{# if isTweet }}
-		<p>
-			Tweet: {{ activity.object_parse.attributes.tweet }}
-		</p>
-	{{/if }}
 
-	{{# if isUpload }}
+	<div class="activity-detail">
+		{{# if isTweet }}
 		<p>
 			Tweet: {{ activity.object_parse.attributes.tweet }}
 		</p>
-		<img {{ bind-attr src=imageUrl}} width="200px"/>
-	{{/if }}
-	
-	{{# if isLike }}
-	
-	{{/if }}
+		{{/if }}
+
+		{{# if isUpload }}
+		<div>
+			<img {{ bind-attr src=imageUrl}} width="200px"/>
+			{{ activity.object_parse.attributes.tweet }}	
+		</div>
+		
+		{{/if }}
+
+		{{# if isLike }}
+		I like {{ activity.item_parse.verb }}
+		{{/if }}
+		
+		{{# if isFollow }}
+			{{ activity.actor_parse.attributes.username }} followed
+			{{ activity.target_user }}			{{ activity.target_user_parse.attributes.username }}
+		{{/if }}
 	</div>
-	
+
 	<footer>
-		<p><span class="verb">{{ activity.verb }}</span> 
+		<p>
+			<span class="verb">{{ activity.verb }}</span>
 			by {{#link-to 'profile' username}}{{username}}{{/link-to}}
-			<span class="ago">{{ ago }}</span></p>
+			<span class="ago">{{ ago }}</span>
+		</p>
 		{{# unless isLike }}
 			<button {{action 'like' activity}}>
 				Like
 			</button>
+			{{# if loading }}
+				{{ partial 'loading' }}
+			{{/ if}}
 		{{/unless }}
 	</footer>
 </li>

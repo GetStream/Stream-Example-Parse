@@ -94,21 +94,25 @@ App.Router.map(function () {
 (function() {
 
 App.AppActivityComponent = Ember.Component.extend({
-	isTweet: Ember.computed.equal('activity.verb', 'tweet'),
-	isUpload: Ember.computed.equal('activity.verb', 'upload'),
-	isLike: Ember.computed.equal('activity.verb', 'like'),
+	likeAction: 'like',
 	
+	loading: false,
+	isTweet : Ember.computed.equal('activity.verb', 'tweet'),
+	isUpload : Ember.computed.equal('activity.verb', 'upload'),
+	isLike : Ember.computed.equal('activity.verb', 'like'),
+	isFollow : Ember.computed.equal('activity.verb', 'follow'),
+
 	ago : function() {
 		var parsedDate = this.get('time');
 		var ago = moment(parsedDate).fromNow();
 		return ago;
 	}.property('time'),
-	
-	username: function() {
+
+	username : function() {
 		var username = this.get('activity.actor_parse.attributes.username');
 		return username;
 	}.property('user'),
-	
+
 	imageUrl : function() {
 		var parseObject = this.get('activity').object_parse;
 		if (parseObject) {
@@ -117,7 +121,30 @@ App.AppActivityComponent = Ember.Component.extend({
 				return image.url();
 			}
 		}
-	}.property('activity')
+	}.property('activity'),
+
+	actions : {
+		like : function() {
+			var component = this;
+			component.set('loading', true);
+            var like = new Like();
+			like.save({
+				actor : Parse.User.current(),
+				verb : 'like',
+				item : component.get('activity.foreign_id'),
+			}, {
+				success : function(object) {
+					component.set('loading', false);
+					console.log('saved like');
+				},
+				error : function(model, error) {
+					component.set('loading', false);
+					console.log('error like');
+				}
+			});
+		}
+	}
+
 });
 
 
@@ -125,14 +152,15 @@ App.AppActivityComponent = Ember.Component.extend({
 (function() {
 
 App.ApplicationController = Ember.Controller.extend({
-	user: Ember.computed.alias('session.content.user'),
-	username: function() {
+	user : Ember.computed.alias('session.content.user'),
+	username : function() {
 		var user = this.get('user');
 		if (user) {
 			return user.attributes.username;
 		}
-	}.property('user')
-});
+	}.property('user'),
+
+}); 
 
 })();
 (function() {
@@ -161,25 +189,6 @@ App.IndexController = Ember.Controller.extend({
 	}.observes('model'),
 
 	actions : {
-		like: function(activity) {
-			like = new Like();
-			like.save({
-				actor : 1,
-				verb : 'like',
-				object : 1,
-				target : 1,
-				item : activity.foreign_id,
-				user: users[0]
-			}, {
-				success : function(object) {
-					console.log('saved like');
-				},
-				error : function(model, error) {
-					console.log('error like');
-				}
-			});
-		},
-		
 		status : function() {
 			var msg = this.get('status');
 			var fileUploadControl = $("#profilePhotoFileUpload")[0];
@@ -247,7 +256,23 @@ App.ApplicationRoute = Ember.Route.extend(SimpleAuth.ApplicationRouteMixin, {
 			this.send('invalidateSession');
 		},
 		login: function() {
-			document.location = '/authorize';		}
+			document.location = '/authorize';		},
+		follow : function(user) {
+			alert(user);
+			var follow = new Follow();
+			follow.save({
+				actor : Parse.User.current(),
+				verb : 'follow',
+				target_user : user
+			}, {
+				success : function(object) {
+					console.log('saved follow');
+				},
+				error : function(model, error) {
+					console.log('error follow');
+				}
+			});
+		}
 	}
 }); 
 

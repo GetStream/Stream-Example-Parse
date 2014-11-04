@@ -2,7 +2,8 @@
 
 {{# each model }}
 <li>
-	{{ this.username }}
+	{{ attributes.username }}
+	{{ attributes.name }}
 	<button {{action 'follow' this}}>
 		Follow
 	</button>
