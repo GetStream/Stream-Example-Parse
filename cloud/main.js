@@ -27,14 +27,14 @@ _.each(activityModels, function(model) {
 	Parse.Cloud.afterSave(model, function(request, response) {
 		// trigger fanout
 		var activity = utils.parseToActivity(request.object);
-		user1 = client.feed('user:1');
+		user1 = client.feed(activity.feedId);
 		user1.addActivity(activity);
 	});
 
 	Parse.Cloud.afterDelete(model, function(request) {
 		// trigger fanout to remove
 		var activity = utils.parseToActivity(request.object);
-		user1 = client.feed('user:1');
+		user1 = client.feed(activity.feedId);
 		user1.removeActivity({
 			foreignId : activity.foreign_id
 		});
@@ -48,22 +48,24 @@ Parse.Cloud.afterSave(followModel, function(request, response) {
 	// trigger fanout & follow
 	var parseObject = request.object;
 	var activity = utils.parseToActivity(parseObject);
-	user1 = client.feed('user:1');
+	user1 = client.feed(activity.feedId);
 	user1.addActivity(activity);
-	flat1 = client.feed('flat:' + parseObject.get('user'));
-	flat1.follow('user:' + parseObject.get('target_user'));
+	// flat feed of user will follow user feed of target
+	flat1 = client.feed('flat:' + parseObject.get('actor').id);
+	flat1.follow('user:' + parseObject.get('object').id);
 });
 
 Parse.Cloud.afterDelete(followModel, function(request) {
 	// trigger fanout & unfollow
 	var parseObject = request.object;
 	var activity = utils.parseToActivity(parseObject);
-	user1 = client.feed('user:1');
+	user1 = client.feed(activity.feedId);
 	user1.removeActivity({
 		foreignId : activity.foreign_id
 	});
-	flat1 = client.feed('flat:' + parseObject.get('user'));
-	flat1.unfollow('user:' + parseObject.get('target_user'));
+	// flat feed of user will follow user feed of target
+	flat1 = client.feed('flat:' + parseObject.get('actor').id);
+	flat1.unfollow('user:' + parseObject.get('object').id);
 });
 
 /*

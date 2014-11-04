@@ -20,7 +20,7 @@ App.ApplicationRoute = Ember.Route.extend(
 			follow.save({
 				actor : Parse.User.current(),
 				verb : 'follow',
-				target_user : user
+				object : user
 			}, {
 				success : function(object) {
 					console.log('saved follow');

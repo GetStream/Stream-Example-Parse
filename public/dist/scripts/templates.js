@@ -113,7 +113,7 @@ function program10(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"container\">\n	<div class=\"row clearfix\">\n		<div class=\"col-md-12 column\">\n			<nav class=\"navbar navbar-default\" role=\"navigation\">\n				<div class=\"navbar-header\">\n					<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n						<span class=\"sr-only\">Toggle navigation</span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>\n					</button>\n					<a class=\"navbar-brand\" href=\"#\">Brand</a>\n				</div>	\n				\n				<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n					<ul class=\"nav navbar-nav\">\n						");
+  data.buffer.push("<div class=\"container\">\n	<div class=\"row clearfix\">\n		<div class=\"col-md-12 column\">\n			<nav class=\"navbar navbar-default\" role=\"navigation\">\n				<div class=\"navbar-header\">\n					<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n						<span class=\"sr-only\">Toggle navigation</span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>\n					</button>\n				</div>	\n				\n				<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n					<ul class=\"nav navbar-nav\">\n						");
   stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
     'tagName': ("li"),
     'href': (false)
@@ -162,7 +162,7 @@ function program3(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("\n<h2>Your feed</h2>\n\n<div id=\"update_status\">\n	<form>\n		<div>\n			Update your status\n		</div>\n		<div>\n			");
+  data.buffer.push("\n<h2>Your News Feed/ Activity Stream</h2>\n\n<div id=\"update_status\">\n	<form>\n		<div>\n			Update your status\n		</div>\n		<div>\n			");
   data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
     'value': ("status"),
     'cols': ("40"),
@@ -311,12 +311,9 @@ function program7(depth0,data) {
   stack1 = helpers._triageMustache.call(depth0, "activity.actor_parse.attributes.username", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" followed\n			");
-  stack1 = helpers._triageMustache.call(depth0, "activity.target_user", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers._triageMustache.call(depth0, "activity.object_parse.attributes.username", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\r			");
-  stack1 = helpers._triageMustache.call(depth0, "activity.target_user_parse.attributes.username", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n		");
+  data.buffer.push("\r		");
   return buffer;
   }
 

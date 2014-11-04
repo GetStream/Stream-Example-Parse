@@ -21,8 +21,7 @@
 		
 		{{# if isFollow }}
 			{{ activity.actor_parse.attributes.username }} followed
-			{{ activity.target_user }}			{{ activity.target_user_parse.attributes.username }}
-		{{/if }}
+			{{ activity.object_parse.attributes.username }}		{{/if }}
 	</div>
 
 	<footer>

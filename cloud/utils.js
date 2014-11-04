@@ -26,6 +26,10 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 	/*
 	 * Take the parse activity and converts it into the required
 	 * activity information for getstream.io
+	 * The names are based on:
+	 * http://activitystrea.ms/specs/json/1.0/
+	 * Also see
+	 * http://getstream.io/docs
 	 */
 	var activity = {};
 	var activityProperties = ["actor", "verb", "object", "target", "to", "time"];
@@ -38,8 +42,10 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 		}
 	}
 	activity.actor = serializeId(parseObject.get('actor'));
-	activity.object = serializeId(parseObject);
+	// default to the activity if object is not specified
+	activity.object = serializeId(parseObject.get('object') || parseObject);
 	activity.foreign_id = serializeId(parseObject);
+	activity.feedId = parseObject.get('feedId');
 	return activity;
 };
 
