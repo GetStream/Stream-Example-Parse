@@ -13,28 +13,28 @@ var client = stream.connect(settings.streamApiKey, settings.streamApiSecret, set
  * and send the activities to getstream.io
  */
 _.each(settings.activityModels, function(model) {
-	Parse.Cloud.afterSave(model, function(request, response) {
+	Parse.Cloud.afterSave(model, function(request) {
 		// trigger fanout
 		var activity = utils.parseToActivity(request.object);
 		feed = client.feed(activity.feed_id);
-		feed.addActivity(activity, utils.createHandler(response));
+		feed.addActivity(activity, utils.createHandler());
 	});
 
-	Parse.Cloud.afterDelete(model, function(request, response) {
+	Parse.Cloud.afterDelete(model, function(request) {
 		// trigger fanout to remove
 		var activity = utils.parseToActivity(request.object);
 		feed = client.feed(activity.feed_id);
 		// remove by foreign id
 		feed.removeActivity({
 			foreignId : activity.foreign_id
-		}, utils.createHandler(response));
+		}, utils.createHandler());
 	});
 });
 
 /*
  * Sync the follow state to getstream.io
  */
-Parse.Cloud.afterSave(settings.followModel, function(request, response) {
+Parse.Cloud.afterSave(settings.followModel, function(request) {
 	// trigger fanout & follow
 	var parseObject = request.object;
 	var activity = utils.parseToActivity(parseObject);
@@ -42,7 +42,7 @@ Parse.Cloud.afterSave(settings.followModel, function(request, response) {
 	user1.addActivity(activity, utils.createHandler(response));
 	// flat feed of user will follow user feed of target
 	flat1 = client.feed('flat:' + parseObject.get('actor').id);
-	flat1.follow('user:' + parseObject.get('object').id, utils.createHandler(response));
+	flat1.follow('user:' + parseObject.get('object').id, utils.createHandler());
 });
 
 Parse.Cloud.afterDelete(settings.followModel, function(request) {
@@ -55,7 +55,7 @@ Parse.Cloud.afterDelete(settings.followModel, function(request) {
 	}, utils.createHandler(response));
 	// flat feed of user will follow user feed of target
 	flat1 = client.feed('flat:' + parseObject.get('actor').id);
-	flat1.unfollow('user:' + parseObject.get('object').id, utils.createHandler(response));
+	flat1.unfollow('user:' + parseObject.get('object').id, utils.createHandler());
 });
 
 /*

@@ -193,10 +193,11 @@ App.IndexController = Ember.Controller.extend({
 	loading: null,
 	
 	feedId : function() {
+		return 'user:everybody';
 		return 'flat:' + this.get('user').id;
 	}.property('user'),
 	
-	newActivities: false,
+	newActivities: {},
 	user: Ember.computed.alias('session.content.user'),
 	userImageUrl: function() {
 		var user = this.get('user');
@@ -204,18 +205,34 @@ App.IndexController = Ember.Controller.extend({
 		return image.url();
 	}.property('user'),
 	
-	feed: function() {
-		var token = this.get('model.token');
-		var feed = StreamClient.feed(this.get('feedId'), token);
-		return feed;
-	}.property('model.token'),
+	getFeedData: function(name) {
+		var data = this.get('model.' + name);
+		if (data) {
+			var token = data.token;
+			var feedId = data.feed;
+			var feed = StreamClient.feed(feedId, token);
+			return feed;
+		}
+	},
+	
+	globalFeed: function() {
+		return this.getFeedData('globalFeed');
+	}.property('model.globalFeed.token'),
+	
+	flatFeed: function() {
+		return this.getFeedData('flatFeed');
+	}.property('model.flatFeed.token'),
 	
 	listenToChanges: function() {
-		var feed = this.get('feed');
-		console.log('listening to', feed);
 		var controller = this;
-		feed.subscribe(function callback(data) {
-		    controller.set('newActivities', true);
+		_.each(['globalFeed', 'flatFeed'], function(feedName) {
+			var feed = controller.get(feedName);
+			if (feed) {
+				console.log('listening to', feed);
+				feed.subscribe(function callback(data) {
+				    controller.set('model.' + feedName + '.new', true);
+				});
+			}
 		});
 	}.observes('model'),
 
@@ -238,6 +255,10 @@ App.IndexController = Ember.Controller.extend({
 				update.set('actor', user);
 				update.set('verb', verb);
 				update.set('tweet', msg);
+				// to is also often used for things such as @mentions
+				// see the docs https://getstream.io/docs/#targetting
+				// think of it as ccing an email
+				update.set('to', ['user:all']);
 				
 				if (imageUpload) {
 					var file = fileUploadControl.files[0];
@@ -256,7 +277,7 @@ App.IndexController = Ember.Controller.extend({
 					success : function(object) {
 						controller.set('loading', false);
 						console.log('saved', verb);
-						$("form").get(0).reset()
+						$("form").get(0).reset();
 					},
 					error : function(model, error) {
 						controller.set('loading', false);
@@ -320,14 +341,24 @@ App.ApplicationRoute = Ember.Route.extend(
 App.IndexRoute = Ember.Route.extend({
 	user: Ember.computed.alias('session.content.user'),
 	model : function(params) {
+		var promises = [];
+		// lookup the global feed
+		var promise = Parse.Cloud.run('feed', {
+			feed : 'user:all'
+		});
+		promises.push(promise);
+		// add the user feed
 		var user = this.get('user');
 		if (user) {
-			var feedId = 'user:' + user.id;
-			var promise = Parse.Cloud.run('feed', {
-				feed : feedId
+			promise = Parse.Cloud.run('feed', {
+				feed : 'user:' + user.id
 			});
-			return promise;
+			promises.push(promise);
 		}
+		return Promise.all(promises).then(function(feeds){
+			return {'globalFeed': feeds[0], 'flatFeed': feeds[1]};
+		});
+		
 	},
 	actions: {
 		reload: function () {

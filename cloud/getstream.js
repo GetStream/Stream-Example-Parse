@@ -6044,6 +6044,10 @@ StreamClient.prototype = {
     		var signedTo = [];
     		for (var j = 0; j < to.length; j++) { 
     			var feed = to[j];
+    			console.log('secret');
+    			console.log(this.secret);
+    			console.log('key');
+    			console.log(this.key);
     			var token = this.feed(feed).token;
     			var signedFeed = feed + ' ' + token;
     			signedTo.push(signedFeed);
@@ -6153,6 +6157,10 @@ StreamFeed.prototype = {
 		 * calls the specified callback
 		 */
 		var activity = this.client.signActivity(activity);
+		console.log('authorization');
+		console.log(this.authorization);
+		console.log('signedTo');
+		console.log(activity.to);
 		var xhr = this.client.post({
 			'url': '/api/feed/'+ this.feedUrl + '/', 
 			'body': activity,
@@ -6179,6 +6187,8 @@ StreamFeed.prototype = {
 		 * calls the specified callback
 		 */
 		var activities = this.client.signActivities(activities);
+		console.log('authorization');
+		console.log(this.authorization);
 		var data = {activities: activities};
 		var xhr = this.client.post({
 			'url': '/api/feed/'+ this.feedUrl + '/', 

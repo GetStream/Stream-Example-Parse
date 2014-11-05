@@ -26,4 +26,19 @@
 	{{ partial 'loading' }}
 {{/if }}
 
-{{ partial 'feed' }}
+<div class="row clearfix">
+	<div class="col-md-6 column">
+		<h2>Activities from the people you follow</h2>
+		{{#with model.flatFeed as feed}}
+			{{ partial 'feed' }}
+		{{/with}}
+	</div>
+	<div class="col-md-6 column">
+		<h2>All activities</h2>
+		{{#with model.globalFeed as feed}}
+			{{ partial 'feed' }}
+		{{/with}}
+	</div>
+</div>
+
+

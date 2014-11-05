@@ -5,4 +5,6 @@
 {{ user }}
 {{ user.attributes.username }}
 
-{{ partial 'feed' }}
+{{#with model as feed}}
+	{{ partial 'feed' }}
+{{/with}}

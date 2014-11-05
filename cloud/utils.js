@@ -120,7 +120,10 @@ function createHandler(response) {
 		if (result.data.exception) {
 			var msg = 'GetStream.io ' + result.data.exception + ':' + result.data.detail;
 			console.error(msg);
-			response.error(msg);	
+			// afterSave doesnt have the response object available
+			if (response) {
+				response.error(msg);
+			}
 		}
 	}
 	return errorHandler;
