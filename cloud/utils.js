@@ -45,7 +45,7 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 	// default to the activity if object is not specified
 	activity.object = serializeId(parseObject.get('object') || parseObject);
 	activity.foreign_id = serializeId(parseObject);
-	activity.feedId = parseObject.get('feedId');
+	activity.feed_id = parseObject.get('feedId');
 	return activity;
 };
 
@@ -111,3 +111,19 @@ function enrich(activities) {
 }
 
 exports.enrich = enrich;
+
+function createHandler(response) {
+	/*
+	 * Default error handling behaviour for async requests
+	 */
+	function errorHandler(result) {
+		if (result.data.exception) {
+			var msg = 'GetStream.io ' + result.data.exception + ':' + result.data.detail;
+			console.error(msg);
+			response.error(msg);	
+		}
+	}
+	return errorHandler;
+}
+
+exports.createHandler = createHandler;

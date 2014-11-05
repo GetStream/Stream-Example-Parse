@@ -3,7 +3,10 @@ App.IndexController = Ember.Controller.extend({
 	errors: {},
 	loading: null,
 	
-	feedId : 'user:1',
+	feedId : function() {
+		return 'flat:' + this.get('user').id;
+	}.property('user'),
+	
 	newActivities: false,
 	user: Ember.computed.alias('session.content.user'),
 	userImageUrl: function() {
@@ -20,6 +23,7 @@ App.IndexController = Ember.Controller.extend({
 	
 	listenToChanges: function() {
 		var feed = this.get('feed');
+		console.log('listening to', feed);
 		var controller = this;
 		feed.subscribe(function callback(data) {
 		    controller.set('newActivities', true);
