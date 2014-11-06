@@ -15,6 +15,11 @@ What you can build:
 * Facebook style newsfeeds
 * A notification system
 
+### Demo
+
+You should start by checking out [the demo](https://getstream.parseapp.com/) hosted on Parse.
+
+
 ###Table of Contents
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
