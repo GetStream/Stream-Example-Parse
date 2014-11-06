@@ -6,16 +6,6 @@
 </div>
 {{/unless}}
 
-{{#with session.isAuthenticated as authenticated}}
-	{{# each model }}
-	<li>
-		{{#link-to 'profile' attributes.username}}{{attributes.name}}{{/link-to}}
-		<img {{ bind-attr src=attributes.image._url }} width="64px"/>
-		{{#if authenticated}}
-			<button {{action 'follow' this}}>
-				Follow
-			</button>
-		{{/if}}
-	</li>
-	{{/each }}
-{{/with}}
+{{# each model }}
+	{{app-user user=this session=session }}
+{{/each }}

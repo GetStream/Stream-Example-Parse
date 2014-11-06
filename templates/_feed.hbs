@@ -1,13 +1,14 @@
-<div id="newsfeed">
+<div class="newsfeed">
 	{{# if feed.new }}
 		Yeaaa there are new activities
 		<button {{action 'reload'}}>Show them</button>
 	{{/if}}
 	
 	{{# if feed.activities }}
+	
 		<ol>
 			{{# each feed.activities }}
-				{{app-activity activity=this}}
+				{{app-activity activity=this }}
 			{{/each }}
 		</ol>
 	{{/if }}

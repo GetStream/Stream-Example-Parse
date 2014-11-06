@@ -89,6 +89,7 @@ App.IndexController = Ember.Controller.extend({
 						controller.set('loading', false);
 						console.log('saved', verb);
 						$("form").get(0).reset();
+						controller.send('posted');
 					},
 					error : function(model, error) {
 						controller.set('loading', false);

@@ -14,23 +14,13 @@ App.ApplicationRoute = Ember.Route.extend(
 		},
 		login: function() {
 			document.location = '/authorize';		},
-		follow : function(user) {
-			var follow = new Follow();
-			var user = Parse.User.current();
-			follow.save({
-				// write to the user feed
-				feedId: 'user:' + user.id,
-				actor : user,
-				verb : 'follow',
-				object : user
-			}, {
-				success : function(object) {
-					console.log('saved follow');
-				},
-				error : function(model, error) {
-					console.log('error follow');
-				}
-			});
+		followed: function() {
+			var controller = this.get('controller');
+			controller.set('followed', true);
+		},
+		posted: function() {
+			var controller = this.get('controller');
+			controller.set('posted', true);
 		}
 	}
 }); 

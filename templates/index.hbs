@@ -14,10 +14,14 @@
 			<input type="file" id="profilePhotoFileUpload">
 		</div>
 		
-		<button {{action 'status'}}>Update Status</button>
-		{{# if errors.status }}
+		{{#if session.isAuthenticated}}
+			<button {{action 'status'}}>Update Status</button>
+			{{# if errors.status }}
 			{{ errors.status }}
-		{{/if }}
+			{{/if }}
+		{{else}}
+			<a {{ action 'login' }}>Login with Github</a> to share your status
+		{{/if}}
 	</form>
 </div>
 

@@ -138,6 +138,7 @@ App.AppActivityComponent = Ember.Component.extend({
             var activity_type = activity.className;
             var activity_field = 'activity_' + activity.className;
             like.set(activity_field, activity);
+            like.set('to', ['user:all']);
             
 			like.save({
 				// write to the user feed
@@ -165,11 +166,48 @@ App.AppActivityComponent = Ember.Component.extend({
 })();
 (function() {
 
+App.AppUserComponent = Ember.Component.extend({
+	loading: false,
+	followedAction: 'followed',
+	
+	actions : {
+		follow : function(user) {
+			var follow = new Follow();
+			var currentUser = Parse.User.current();
+			var controller = this;
+			controller.set('loading', true);
+			follow.set('to', ['user:all']);
+			follow.save({
+				// write to the user feed
+				feedId : 'user:' + currentUser.id,
+				actor : currentUser,
+				verb : 'follow',
+				object : user
+			}, {
+				success : function(object) {
+					console.log('saved follow');
+					controller.set('loading', false);
+					controller.sendAction('followedAction');
+				},
+				error : function(model, error) {
+					controller.set('loading', false);
+					console.log('error follow');
+				}
+			});
+		}
+	}
+}); 
+
+})();
+(function() {
+
 App.ApplicationController = Ember.Controller.extend({
 	init: function() {
 		this._super();
 		$('#preember').hide();
 	},
+	posted: false,
+	followed: false,
 	user : Ember.computed.alias('session.content.user'),
 	username : function() {
 		var user = this.get('user');
@@ -181,6 +219,12 @@ App.ApplicationController = Ember.Controller.extend({
 		var user = this.get('user');
 		var image = user.get('image');
 		return image.url();
+	}.property('user'),
+	displayName: function() {
+		var username = this.get('username');
+		var name = this.get('user').attributes.name;
+		var displayName = (name) ? name.split(' ')[0] : username;
+		return displayName; 
 	}.property('user')
 }); 
 
@@ -278,6 +322,7 @@ App.IndexController = Ember.Controller.extend({
 						controller.set('loading', false);
 						console.log('saved', verb);
 						$("form").get(0).reset();
+						controller.send('posted');
 					},
 					error : function(model, error) {
 						controller.set('loading', false);
@@ -313,23 +358,13 @@ App.ApplicationRoute = Ember.Route.extend(
 		},
 		login: function() {
 			document.location = '/authorize';		},
-		follow : function(user) {
-			var follow = new Follow();
-			var user = Parse.User.current();
-			follow.save({
-				// write to the user feed
-				feedId: 'user:' + user.id,
-				actor : user,
-				verb : 'follow',
-				object : user
-			}, {
-				success : function(object) {
-					console.log('saved follow');
-				},
-				error : function(model, error) {
-					console.log('error follow');
-				}
-			});
+		followed: function() {
+			var controller = this.get('controller');
+			controller.set('followed', true);
+		},
+		posted: function() {
+			var controller = this.get('controller');
+			controller.set('posted', true);
 		}
 	}
 }); 

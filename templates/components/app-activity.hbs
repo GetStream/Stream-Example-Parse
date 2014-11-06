@@ -21,7 +21,8 @@
 		
 		{{# if isFollow }}
 			{{ activity.actor_parse.attributes.username }} followed
-			{{ activity.object_parse.attributes.username }}		{{/if }}
+			{{ activity.object_parse.attributes.username }}
+		{{/if }}
 	</div>
 
 	<footer>
@@ -31,12 +32,16 @@
 			<span class="ago">{{ ago }}</span>
 		</p>
 		{{# unless isLike }}
-			<button {{action 'like' activity}}>
-				Like
-			</button>
-			{{# if loading }}
-				{{ partial 'loading' }}
-			{{/ if}}
+			{{#if session.isAuthenticated}}
+				<button {{action 'like' activity}}>
+					Like
+				</button>
+				{{#if loading }}
+					{{ partial 'loading' }}
+				{{/if}}
+			{{ else}}
+				Login to Like
+			{{/if}}
 		{{/unless }}
 	</footer>
 </li>

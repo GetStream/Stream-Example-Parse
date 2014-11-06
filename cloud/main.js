@@ -39,7 +39,7 @@ Parse.Cloud.afterSave(settings.followModel, function(request) {
 	var parseObject = request.object;
 	var activity = utils.parseToActivity(parseObject);
 	user1 = client.feed(activity.feed_id);
-	user1.addActivity(activity, utils.createHandler(response));
+	user1.addActivity(activity, utils.createHandler());
 	// flat feed of user will follow user feed of target
 	flat1 = client.feed('flat:' + parseObject.get('actor').id);
 	flat1.follow('user:' + parseObject.get('object').id, utils.createHandler());
@@ -52,7 +52,7 @@ Parse.Cloud.afterDelete(settings.followModel, function(request) {
 	user1 = client.feed(activity.feed_id);
 	user1.removeActivity({
 		foreignId : activity.foreign_id
-	}, utils.createHandler(response));
+	}, utils.createHandler());
 	// flat feed of user will follow user feed of target
 	flat1 = client.feed('flat:' + parseObject.get('actor').id);
 	flat1.unfollow('user:' + parseObject.get('object').id, utils.createHandler());
@@ -81,8 +81,6 @@ Parse.Cloud.define("feed", function(request, response) {
 	var feed = client.feed(feedIdentifier);
 	feed.get(params, function(httpResponse) {
 		var activities = httpResponse.data;
-		console.log('activities');
-		console.log(activities);
 		// enrich the response with the database values where needed
 		var promise = utils.enrich(activities.results);
 		promise.then(function(activities) {

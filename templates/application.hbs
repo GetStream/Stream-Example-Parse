@@ -35,26 +35,31 @@
 
 			</nav>
 			<div class="jumbotron">
-				<h1>Parse Cloud &amp; GetStream.io example app</h1>
+				<h1>Parse cloud code, getstream.io &amp; EmberJS</h1>
 				<p>
-					Hi There,
-
-					This EmberJS based example app shows you how to build scalable newsfeeds using GetStream.io from the Parse Cloud.
-					The code can be found on GitHub.
-
-					Cool links:
-					<ul>
-						<li>
-							<a href="https://www.parse.com/docs/js_guide">Parse JavaScript Guide</a>
-						</li>
-						<li>
-							<a href="https://getstream.io/get_started/#intro">GetStream.io Tutorial</a>
-						</li>
-						<li>
-							<a href="http://emberjs.com/">EmberJS</a>
-						</li>
-					</ul>
+					This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.
+					The code with explanation is on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>.
 				</p>
+				<p>
+				{{#if session.isAuthenticated}}
+					{{# if posted }}
+						{{# if followed }}
+							All done here, check out the code on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
+						{{else}}
+							Nice one! Your own feed is still empty though. How about you follow some {{#link-to 'people'}}people{{/link-to}}?
+						{{/if }}
+					{{else}}
+						Hi {{ displayName }}, welcome! Now give the example a try by posting your favourite surfing picture.
+					{{/if }}	
+				{{else}}
+					As we're demoing a social app, you'll need to login:
+				{{/if }}
+				</p>
+				
+				{{#unless session.isAuthenticated}}
+				<a {{ action 'login' }}>Login with Github</a>
+				{{/unless }}
+				
 			</div>
 			<div class="row clearfix">
 				<div class="col-md-12 column">

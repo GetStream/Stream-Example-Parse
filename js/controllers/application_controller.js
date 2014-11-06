@@ -3,6 +3,8 @@ App.ApplicationController = Ember.Controller.extend({
 		this._super();
 		$('#preember').hide();
 	},
+	posted: false,
+	followed: false,
 	user : Ember.computed.alias('session.content.user'),
 	username : function() {
 		var user = this.get('user');
@@ -14,5 +16,11 @@ App.ApplicationController = Ember.Controller.extend({
 		var user = this.get('user');
 		var image = user.get('image');
 		return image.url();
+	}.property('user'),
+	displayName: function() {
+		var username = this.get('username');
+		var name = this.get('user').attributes.name;
+		var displayName = (name) ? name.split(' ')[0] : username;
+		return displayName; 
 	}.property('user')
 }); 

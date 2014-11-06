@@ -48,6 +48,7 @@ App.AppActivityComponent = Ember.Component.extend({
             var activity_type = activity.className;
             var activity_field = 'activity_' + activity.className;
             like.set(activity_field, activity);
+            like.set('to', ['user:all']);
             
 			like.save({
 				// write to the user feed
