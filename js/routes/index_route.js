@@ -12,7 +12,7 @@ App.IndexRoute = Ember.Route.extend({
 		var user = this.get('user');
 		if (user) {
 			promise = Parse.Cloud.run('feed', {
-				feed : 'user:' + user.id
+				feed : 'flat:' + user.id
 			});
 			promises.push(promise);
 		}

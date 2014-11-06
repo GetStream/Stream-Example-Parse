@@ -139,7 +139,7 @@ function program12(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n					");
-  stack1 = helpers['if'].call(depth0, "posted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(19, program19, data),fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "posted", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(20, program20, data),fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("	\n				");
   return buffer;
@@ -148,33 +148,42 @@ function program13(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n						");
-  stack1 = helpers['if'].call(depth0, "followed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(16, program16, data),fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "followed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(17, program17, data),fn:self.program(14, program14, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n					");
   return buffer;
   }
 function program14(depth0,data) {
   
+  var buffer = '', stack1, helper, options;
+  data.buffer.push("\n							Great, your ");
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(15, program15, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "index", options) : helperMissing.call(depth0, "link-to", "index", options));
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push(" will show the content from the people you follow.\n							The best part, it works with 3 users and keeps on working with 3m users.\n							Check out the code &amp; tutorial on <a target=\"_blank\" href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>!\n						");
+  return buffer;
+  }
+function program15(depth0,data) {
   
-  data.buffer.push("\n							Great, your feed will show the content from the people you follow.\n							The best part, it works with 3 users and keeps on working with 3m users.\n							Check out the code &amp; tutorial on <a href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>!\n						");
+  
+  data.buffer.push("feed");
   }
 
-function program16(depth0,data) {
+function program17(depth0,data) {
   
   var buffer = '', stack1, helper, options;
   data.buffer.push("\n							Nice one! Your own feed is still empty though. How about you follow some ");
-  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(17, program17, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "people", options) : helperMissing.call(depth0, "link-to", "people", options));
+  stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(18, program18, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "people", options) : helperMissing.call(depth0, "link-to", "people", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("?\n						");
   return buffer;
   }
-function program17(depth0,data) {
+function program18(depth0,data) {
   
   
   data.buffer.push("people");
   }
 
-function program19(depth0,data) {
+function program20(depth0,data) {
   
   var buffer = '', stack1;
   data.buffer.push("\n						Hi ");
@@ -184,13 +193,13 @@ function program19(depth0,data) {
   return buffer;
   }
 
-function program21(depth0,data) {
+function program22(depth0,data) {
   
   
   data.buffer.push("\n					As we're demoing a social app, you'll need to login:\n				");
   }
 
-function program23(depth0,data) {
+function program24(depth0,data) {
   
   var buffer = '';
   data.buffer.push("\n				<a ");
@@ -218,10 +227,10 @@ function program23(depth0,data) {
   stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(10, program10, data),fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n					</ul>\n				</div>\n\n			</nav>\n			<div class=\"jumbotron\">\n				<h1>Parse cloud code, getstream.io &amp; EmberJS</h1>\n				<p>\n					This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.\n					The code with explanation is on <a href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>.\n				</p>\n				<p style=\"font-weight:bolder;\">\n				");
-  stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(21, program21, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(22, program22, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n				</p>\n				\n				");
-  stack1 = helpers.unless.call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(23, program23, data),contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers.unless.call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(24, program24, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n				\n			</div>\n			<div class=\"row clearfix\">\n				<div class=\"col-md-12 column\">\n					");
   stack1 = helpers._triageMustache.call(depth0, "outlet", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});

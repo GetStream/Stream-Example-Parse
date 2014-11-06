@@ -44,9 +44,9 @@
 				{{#if session.isAuthenticated}}
 					{{# if posted }}
 						{{# if followed }}
-							Great, your feed will show the content from the people you follow.
+							Great, your {{#link-to 'index'}}feed{{/link-to}} will show the content from the people you follow.
 							The best part, it works with 3 users and keeps on working with 3m users.
-							Check out the code &amp; tutorial on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
+							Check out the code &amp; tutorial on <a target="_blank" href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
 						{{else}}
 							Nice one! Your own feed is still empty though. How about you follow some {{#link-to 'people'}}people{{/link-to}}?
 						{{/if }}
