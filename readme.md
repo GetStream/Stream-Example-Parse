@@ -96,7 +96,9 @@ var promise = Parse.Cloud.run('feed', {
 });
 ```
 
-#### Getting the example app to run
+### Running this example app
+
+#### Settings
 
 If you want to install this example app on your own parse instance you'll need to update a few setting files
 
@@ -105,6 +107,15 @@ If you want to install this example app on your own parse instance you'll need t
 2. edit config/global.json
 3. edit public/index.html (the inline config variable)
 
+#### Dev tools
+
+0. install gulp, compass and bower
+1. bower install
+2. gulp
+3. parse develop <your application name>
+
+gulp will monitor for changes and livereload the index.html file
+parse develop will upload your cloud code and host it at <yourconfiguredvalue>.parseapp.com.
 
 
 
