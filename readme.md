@@ -1,5 +1,5 @@
-Stream & Parse Cloud Code
-=========================
+GetStream.io, parse cloud code & EmberJS
+========================================
 
 This example helps you create activity streams & newsfeeds with [Parse Cloud Code](https://parse.com/docs/cloud_code_guide) and [GetStream.io](https://getstream.io).
 
