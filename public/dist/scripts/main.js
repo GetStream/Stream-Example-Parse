@@ -126,6 +126,17 @@ App.AppActivityComponent = Ember.Component.extend({
 			}
 		}
 	}.property('activity'),
+	
+	followImageUrl: function() {
+		var parseObject = this.get('activity.object_parse.attributes.image._url');
+		return parseObject;
+	}.property('activity'),
+	
+	likedActivity: function() {
+		var activityType = this.get('activity.object_parse.attributes.activity_type');
+		var activity = this.get('activity.object_parse.attributes.activity_' + activityType);
+		return activity;
+	}.property('activity'),
 
 	actions : {
 		like : function() {
@@ -134,7 +145,7 @@ App.AppActivityComponent = Ember.Component.extend({
             var like = new Like();
             var user = Parse.User.current();
             // polymorphism is weird with parse
-            var activity = component.get('activity.object_parse');
+            var activity = component.get('activity.foreign_id_parse');
             var activity_type = activity.className;
             var activity_field = 'activity_' + activity.className;
             like.set(activity_field, activity);
@@ -169,6 +180,7 @@ App.AppActivityComponent = Ember.Component.extend({
 App.AppUserComponent = Ember.Component.extend({
 	loading: false,
 	followedAction: 'followed',
+	reloadAction: 'reload',
 	
 	actions : {
 		follow : function(user) {
@@ -188,6 +200,7 @@ App.AppUserComponent = Ember.Component.extend({
 					console.log('saved follow');
 					controller.set('loading', false);
 					controller.sendAction('followedAction');
+					controller.sendAction('reloadAction');
 				},
 				error : function(model, error) {
 					controller.set('loading', false);

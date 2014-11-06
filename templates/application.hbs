@@ -40,11 +40,13 @@
 					This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.
 					The code with explanation is on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>.
 				</p>
-				<p>
+				<p style="font-weight:bolder;">
 				{{#if session.isAuthenticated}}
 					{{# if posted }}
 						{{# if followed }}
-							All done here, check out the code on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
+							Great, your feed will show the content from the people you follow.
+							The best part, it works with 3 users and keeps on working with 3m users.
+							Check out the code &amp; tutorial on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
 						{{else}}
 							Nice one! Your own feed is still empty though. How about you follow some {{#link-to 'people'}}people{{/link-to}}?
 						{{/if }}

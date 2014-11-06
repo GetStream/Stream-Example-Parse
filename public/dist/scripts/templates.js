@@ -156,7 +156,7 @@ function program13(depth0,data) {
 function program14(depth0,data) {
   
   
-  data.buffer.push("\n							All done here, check out the code on <a href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>!\n						");
+  data.buffer.push("\n							Great, your feed will show the content from the people you follow.\n							The best part, it works with 3 users and keeps on working with 3m users.\n							Check out the code &amp; tutorial on <a href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>!\n						");
   }
 
 function program16(depth0,data) {
@@ -217,7 +217,7 @@ function program23(depth0,data) {
   data.buffer.push("\n					</ul>\n					<ul class=\"nav navbar-nav navbar-right\">\n						");
   stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(10, program10, data),fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n					</ul>\n				</div>\n\n			</nav>\n			<div class=\"jumbotron\">\n				<h1>Parse cloud code, getstream.io &amp; EmberJS</h1>\n				<p>\n					This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.\n					The code with explanation is on <a href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>.\n				</p>\n				<p>\n				");
+  data.buffer.push("\n					</ul>\n				</div>\n\n			</nav>\n			<div class=\"jumbotron\">\n				<h1>Parse cloud code, getstream.io &amp; EmberJS</h1>\n				<p>\n					This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.\n					The code with explanation is on <a href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>.\n				</p>\n				<p style=\"font-weight:bolder;\">\n				");
   stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(21, program21, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n				</p>\n				\n				");
@@ -404,7 +404,7 @@ function program5(depth0,data) {
   stack1 = helpers._triageMustache.call(depth0, "username", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" likes a ");
-  stack1 = helpers._triageMustache.call(depth0, "activity.object_parse.attributes.activity_type", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  stack1 = helpers._triageMustache.call(depth0, "likedActivity.className", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push(" activity\n		");
   return buffer;
@@ -419,7 +419,11 @@ function program7(depth0,data) {
   data.buffer.push(" followed\n			");
   stack1 = helpers._triageMustache.call(depth0, "activity.object_parse.attributes.username", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n		");
+  data.buffer.push("\n			<img ");
+  data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
+    'src': ("followImageUrl")
+  },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
+  data.buffer.push(" width=\"150px\"/>\n		");
   return buffer;
   }
 
@@ -434,36 +438,21 @@ function program9(depth0,data) {
 function program11(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n			");
-  stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(15, program15, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\n			<button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "like", "activity", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n				Like\n			</button>\n			");
+  stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n		");
   return buffer;
   }
 function program12(depth0,data) {
   
-  var buffer = '', stack1;
-  data.buffer.push("\n				<button ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "like", "activity", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
-  data.buffer.push(">\n					Like\n				</button>\n				");
-  stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  var buffer = '', helper, options;
+  data.buffer.push("\n				");
+  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "loading", options) : helperMissing.call(depth0, "partial", "loading", options))));
   data.buffer.push("\n			");
   return buffer;
-  }
-function program13(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n					");
-  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "loading", options) : helperMissing.call(depth0, "partial", "loading", options))));
-  data.buffer.push("\n				");
-  return buffer;
-  }
-
-function program15(depth0,data) {
-  
-  
-  data.buffer.push("\n				Login to Like\n			");
   }
 
   data.buffer.push("<li class=\"activity\">\n\n	<div class=\"activity-detail\">\n		");
@@ -509,28 +498,11 @@ function program1(depth0,data) {
 
 function program3(depth0,data) {
   
-  var buffer = '', stack1;
-  data.buffer.push("\n		<button ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "follow", "user", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
-  data.buffer.push(">\n			Follow\n		</button>\n		");
-  stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  var buffer = '', helper, options;
+  data.buffer.push("\n		");
+  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "loading", options) : helperMissing.call(depth0, "partial", "loading", options))));
   data.buffer.push("\n	");
   return buffer;
-  }
-function program4(depth0,data) {
-  
-  var buffer = '', helper, options;
-  data.buffer.push("\n			");
-  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "loading", options) : helperMissing.call(depth0, "partial", "loading", options))));
-  data.buffer.push("\n		");
-  return buffer;
-  }
-
-function program6(depth0,data) {
-  
-  
-  data.buffer.push("\n		<p>Login to follow</p>\n	");
   }
 
   data.buffer.push("<li>\n	");
@@ -540,14 +512,10 @@ function program6(depth0,data) {
   data.buffer.push(escapeExpression(helpers['bind-attr'].call(depth0, {hash:{
     'src': ("user.attributes.image._url")
   },hashTypes:{'src': "ID"},hashContexts:{'src': depth0},contexts:[],types:[],data:data})));
-  data.buffer.push(" width=\"64px\"/>\n	session: ");
-  stack1 = helpers._triageMustache.call(depth0, "session", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n	auth: ");
-  stack1 = helpers._triageMustache.call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
-  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(" \n	");
-  stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(6, program6, data),fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push(" width=\"64px\"/>\n	<button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "follow", "user", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n		Follow\n	</button>\n	");
+  stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n</li>");
   return buffer;

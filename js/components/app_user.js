@@ -1,6 +1,7 @@
 App.AppUserComponent = Ember.Component.extend({
 	loading: false,
 	followedAction: 'followed',
+	reloadAction: 'reload',
 	
 	actions : {
 		follow : function(user) {
@@ -20,6 +21,7 @@ App.AppUserComponent = Ember.Component.extend({
 					console.log('saved follow');
 					controller.set('loading', false);
 					controller.sendAction('followedAction');
+					controller.sendAction('reloadAction');
 				},
 				error : function(model, error) {
 					controller.set('loading', false);

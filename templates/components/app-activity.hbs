@@ -16,12 +16,13 @@
 		{{/if }}
 
 		{{# if isLike }}
-			{{ username }} likes a {{ activity.object_parse.attributes.activity_type }} activity
+			{{ username }} likes a {{ likedActivity.className }} activity
 		{{/if }}
 		
 		{{# if isFollow }}
 			{{ activity.actor_parse.attributes.username }} followed
 			{{ activity.object_parse.attributes.username }}
+			<img {{ bind-attr src=followImageUrl}} width="150px"/>
 		{{/if }}
 	</div>
 
@@ -32,15 +33,11 @@
 			<span class="ago">{{ ago }}</span>
 		</p>
 		{{# unless isLike }}
-			{{#if session.isAuthenticated}}
-				<button {{action 'like' activity}}>
-					Like
-				</button>
-				{{#if loading }}
-					{{ partial 'loading' }}
-				{{/if}}
-			{{ else}}
-				Login to Like
+			<button {{action 'like' activity}}>
+				Like
+			</button>
+			{{#if loading }}
+				{{ partial 'loading' }}
 			{{/if}}
 		{{/unless }}
 	</footer>

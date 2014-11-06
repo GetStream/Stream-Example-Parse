@@ -1,16 +1,10 @@
 <li>
 	{{#link-to 'profile' user.attributes.username}}{{user.attributes.name}}{{/link-to}}
 	<img {{ bind-attr src=user.attributes.image._url }} width="64px"/>
-	session: {{ session }}
-	auth: {{ session.isAuthenticated }} 
-	{{#if session.isAuthenticated}}
-		<button {{action 'follow' user}}>
-			Follow
-		</button>
-		{{#if loading }}
-			{{ partial 'loading' }}
-		{{/if }}
-	{{ else }}
-		<p>Login to follow</p>
-	{{/if}}
+	<button {{action 'follow' user}}>
+		Follow
+	</button>
+	{{#if loading }}
+		{{ partial 'loading' }}
+	{{/if }}
 </li>
