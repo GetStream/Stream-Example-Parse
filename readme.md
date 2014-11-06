@@ -1,7 +1,7 @@
-Stream & Parse Cloud
-====================
+Stream & Parse Cloud Code
+=========================
 
-This example helps you create activity streams & newsfeeds with Parse Cloud and [GetStream.io](https://getstream.io).
+This example helps you create activity streams & newsfeeds with [Parse Cloud Code](https://parse.com/docs/cloud_code_guide) and [GetStream.io](https://getstream.io).
 
 ###Activity Streams & Newsfeeds
 
@@ -35,16 +35,14 @@ What you can build:
 
 Parse Cloud allows you to write server side application logic and extend the functionality of your existing Parse installation. GetStream.io allows you to build scalable newsfeeds and activity streams. This example app shows how you can get them to work together.
 
-The example app is based on Ember JS and showcases a Twitter/Facebook style community.
+The example app is based on [EmberJS](http://emberjs.com/) and showcases a Twitter/Facebook style community.
 
 ### Tutorial
 
 #### Installing the Stream library
 
-The Parse Cloud ecosystem is unique. You can find the adapted client for getstream.io in /cloud/getstream.js.
-It allows you to talk to GetStream.io, the documentation for the client can be found here:
-
-https://getstream.io/docs/
+The Parse Cloud ecosystem is unique. You can find the adapted client for getstream.io in [cloud/getstream.js](https://github.com/tschellenbach/Stream-Example-Parse/blob/master/cloud/getstream.js).
+The documentation for the client can be found on [getstream.io/docs](https://getstream.io/docs/)
 
 ```
 // initialize the getstream.io client
@@ -52,14 +50,14 @@ var stream = require('cloud/getstream.js');
 var client = stream.connect(settings.streamApiKey, settings.streamApiSecret, settings.streamApp);
 ```
 
-The easiest way to get started is probably to just copy over this entire repo.
+The easiest way to get started is to copy over this entire repo.
 
 #### Setting up the backend & syncing to getstream.io
 
 To build your activity stream you need to notifity getstream.io of 2 things:
 
-1.) When activities are added/removed
-2.) When follow relationships are changed
+1. When activities are added/removed
+2. When follow relationships are changed
 
 If you haven't tried out getstream.io before I recommend you try the getting started first:
 https://getstream.io/get_started/#intro
@@ -85,7 +83,7 @@ tweet.set('tweet', 'Happy times');
 tweet.save()
 ```
 
-Now when you call tweet.save the Parse object get's stored. You can verify by visiting the parse data browser.
+Now when you call tweet.save the Parse object is stored. You can verify by visiting the parse data browser.
 If you open your GetStream.io data browser you'll see the newly created feed containing the first activity.
 
 #### Reading feeds
@@ -102,9 +100,10 @@ var promise = Parse.Cloud.run('feed', {
 
 If you want to install this example app on your own parse instance you'll need to update a few setting files
 
-1.) cloud/settings.js
-2.) config/global.json
-3.) public/index.html (the inline config variable)
+0. signup for parse, getstream.io and create a github app (for the github login)
+1. edit cloud/settings.js
+2. edit config/global.json
+3. edit public/index.html (the inline config variable)
 
 
 
