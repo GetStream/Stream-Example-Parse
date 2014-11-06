@@ -5992,7 +5992,11 @@ StreamClient.prototype = {
             throw new errors.FeedError('Wrong feed format ' + feedId + ' correct format is flat:1');
         }
 
-        if (crypto.createHash && this.secret && !token) {
+        if (!crypto.createHash) {
+            throw new errors.FeedError('crypto is not available, are you running this on a browser?');
+        }
+
+        if (this.secret && !token) {
             // we are server side, have a secret but no feed signature
             token = signing.sign(this.secret, feedId.replace(':', ''));
         }
@@ -6044,10 +6048,6 @@ StreamClient.prototype = {
     		var signedTo = [];
     		for (var j = 0; j < to.length; j++) { 
     			var feed = to[j];
-    			console.log('secret');
-    			console.log(this.secret);
-    			console.log('key');
-    			console.log(this.key);
     			var token = this.feed(feed).token;
     			var signedFeed = feed + ' ' + token;
     			signedTo.push(signedFeed);
@@ -6086,6 +6086,7 @@ StreamClient.prototype = {
 };
 
 module.exports = StreamClient;
+
 }).call(this,_dereq_("1YiZ5S"))
 },{"./errors":26,"./feed":27,"./signing":29,"1YiZ5S":21,"crypto":4,"request":28}],26:[function(_dereq_,module,exports){
 var errors = module.exports;
@@ -6157,10 +6158,6 @@ StreamFeed.prototype = {
 		 * calls the specified callback
 		 */
 		var activity = this.client.signActivity(activity);
-		console.log('authorization');
-		console.log(this.authorization);
-		console.log('signedTo');
-		console.log(activity.to);
 		var xhr = this.client.post({
 			'url': '/api/feed/'+ this.feedUrl + '/', 
 			'body': activity,
@@ -6187,8 +6184,6 @@ StreamFeed.prototype = {
 		 * calls the specified callback
 		 */
 		var activities = this.client.signActivities(activities);
-		console.log('authorization');
-		console.log(this.authorization);
 		var data = {activities: activities};
 		var xhr = this.client.post({
 			'url': '/api/feed/'+ this.feedUrl + '/', 
