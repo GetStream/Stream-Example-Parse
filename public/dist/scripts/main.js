@@ -145,10 +145,13 @@ App.AppActivityComponent = Ember.Component.extend({
             var like = new Like();
             var user = Parse.User.current();
             // polymorphism is weird with parse
-            var activity = component.get('activity.foreign_id_parse');
-            var activity_type = activity.className;
-            var activity_field = 'activity_' + activity.className;
-            like.set(activity_field, activity);
+            var activity = component.get('activity');
+            var parseActivity = component.get('activity.foreign_id_parse');
+            var activityType = parseActivity.className;
+            var activityField = 'activity_' + activityType;
+            like.set(activityField, parseActivity);
+            var streamActivityId = activity.id;
+            like.set('activityId', streamActivityId);
             like.set('to', ['user:all']);
             
             // configure which feed to write to

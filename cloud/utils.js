@@ -57,7 +57,11 @@ function enrich(activities) {
 	 */
 	// Find all the references and add them to the lookup object
 	var lookup = {};
+	var activityIds = [];
+	var currentUser = Parse.User.current();
+
 	_.each(activities, function(activity) {
+		activityIds.push(activity.id);
 		_.each(activity, function(value, field) {
 			if (value && value.indexOf('ref') === 0) {
 				var parts = value.split(':');
@@ -69,8 +73,22 @@ function enrich(activities) {
 		});
 	});
 
-	// Query all the needed data in parallel and wait for results
+	// we add all the neccesary queries to this list of promises
 	var promises = [];
+
+	// Query which activities the user already likes
+	if (currentUser) {
+		var doILikeQuery = new Parse.Query('Like');
+		doILikeQuery.containedIn('activity_id', activityIds);
+		doILikeQuery.equalTo('actor', currentUser);
+		var likePromise = doILikeQuery.find();
+		promises.push(doILikeQuery);
+	} else {
+		var doILikeQuery = Parse.Promise.as([]);
+		promises.push(doILikeQuery);
+	}
+
+	// Query all the needed data in parallel and wait for results
 	_.each(lookup, function(ids, className) {
 		var query = new Parse.Query(normalizeModelClass(className));
 		query.containedIn("objectId", ids);
@@ -82,7 +100,16 @@ function enrich(activities) {
 	// Transform the queries into dictionaries
 	// And add the data to the response
 	var promise = all.then(function() {
-		var resultSets = _.toArray(arguments);
+		var doILikeResult = _.toArray(arguments)[0];
+		// convert the do i like into an object
+		var doILikeHash = {};
+		_.each(doILikeResult, function(like) {
+			//var activityId = like.get('activityId');
+			//doILikeHash[activityId] = like;
+		});
+
+		// create the result hash
+		var resultSets = _.toArray(arguments).slice(1);
 		var resultHash = {};
 		_.each(resultSets, function(results) {
 			if (results.length) {
@@ -95,6 +122,9 @@ function enrich(activities) {
 
 		// now we set the data
 		_.each(activities, function(activity) {
+			// set the liked state
+			activity.liked = activity.id in doILikeHash;
+
 			_.each(activity, function(value, field) {
 				if (value && value.indexOf('ref') === 0) {
 					var parts = value.split(':');

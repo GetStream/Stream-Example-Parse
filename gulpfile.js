@@ -85,13 +85,11 @@ var libsSrc = [
   	'bower_components/ember-data/ember-data.js',
   	'js/libs/ember-parse-adapter.js',
   	'bower_components/getstream/dist/js/getstream.js',
-  	//'js/libs/require.js',
   	'bower_components/ember-simple-auth/simple-auth.js',
 ];
 
 gulp.task('libs_dev', function() {
   return gulp.src(libsSrc)
-  	.pipe(plumber({'errorHandler': plumberError}))
     .pipe(concat('libs.js').on('error', gutil.log))
     .pipe(gulp.dest('public/dist/scripts').on('error', gutil.log));
 });
