@@ -447,15 +447,34 @@ function program9(depth0,data) {
 function program11(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n			<button ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "like", "activity", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
-  data.buffer.push(">\n				Like\n			</button>\n			");
-  stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\n			");
+  stack1 = helpers['if'].call(depth0, "activity.liked", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(14, program14, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n			");
+  stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(16, program16, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n		");
   return buffer;
   }
 function program12(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n				<button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "unlike", "activity", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n					Unlike\n				</button>\n			");
+  return buffer;
+  }
+
+function program14(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n				<button ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "like", "activity", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n					Like\n				</button>\n			");
+  return buffer;
+  }
+
+function program16(depth0,data) {
   
   var buffer = '', helper, options;
   data.buffer.push("\n				");
@@ -464,7 +483,7 @@ function program12(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<li class=\"activity\">\n\n	<div class=\"activity-detail\">\n		");
+  data.buffer.push("<li class=\"activity\">\n\n	<div class=\"activity-detail\">\n		\n		");
   stack1 = helpers['if'].call(depth0, "isTweet", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n\n		");

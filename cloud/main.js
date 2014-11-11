@@ -25,6 +25,8 @@ _.each(settings.activityModels, function(model) {
 		var activity = utils.parseToActivity(request.object);
 		var feed = client.feed(activity.feed_slug, activity.feed_user_id);
 		// remove by foreign id
+		console.log('foreignId');
+		console.log(activity.foreign_id);
 		feed.removeActivity({
 			foreignId : activity.foreign_id
 		}, utils.createHandler());

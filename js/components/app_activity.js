@@ -1,5 +1,6 @@
 App.AppActivityComponent = Ember.Component.extend({
 	likeAction: 'like',
+	unlikeAction: 'unlike',
 	
 	loading: false,
 	isTweet : Ember.computed.equal('activity.verb', 'tweet'),
@@ -16,7 +17,7 @@ App.AppActivityComponent = Ember.Component.extend({
 	likedActivity: function() {
 		var likeActivity = this.get('activity.object_parse');
 		if (likeActivity) {
-			var activityType = likeActivity.get('activity_type');
+			var activityType = likeActivity.get('activityType');
 			var activity = likeActivity.get('activity_' + activityType);
 			return activity;
 		}
@@ -37,13 +38,18 @@ App.AppActivityComponent = Ember.Component.extend({
 		}
 	}.property('activity'),
 	
+	userImageUrl: function() {
+		var parseObject = this.get('activity.actor_parse.attributes.image._url');
+		return parseObject;
+	}.property('activity'),
+	
 	followImageUrl: function() {
 		var parseObject = this.get('activity.object_parse.attributes.image._url');
 		return parseObject;
 	}.property('activity'),
 	
 	likedActivity: function() {
-		var activityType = this.get('activity.object_parse.attributes.activity_type');
+		var activityType = this.get('activity.object_parse.attributes.activityType');
 		var activity = this.get('activity.object_parse.attributes.activity_' + activityType);
 		return activity;
 	}.property('activity'),
@@ -76,12 +82,36 @@ App.AppActivityComponent = Ember.Component.extend({
 			}, {
 				success : function(object) {
 					component.set('loading', false);
+					component.set('activity.liked', true);
 					console.log('saved like');
 				},
 				error : function(model, error) {
 					component.set('loading', false);
 					console.log('error like');
 				}
+			});
+		},
+		unlike: function() {
+			var component = this;
+			component.set('loading', true);
+			var activity = component.get('activity');
+			var currentUser = Parse.User.current();
+			var doILikeQuery = new Parse.Query('Like');
+			doILikeQuery.equalTo('activityId', activity.id);
+			doILikeQuery.equalTo('actor', currentUser);
+			var likePromise = doILikeQuery.find();
+			likePromise.then(function(results) {
+				var promises = [];
+				if (results.length) {
+					_.each(results, function(like) {
+						promises.push(like.destroy());
+					});
+				}
+				var all = Parse.Promise.when(promises);
+				all.then(function() {
+					component.set('loading', false);
+					component.set('activity.liked', false);
+				});
 			});
 		}
 	}

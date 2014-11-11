@@ -58,8 +58,6 @@ function enrich(activities) {
 	// Find all the references and add them to the lookup object
 	var lookup = {};
 	var activityIds = [];
-	
-
 	_.each(activities, function(activity) {
 		activityIds.push(activity.id);
 		_.each(activity, function(value, field) {
@@ -83,7 +81,7 @@ function enrich(activities) {
 		doILikeQuery.containedIn('activityId', activityIds);
 		doILikeQuery.equalTo('actor', currentUser);
 		var likePromise = doILikeQuery.find();
-		promises.push(doILikeQuery);
+		promises.push(likePromise);
 	} else {
 		var doILikeQuery = Parse.Promise.as([]);
 		promises.push(doILikeQuery);
@@ -124,9 +122,6 @@ function enrich(activities) {
 
 		// now we set the data
 		_.each(activities, function(activity) {
-			// set the liked state
-			activity.liked = activity.id in doILikeHash;
-
 			_.each(activity, function(value, field) {
 				if (value && value.indexOf('ref') === 0) {
 					var parts = value.split(':');
@@ -134,6 +129,9 @@ function enrich(activities) {
 					activity[field + '_parse'] = parseModels && parseModels[parts[2]];
 				}
 			});
+			// set the liked state
+			activity.liked = activity.id in doILikeHash;
+
 		});
 		return activities;
 	}, function() {
@@ -150,7 +148,7 @@ function createHandler(response) {
 	 * Default error handling behaviour for async requests
 	 */
 	function errorHandler(result) {
-		if (result.data.exception) {
+		if (result && result.data && result.data.exception) {
 			var msg = 'GetStream.io ' + result.data.exception + ':' + result.data.detail;
 			console.error(msg);
 			// afterSave doesnt have the response object available

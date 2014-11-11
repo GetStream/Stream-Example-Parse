@@ -1,6 +1,7 @@
 <li class="activity">
 
 	<div class="activity-detail">
+		
 		{{# if isTweet }}
 		<p>
 			Tweet: {{ activity.object_parse.attributes.tweet }}
@@ -33,9 +34,15 @@
 			<span class="ago">{{ ago }}</span>
 		</p>
 		{{# unless isLike }}
-			<button {{action 'like' activity}}>
-				Like
-			</button>
+			{{#if activity.liked }}
+				<button {{action 'unlike' activity}}>
+					Unlike
+				</button>
+			{{else }}
+				<button {{action 'like' activity}}>
+					Like
+				</button>
+			{{/if}}
 			{{#if loading }}
 				{{ partial 'loading' }}
 			{{/if}}
