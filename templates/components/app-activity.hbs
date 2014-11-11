@@ -29,13 +29,20 @@
 	{{/if }}  
   <div class="activity-actions">
 	{{# unless isLike }}
-		<a class="pull-right upper" {{action 'like' activity}}>
-			Like
-		</a>
-		{{#if loading }}
-			{{ partial 'loading' }}
-		{{/if}}
-	{{/unless }}  	
+			{{#if activity.liked }}
+				<a class="pull-right upper" {{action 'unlike' activity}}>
+					Unlike
+				</a>
+			{{else }}
+				<a class="pull-right upper" {{action 'like' activity}}>
+					Like
+				</a>
+			{{/if}}
+			{{#if loading }}
+				{{ partial 'loading' }}
+			{{/if}}
+		{{/unless }}
     <span class="icon-thumbs-up"></span> x 10
   </div>
 </li> 
+

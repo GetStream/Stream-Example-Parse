@@ -447,20 +447,39 @@ function program9(depth0,data) {
 function program11(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n		<a class=\"pull-right upper\" ");
-  data.buffer.push(escapeExpression(helpers.action.call(depth0, "like", "activity", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
-  data.buffer.push(">\n			Like\n		</a>\n		");
-  stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
+  data.buffer.push("\n			");
+  stack1 = helpers['if'].call(depth0, "activity.liked", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(14, program14, data),fn:self.program(12, program12, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n	");
+  data.buffer.push("\n			");
+  stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(16, program16, data),contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n		");
   return buffer;
   }
 function program12(depth0,data) {
   
+  var buffer = '';
+  data.buffer.push("\n				<a class=\"pull-right upper\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "unlike", "activity", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n					Unlike\n				</a>\n			");
+  return buffer;
+  }
+
+function program14(depth0,data) {
+  
+  var buffer = '';
+  data.buffer.push("\n				<a class=\"pull-right upper\" ");
+  data.buffer.push(escapeExpression(helpers.action.call(depth0, "like", "activity", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0,depth0],types:["STRING","ID"],data:data})));
+  data.buffer.push(">\n					Like\n				</a>\n			");
+  return buffer;
+  }
+
+function program16(depth0,data) {
+  
   var buffer = '', helper, options;
-  data.buffer.push("\n			");
+  data.buffer.push("\n				");
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "loading", options) : helperMissing.call(depth0, "partial", "loading", options))));
-  data.buffer.push("\n		");
+  data.buffer.push("\n			");
   return buffer;
   }
 
@@ -492,7 +511,7 @@ function program12(depth0,data) {
   data.buffer.push("  \n  <div class=\"activity-actions\">\n	");
   stack1 = helpers.unless.call(depth0, "isLike", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("  	\n    <span class=\"icon-thumbs-up\"></span> x 10\n  </div>\n</li> \n");
+  data.buffer.push("\n    <span class=\"icon-thumbs-up\"></span> x 10\n  </div>\n</li> \n\n");
   return buffer;
   
 });
