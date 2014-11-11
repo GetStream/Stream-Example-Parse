@@ -1,44 +1,41 @@
-<li class="activity">
-
-	<div class="activity-detail">
-		{{# if isTweet }}
-		<p>
-			Tweet: {{ activity.object_parse.attributes.tweet }}
-		</p>
-		{{/if }}
-
-		{{# if isUpload }}
-		<div>
-			<img {{ bind-attr src=imageUrl}} width="200px"/>
-			{{ activity.object_parse.attributes.tweet }}	
-		</div>
-		
-		{{/if }}
-
-		{{# if isLike }}
+<li class="activity-container">
+  <img {{ bind-attr src=userImageUrl }} class="actor">
+  <div class="activity-time">
+    {{ ago }} <span class="icon-clock"></span>
+  </div>              
+  <div class="activity-text">
+    {{#link-to 'profile' username}}{{username}}{{/link-to}} {{ activity.verb }}
+  </div>
+  {{# if activity.object_parse.attributes.tweet }}
+  <div class="activity-content">
+    {{ activity.object_parse.attributes.tweet }}
+  </div>
+  {{/if }}
+  {{# if isUpload }}
+  	<img class="activity-image" {{ bind-attr src=imageUrl}}>
+	{{/if }}
+	{{# if isLike }}
+		<div class="activity-content">
 			{{ username }} likes a {{ likedActivity.className }} activity
-		{{/if }}
-		
-		{{# if isFollow }}
+		</div>
+	{{/if }}
+	
+	{{# if isFollow }}
+		<div class="activity-content">
 			{{ activity.actor_parse.attributes.username }} followed
 			{{ activity.object_parse.attributes.username }}
 			<img {{ bind-attr src=followImageUrl}} width="150px"/>
-		{{/if }}
-	</div>
-
-	<footer>
-		<p>
-			<span class="verb">{{ activity.verb }}</span>
-			by {{#link-to 'profile' username}}{{username}}{{/link-to}}
-			<span class="ago">{{ ago }}</span>
-		</p>
-		{{# unless isLike }}
-			<button {{action 'like' activity}}>
-				Like
-			</button>
-			{{#if loading }}
-				{{ partial 'loading' }}
-			{{/if}}
-		{{/unless }}
-	</footer>
-</li>
+		</div>
+	{{/if }}  
+  <div class="activity-actions">
+	{{# unless isLike }}
+		<a class="pull-right upper" {{action 'like' activity}}>
+			Like
+		</a>
+		{{#if loading }}
+			{{ partial 'loading' }}
+		{{/if}}
+	{{/unless }}  	
+    <span class="icon-thumbs-up"></span> x 10
+  </div>
+</li> 
