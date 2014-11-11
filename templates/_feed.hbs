@@ -6,11 +6,11 @@
 	
 	{{# if feed.activities }}
 	
-		<ol>
+		<ul>
 			{{# each feed.activities }}
 				{{app-activity activity=this }}
 			{{/each }}
-		</ol>
+		</ul>
 	{{/if }}
 	{{#unless feed.activities }}
 		<div class="empty">

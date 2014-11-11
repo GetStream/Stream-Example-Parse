@@ -17,6 +17,9 @@ html, body {
 	min-height: 100%;
 	padding: 15px;
 }
+.panel.feed {
+	min-height: 1000px;
+}
 .centered {
 	text-align: center;
 }
@@ -38,7 +41,11 @@ a:hover, a:active {
 	color: #8CC63E;	
 	opacity: 0.8;
 }
-
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
 .logo-container {
 	padding: 30px;
 }

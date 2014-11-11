@@ -15,10 +15,10 @@ function program1(depth0,data) {
 function program3(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n	\n		<ol>\n			");
+  data.buffer.push("\n	\n		<ul>\n			");
   stack1 = helpers.each.call(depth0, "feed.activities", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n		</ol>\n	");
+  data.buffer.push("\n		</ul>\n	");
   return buffer;
   }
 function program4(depth0,data) {
@@ -208,7 +208,7 @@ function program24(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("	<div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-md-4\">\n            <div class=\"logo-container centered\">\n              <img src=\"images/logo.png\" alt=\"\">\n            </div>\n            <div class=\"activity-container\">\n              <img src=\"images/profile-pic.png\" class=\"actor\">\n              <div class=\"form-group\">\n                <textarea class=\"form-control\" rows=\"3\" placeholder=\"What are you looking at?\"></textarea>\n              </div>\n              <div class=\"form-group\">\n                <div class=\"col-sm-6\"><button class=\"btn btn-default\"><span class=\"icon-image\"></span> Add image</button></div>\n                <div class=\"col-sm-6\"><button class=\"btn btn-primary table-cell\">Share</button></div>\n              </div>\n            </div>\n        </div>\n        <div class=\"col-md-4 tight\">\n          <div class=\"panel\">\n            <h1 class=\"centered upper\">People you follow</h1>\n            <div class=\"activity-container\">\n              <img src=\"images/profile-pic.png\" class=\"actor\">\n              <div class=\"activity-time\">\n                3 sec <span class=\"icon-clock\"></span>\n              </div>              \n              <div class=\"activity-text\">\n                Thierry shared\n              </div>\n              <div class=\"activity-content\">\n                Red roses and a smoking hot cup of coffee\n              </div>\n              <div class=\"activity-actions\">\n                <a href=\"#\" class=\"pull-right upper\">like</a>\n                <span class=\"icon-thumbs-up\"></span> x 10\n              </div>              \n            </div>            \n            <div class=\"activity-container\">\n              <img src=\"images/profile-pic.png\" class=\"actor\">\n              <div class=\"activity-time\">\n                3 sec <span class=\"icon-clock\"></span>\n              </div>              \n              <div class=\"activity-text\">\n                Thijs shared\n              </div>\n              <div class=\"activity-content\">\n                The venice of the north!\n              </div>\n              <img class=\"activity-image\" src=\"images/temp1.png\">\n              <div class=\"activity-actions\">\n                <a href=\"#\" class=\"pull-right upper\">like</a>\n                <span class=\"icon-thumbs-up\"></span> x 10\n              </div>\n            </div> \n            <div class=\"activity-container\">\n              <img src=\"images/profile-pic.png\" class=\"actor\">\n              <div class=\"activity-time\">\n                3 sec <span class=\"icon-clock\"></span>\n              </div>\n              <div class=\"activity-text\">\n                Tommaso shared \n              </div>\n              <img class=\"activity-image\" src=\"images/temp2.png\">\n              <div class=\"activity-actions\">\n                <a href=\"#\" class=\"pull-right upper\">like</a>\n                <span class=\"icon-thumbs-up\"></span> x 10\n              </div>              \n            </div>               \n          </div>\n        </div>\n        <div class=\"col-md-4 tight\">\n          <div class=\"panel\">\n            <h1 class=\"centered upper\">Everyone</h1>\n            <div class=\"activity-container\">\n              <img src=\"images/profile-pic.png\" class=\"actor\">\n              <div class=\"activity-time\">\n                3 sec <span class=\"icon-clock\"></span>\n              </div>              \n              <div class=\"activity-text\">\n                Ashton Kutcher shared\n              </div>\n              <div class=\"activity-content\">\n                Baby momma!\n              </div>\n              <img class=\"activity-image\" src=\"images/temp3.png\">\n              <div class=\"activity-actions\">\n                <a href=\"#\" class=\"pull-right upper\">like</a>\n                <span class=\"icon-thumbs-up\"></span> x 192\n              </div>\n            </div>\n            <div class=\"activity-container\">\n              <img src=\"images/profile-pic.png\" class=\"actor\">\n              <div class=\"activity-time\">\n                3 sec <span class=\"icon-clock\"></span>\n              </div>              \n              <div class=\"activity-text\">\n                B. Maddoff shared\n              </div>\n              <div class=\"activity-content\">\n                See you in 10 to life!\n              </div>\n              <img class=\"activity-image\" src=\"images/temp4.png\">\n              <div class=\"activity-actions\">\n                <a href=\"#\" class=\"pull-right upper\">like</a>\n                <span class=\"icon-thumbs-up\"></span> x 10\n              </div>\n            </div>                         \n          </div>\n        </div>\n      </div>\n    </div><!-- /.container -->\n\n\n<div class=\"container\">\n	<div class=\"row clearfix\">\n		<div class=\"col-md-12 column\">\n			<nav class=\"navbar navbar-default\" role=\"navigation\">\n				<div class=\"navbar-header\">\n					<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n						<span class=\"sr-only\">Toggle navigation</span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>\n					</button>\n				</div>	\n				\n				<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n					<ul class=\"nav navbar-nav\">\n						");
+  data.buffer.push("<div class=\"container\">\n	<div class=\"row clearfix\">\n		<div class=\"col-md-12 column\">\n			<nav class=\"navbar navbar-default\" role=\"navigation\">\n				<div class=\"navbar-header\">\n					<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n						<span class=\"sr-only\">Toggle navigation</span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>\n					</button>\n				</div>	\n				\n				<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n					<ul class=\"nav navbar-nav\">\n						");
   stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{
     'tagName': ("li"),
     'href': (false)
@@ -247,30 +247,30 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n						<button ");
+  data.buffer.push("\n							<button ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "status", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Update Status</button>\n						");
+  data.buffer.push(">Update Status</button>\n							");
   stack1 = helpers['if'].call(depth0, "errors.status", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(2, program2, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n					");
+  data.buffer.push("\n						");
   return buffer;
   }
 function program2(depth0,data) {
   
   var buffer = '', stack1;
-  data.buffer.push("\n						");
+  data.buffer.push("\n							");
   stack1 = helpers._triageMustache.call(depth0, "errors.status", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n						");
+  data.buffer.push("\n							");
   return buffer;
   }
 
 function program4(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\n						<a ");
+  data.buffer.push("\n							<a ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "login", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
-  data.buffer.push(">Login with Github</a> to share your status\n					");
+  data.buffer.push(">Login with Github</a> to share your status\n						");
   return buffer;
   }
 
@@ -285,6 +285,30 @@ function program6(depth0,data) {
 
 function program8(depth0,data) {
   
+  var buffer = '', stack1;
+  data.buffer.push("\n	       		");
+  stack1 = helpers['with'].call(depth0, "model.flatFeed", "as", "feed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(9, program9, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n			");
+  return buffer;
+  }
+function program9(depth0,data) {
+  
+  var buffer = '', helper, options;
+  data.buffer.push("\n					");
+  data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "feed", options) : helperMissing.call(depth0, "partial", "feed", options))));
+  data.buffer.push("\n				");
+  return buffer;
+  }
+
+function program11(depth0,data) {
+  
+  
+  data.buffer.push("\n				Login!\n			");
+  }
+
+function program13(depth0,data) {
+  
   var buffer = '', helper, options;
   data.buffer.push("\n				");
   data.buffer.push(escapeExpression((helper = helpers.partial || (depth0 && depth0.partial),options={hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "feed", options) : helperMissing.call(depth0, "partial", "feed", options))));
@@ -292,27 +316,28 @@ function program8(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("	<div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-md-4\">\n            <div class=\"logo-container centered\">\n              <img src=\"images/logo.png\" alt=\"\">\n            </div>\n            <div id=\"update_status\">\n				<form>\n					<div>\n						Update your status\n					</div>\n					<div>\n						");
+  data.buffer.push("	<div class=\"container\">\n      <div class=\"row\">\n        <div class=\"col-md-4\">\n            <div class=\"logo-container centered\">\n              <img src=\"images/logo.png\" alt=\"\">\n            </div>\n			<div class=\"activity-container\">\n                <img src=\"images/profile-pic.png\" class=\"actor\">\n	            <div id=\"update_status\">\n					<form>\n						<div class=\"form-group\">\n							");
   data.buffer.push(escapeExpression((helper = helpers.textarea || (depth0 && depth0.textarea),options={hash:{
     'value': ("status"),
     'cols': ("40"),
     'rows': ("3"),
-    'placeholder': ("What's on your mind?")
-  },hashTypes:{'value': "ID",'cols': "STRING",'rows': "STRING",'placeholder': "STRING"},hashContexts:{'value': depth0,'cols': depth0,'rows': depth0,'placeholder': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
-  data.buffer.push("\n					</div>\n					<div>\n						Or upload an image\n						<input type=\"file\" id=\"profilePhotoFileUpload\">\n					</div>\n					\n					");
+    'placeholder': ("What are you looking at?"),
+    'class': ("form-control")
+  },hashTypes:{'value': "ID",'cols': "STRING",'rows': "STRING",'placeholder': "STRING",'class': "STRING"},hashContexts:{'value': depth0,'cols': depth0,'rows': depth0,'placeholder': depth0,'class': depth0},contexts:[],types:[],data:data},helper ? helper.call(depth0, options) : helperMissing.call(depth0, "textarea", options))));
+  data.buffer.push("\n						</div>\n						<div>\n							Or upload an image\n							<input type=\"file\" id=\"profilePhotoFileUpload\">\n						</div>\n		                <div class=\"form-group\">\n		                  <div class=\"col-sm-6\"><button class=\"btn btn-default\"><span class=\"icon-image\"></span> Add image</button></div>\n		                  <div class=\"col-sm-6\"><button class=\"btn btn-primary table-cell\">Share</button></div>\n		                </div>						\n						\n						");
   stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(4, program4, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n				</form>\n			</div>\n			\n        </div>\n        <div class=\"col-md-4 tight\">\n          <div class=\"panel\">\n            <h1 class=\"centered upper\">People you follow</h1>\n            ");
+  data.buffer.push("\n					</form>\n				</div>\n			</div>\n        </div>\n        <div class=\"col-md-4 tight\">\n          <div class=\"panel feed\">\n            <h1 class=\"centered upper\">People you follow</h1>\n            ");
   stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n       		");
-  stack1 = helpers['with'].call(depth0, "model.flatFeed", "as", "feed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  data.buffer.push("\n			");
+  stack1 = helpers['if'].call(depth0, "model.flatFeed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(8, program8, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n          </div>\n        </div>\n        <div class=\"col-md-4 tight\">\n          <div class=\"panel\">\n            <h1 class=\"centered upper\">Everyone</h1>\n			");
+  data.buffer.push("\n          </div>\n        </div>\n        <div class=\"col-md-4 tight\">\n          <div class=\"panel feed\">\n            <h1 class=\"centered upper\">Everyone</h1>\n			");
   stack1 = helpers['if'].call(depth0, "loading", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(6, program6, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("            \n	        ");
-  stack1 = helpers['with'].call(depth0, "model.globalFeed", "as", "feed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(8, program8, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
+  stack1 = helpers['with'].call(depth0, "model.globalFeed", "as", "feed", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(13, program13, data),contexts:[depth0,depth0,depth0],types:["ID","ID","ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n          </div>\n        </div>\n      </div>\n    </div><!-- /.container -->");
   return buffer;
