@@ -58,7 +58,7 @@ function enrich(activities) {
 	// Find all the references and add them to the lookup object
 	var lookup = {};
 	var activityIds = [];
-	var currentUser = Parse.User.current();
+	
 
 	_.each(activities, function(activity) {
 		activityIds.push(activity.id);
@@ -77,9 +77,10 @@ function enrich(activities) {
 	var promises = [];
 
 	// Query which activities the user already likes
+	var currentUser = Parse.User.current();
 	if (currentUser) {
 		var doILikeQuery = new Parse.Query('Like');
-		doILikeQuery.containedIn('activity_id', activityIds);
+		doILikeQuery.containedIn('activityId', activityIds);
 		doILikeQuery.equalTo('actor', currentUser);
 		var likePromise = doILikeQuery.find();
 		promises.push(doILikeQuery);
@@ -99,14 +100,15 @@ function enrich(activities) {
 	
 	// Transform the queries into dictionaries
 	// And add the data to the response
-	var promise = all.then(function() {
-		var doILikeResult = _.toArray(arguments)[0];
+	var promise = all.then(function(doILikeResult) {
 		// convert the do i like into an object
 		var doILikeHash = {};
-		_.each(doILikeResult, function(like) {
-			//var activityId = like.get('activityId');
-			//doILikeHash[activityId] = like;
-		});
+		if (doILikeResult.length) {
+			_.each(doILikeResult, function(like) {
+				var activityId = like.get('activityId');
+				doILikeHash[activityId] = like;
+			});
+		};
 
 		// create the result hash
 		var resultSets = _.toArray(arguments).slice(1);

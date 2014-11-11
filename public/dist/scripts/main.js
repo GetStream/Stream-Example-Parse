@@ -162,7 +162,7 @@ App.AppActivityComponent = Ember.Component.extend({
 				actor : user,
 				verb : 'like',
 				// the activity you like
-				activity_type : activity_type
+				activity_type : activityType
 			}, {
 				success : function(object) {
 					component.set('loading', false);
