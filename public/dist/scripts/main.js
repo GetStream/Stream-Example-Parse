@@ -151,9 +151,11 @@ App.AppActivityComponent = Ember.Component.extend({
             like.set(activity_field, activity);
             like.set('to', ['user:all']);
             
+            // configure which feed to write to
+			like.set('feedSlug', 'user');
+			like.set('feedUserId', user.id);
+            
 			like.save({
-				// write to the user feed
-				feedId: 'user:' + user.id,
 				actor : user,
 				verb : 'like',
 				// the activity you like
@@ -188,10 +190,13 @@ App.AppUserComponent = Ember.Component.extend({
 			var currentUser = Parse.User.current();
 			var controller = this;
 			controller.set('loading', true);
+			
+            // configure which feed to write to
+			follow.set('feedSlug', 'user');
+			follow.set('feedUserId', currentUser.id);
+			
 			follow.set('to', ['user:all']);
 			follow.save({
-				// write to the user feed
-				feedId : 'user:' + currentUser.id,
 				actor : currentUser,
 				verb : 'follow',
 				object : user
@@ -308,7 +313,9 @@ App.IndexController = Ember.Controller.extend({
 				
 				var user = Parse.User.current();
 				// we write to the user feed
-				update.set('feedId', 'user:' + user.id);
+				update.set('feedSlug', 'user');
+				update.set('feedUserId', user.id);
+				// the feed data
 				update.set('actor', user);
 				update.set('verb', verb);
 				update.set('tweet', msg);

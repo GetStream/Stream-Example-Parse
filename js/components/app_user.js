@@ -9,10 +9,13 @@ App.AppUserComponent = Ember.Component.extend({
 			var currentUser = Parse.User.current();
 			var controller = this;
 			controller.set('loading', true);
+			
+            // configure which feed to write to
+			follow.set('feedSlug', 'user');
+			follow.set('feedUserId', currentUser.id);
+			
 			follow.set('to', ['user:all']);
 			follow.save({
-				// write to the user feed
-				feedId : 'user:' + currentUser.id,
 				actor : currentUser,
 				verb : 'follow',
 				object : user

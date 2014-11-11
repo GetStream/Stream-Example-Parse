@@ -45,7 +45,8 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 	// default to the activity if object is not specified
 	activity.object = serializeId(parseObject.get('object') || parseObject);
 	activity.foreign_id = serializeId(parseObject);
-	activity.feed_id = parseObject.get('feedId');
+	activity.feed_slug = parseObject.get('feedSlug');
+	activity.feed_user_id = parseObject.get('feedUserId');
 	return activity;
 };
 

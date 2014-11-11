@@ -61,9 +61,11 @@ App.AppActivityComponent = Ember.Component.extend({
             like.set(activity_field, activity);
             like.set('to', ['user:all']);
             
+            // configure which feed to write to
+			like.set('feedSlug', 'user');
+			like.set('feedUserId', user.id);
+            
 			like.save({
-				// write to the user feed
-				feedId: 'user:' + user.id,
 				actor : user,
 				verb : 'like',
 				// the activity you like

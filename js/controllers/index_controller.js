@@ -62,7 +62,9 @@ App.IndexController = Ember.Controller.extend({
 				
 				var user = Parse.User.current();
 				// we write to the user feed
-				update.set('feedId', 'user:' + user.id);
+				update.set('feedSlug', 'user');
+				update.set('feedUserId', user.id);
+				// the feed data
 				update.set('actor', user);
 				update.set('verb', verb);
 				update.set('tweet', msg);

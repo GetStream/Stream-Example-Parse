@@ -16,14 +16,14 @@ _.each(settings.activityModels, function(model) {
 	Parse.Cloud.afterSave(model, function(request) {
 		// trigger fanout
 		var activity = utils.parseToActivity(request.object);
-		feed = client.feed(activity.feed_id);
+		feed = client.feed(activity.feed_slug, activity.feed_user_id);
 		feed.addActivity(activity, utils.createHandler());
 	});
 
 	Parse.Cloud.afterDelete(model, function(request) {
 		// trigger fanout to remove
 		var activity = utils.parseToActivity(request.object);
-		feed = client.feed(activity.feed_id);
+		feed = client.feed(activity.feed_slug, activity.feed_user_id);
 		// remove by foreign id
 		feed.removeActivity({
 			foreignId : activity.foreign_id
@@ -41,21 +41,21 @@ Parse.Cloud.afterSave(settings.followModel, function(request) {
 	user1 = client.feed(activity.feed_id);
 	user1.addActivity(activity, utils.createHandler());
 	// flat feed of user will follow user feed of target
-	flat1 = client.feed('flat:' + parseObject.get('actor').id);
-	flat1.follow('user:' + parseObject.get('object').id, utils.createHandler());
+	flat1 = client.feed('flat', parseObject.get('actor').id);
+	flat1.follow('user', parseObject.get('object').id, utils.createHandler());
 });
 
 Parse.Cloud.afterDelete(settings.followModel, function(request) {
 	// trigger fanout & unfollow
 	var parseObject = request.object;
 	var activity = utils.parseToActivity(parseObject);
-	user1 = client.feed(activity.feed_id);
-	user1.removeActivity({
+	feed = client.feed(activity.feed_slug, activity.feed_user_id);
+	feed.removeActivity({
 		foreignId : activity.foreign_id
 	}, utils.createHandler());
 	// flat feed of user will follow user feed of target
-	flat1 = client.feed('flat:' + parseObject.get('actor').id);
-	flat1.unfollow('user:' + parseObject.get('object').id, utils.createHandler());
+	flat1 = client.feed('flat', parseObject.get('actor').id);
+	flat1.unfollow('user', parseObject.get('object').id, utils.createHandler());
 });
 
 /*
@@ -69,6 +69,9 @@ Parse.Cloud.afterDelete(settings.followModel, function(request) {
  */
 Parse.Cloud.define("feed", function(request, response) {
 	var feedIdentifier = request.params.feed;
+	var feedParts = feedIdentifier.split(':');
+	var feedSlug = feedParts[0];
+	var userId = feedParts[1];
 	var id_lte = request.params.id_lte || undefined;
 	var limit = request.params.limit || 20;
 	var params = {
@@ -78,7 +81,7 @@ Parse.Cloud.define("feed", function(request, response) {
 		params.id_lte = limit;
 	}
 	// initialize the feed class
-	var feed = client.feed(feedIdentifier);
+	var feed = client.feed(feedSlug, userId);
 	feed.get(params, function(httpResponse) {
 		var activities = httpResponse.data;
 		// enrich the response with the database values where needed
