@@ -1,62 +1,68 @@
-	<div class="container">
-      <div class="row">
-        <div class="col-md-4">
-            <div class="logo-container centered">
-              <img src="images/logo.png" alt="">
-            </div>
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<div class="logo-container centered">
+				<img src="images/logo.png" alt="">
+			</div>
 			<div class="activity-container">
-                <img src="images/profile-pic.png" class="actor">
-	            <div id="update_status">
+				<img src="images/profile-pic.png" class="actor">
+				<div id="update_status">
+
 					<form>
 						<div class="form-group">
 							{{textarea value=status cols="40" rows="3" placeholder="What are you looking at?" class="form-control"}}
 						</div>
-						<div>
-							Or upload an image
-							<input type="file" id="profilePhotoFileUpload">
-						</div>
-		                <div class="form-group">
-		                  <div class="col-sm-6"><button class="btn btn-default"><span class="icon-image"></span> Add image</button></div>
-		                  <div class="col-sm-6"><button class="btn btn-primary table-cell">Share</button></div>
-		                </div>						
-						
-						{{#if session.isAuthenticated}}
-							<button {{action 'status'}}>Update Status</button>
-							{{# if errors.status }}
+						<div class="form-group">
+							<div class="col-sm-12">
+								<span id="selected-image"></span>
+							</div>
+							<div class="col-sm-6">
+								{{view "customFileInput" }}
+							</div>
+							<div class="col-sm-6">
+								<button class="btn btn-primary table-cell" {{action 'status'}}>
+									Share
+								</button>
+							</div>
+
+							{{#if errors.status }}
 							{{ errors.status }}
 							{{/if }}
-						{{else}}
+							{{#if session.isAuthenticated}}
+							{{else}}
 							<a {{ action 'login' }}>Login with Github</a> to share your status
-						{{/if}}
+							{{/if}}
+						</div>
+
 					</form>
 				</div>
 			</div>
-        </div>
-        <div class="col-md-4 tight">
-          <div class="panel feed">
-            <h1 class="centered upper">People you follow</h1>
-            {{# if loading }}
+		</div>
+		<div class="col-md-4 tight">
+			<div class="panel feed">
+				<h1 class="centered upper">People you follow</h1>
+				{{# if loading }}
 				{{ partial 'loading' }}
-			{{/if }}
-			{{# if model.flatFeed }}
-	       		{{#with model.flatFeed as feed}}
-					{{ partial 'feed' }}
-				{{/with}}
-			{{ else }}
-				Login!
-			{{/if}}
-          </div>
-        </div>
-        <div class="col-md-4 tight">
-          <div class="panel feed">
-            <h1 class="centered upper">Everyone</h1>
-			{{# if loading }}
-				{{ partial 'loading' }}
-			{{/if }}            
-	        {{#with model.globalFeed as feed}}
+				{{/if }}
+				{{# if model.flatFeed }}
+				{{#with model.flatFeed as feed}}
 				{{ partial 'feed' }}
-			{{/with}}
-          </div>
-        </div>
-      </div>
-    </div><!-- /.container -->
+				{{/with}}
+				{{ else }}
+				Login!
+				{{/if}}
+			</div>
+		</div>
+		<div class="col-md-4 tight">
+			<div class="panel feed">
+				<h1 class="centered upper">Everyone</h1>
+				{{# if loading }}
+				{{ partial 'loading' }}
+				{{/if }}
+				{{#with model.globalFeed as feed}}
+				{{ partial 'feed' }}
+				{{/with}}
+			</div>
+		</div>
+	</div>
+</div><!-- /.container -->

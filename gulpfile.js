@@ -62,6 +62,7 @@ var scriptSrc = [
   	'js/components/*.js',
   	'js/controllers/*.js',
   	'js/routes/*.js',
+  	'js/views/*.js',
 ];
 
 gulp.task('scripts_dev', function() {
