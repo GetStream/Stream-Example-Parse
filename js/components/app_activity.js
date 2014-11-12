@@ -9,7 +9,8 @@ App.AppActivityComponent = Ember.Component.extend({
 	isFollow : Ember.computed.equal('activity.verb', 'follow'),
 
 	ago : function() {
-		var parsedDate = this.get('time');
+		// small hack to force UTC
+		var parsedDate = this.get('activity.time') + 'Z';
 		var ago = moment(parsedDate).fromNow();
 		return ago;
 	}.property('time'),
