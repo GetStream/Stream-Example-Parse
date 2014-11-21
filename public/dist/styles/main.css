@@ -7591,16 +7591,38 @@ html, body {
   min-height: 100%;
   font-family: 'Raleway', sans-serif;
   font-size: 12px;
-  font-weight: 200;
+  font-weight: 300;
 }
 
 /* line 9, ../../../styles/_style.scss */
+.navbar-default {
+  background-color: #8CC63E;
+  border: none;
+}
+
+/* line 13, ../../../styles/_style.scss */
+.navbar-default .navbar-nav > li > a {
+  color: #FFF !important;
+  font-weight: 700;
+}
+
+/* line 17, ../../../styles/_style.scss */
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+  color: #FFF !important;
+}
+
+/* line 20, ../../../styles/_style.scss */
+.navbar-default .navbar-nav > .active > a {
+  background-color: #B9DD7F;
+}
+
+/* line 23, ../../../styles/_style.scss */
 .tight {
   padding-right: 0px;
   padding-left: 0px;
 }
 
-/* line 14, ../../../styles/_style.scss */
+/* line 28, ../../../styles/_style.scss */
 .panel {
   box-shadow: -3px 0px 15px -3px #777777;
   border-radius: 0px;
@@ -7608,22 +7630,22 @@ html, body {
   padding: 15px;
 }
 
-/* line 20, ../../../styles/_style.scss */
+/* line 34, ../../../styles/_style.scss */
 .panel.feed {
   min-height: 1000px;
 }
 
-/* line 23, ../../../styles/_style.scss */
+/* line 37, ../../../styles/_style.scss */
 .centered {
   text-align: center;
 }
 
-/* line 26, ../../../styles/_style.scss */
+/* line 40, ../../../styles/_style.scss */
 .upper {
   text-transform: uppercase;
 }
 
-/* line 29, ../../../styles/_style.scss */
+/* line 43, ../../../styles/_style.scss */
 h1 {
   font-family: 'Raleway', sans-serif;
   font-size: 12px;
@@ -7633,37 +7655,43 @@ h1 {
   margin-top: 0px;
 }
 
-/* line 37, ../../../styles/_style.scss */
-a {
+/* line 51, ../../../styles/_style.scss */
+h2 {
   color: #8CC63E;
 }
 
-/* line 40, ../../../styles/_style.scss */
+/* line 54, ../../../styles/_style.scss */
+a {
+  color: #8CC63E;
+  cursor: pointer;
+}
+
+/* line 58, ../../../styles/_style.scss */
 a:hover, a:active {
   color: #8CC63E;
   opacity: 0.8;
 }
 
-/* line 44, ../../../styles/_style.scss */
+/* line 62, ../../../styles/_style.scss */
 ul {
   margin: 0px;
   padding: 0px;
   list-style-type: none;
 }
 
-/* line 49, ../../../styles/_style.scss */
+/* line 67, ../../../styles/_style.scss */
 .logo-container {
   padding: 30px;
 }
 
-/* line 52, ../../../styles/_style.scss */
+/* line 70, ../../../styles/_style.scss */
 .form-control {
   border: none;
   background-color: #fff;
   border-radius: 0px;
 }
 
-/* line 58, ../../../styles/_style.scss */
+/* line 76, ../../../styles/_style.scss */
 .btn {
   border: none;
   text-transform: uppercase;
@@ -7673,38 +7701,38 @@ ul {
   line-height: 12px;
 }
 
-/* line 67, ../../../styles/_style.scss */
+/* line 85, ../../../styles/_style.scss */
 .btn-primary {
   background-color: #8CC63E;
   color: #fff;
 }
 
-/* line 71, ../../../styles/_style.scss */
+/* line 89, ../../../styles/_style.scss */
 .btn-primary:hover, .btn-primary:active {
   background-color: #8CC63E;
   opacity: 0.8;
 }
 
-/* line 75, ../../../styles/_style.scss */
+/* line 93, ../../../styles/_style.scss */
 .btn-default {
   background-color: #dddddd;
   color: #000;
 }
 
-/* line 79, ../../../styles/_style.scss */
+/* line 97, ../../../styles/_style.scss */
 .btn-default:hover, .btn-default:active {
   background-color: #dddddd;
   opacity: 0.8;
 }
 
-/* line 83, ../../../styles/_style.scss */
+/* line 101, ../../../styles/_style.scss */
 .activity-container {
   position: relative;
   padding-left: 50px;
   margin-bottom: 35px;
 }
 
-/* line 88, ../../../styles/_style.scss */
+/* line 106, ../../../styles/_style.scss */
 .activity-container .actor {
   position: absolute;
   left: 0;
@@ -7712,7 +7740,7 @@ ul {
   width: 35px;
 }
 
-/* line 94, ../../../styles/_style.scss */
+/* line 112, ../../../styles/_style.scss */
 .activity-text {
   font-size: 10px;
   text-transform: uppercase;
@@ -7720,19 +7748,19 @@ ul {
   padding: 3px 0px 5px;
 }
 
-/* line 100, ../../../styles/_style.scss */
+/* line 118, ../../../styles/_style.scss */
 .activity-content {
   padding: 15px;
   background-color: #eee;
 }
 
-/* line 104, ../../../styles/_style.scss */
+/* line 122, ../../../styles/_style.scss */
 .activity-image {
   width: 100%;
   background-color: #e9e9e9;
 }
 
-/* line 108, ../../../styles/_style.scss */
+/* line 126, ../../../styles/_style.scss */
 .activity-time {
   text-align: right;
   font-weight: 100;
@@ -7741,30 +7769,30 @@ ul {
   padding-top: 3px;
 }
 
-/* line 115, ../../../styles/_style.scss */
+/* line 133, ../../../styles/_style.scss */
 .activity-actions {
   color: #999;
   font-size: 10px;
   padding-top: 4px;
 }
 
-/* line 120, ../../../styles/_style.scss */
+/* line 138, ../../../styles/_style.scss */
 .activity-actions a {
   font-weight: 700;
 }
 
-/* line 124, ../../../styles/_style.scss */
+/* line 142, ../../../styles/_style.scss */
 .form-group .btn {
   width: 100%;
 }
 
-/* line 128, ../../../styles/_style.scss */
+/* line 146, ../../../styles/_style.scss */
 .btn-file {
   position: relative;
   overflow: hidden;
 }
 
-/* line 132, ../../../styles/_style.scss */
+/* line 150, ../../../styles/_style.scss */
 .btn-file input[type=file] {
   position: absolute;
   top: 0;
@@ -7781,7 +7809,13 @@ ul {
   display: block;
 }
 
-/* line 148, ../../../styles/_style.scss */
+/* line 165, ../../../styles/_style.scss */
+.blank-slate {
+  padding: 30px;
+  text-align: center;
+}
+
+/* line 170, ../../../styles/_style.scss */
 .walkthrough-container {
   position: fixed;
   bottom: 30px;
@@ -7789,24 +7823,25 @@ ul {
   z-index: 100;
 }
 
-/* line 154, ../../../styles/_style.scss */
+/* line 176, ../../../styles/_style.scss */
 .walkthrough {
   border-radius: 5px;
   border: 3px solid #8CC63E;
   background-color: #fff;
-  width: 800px;
+  width: 90%;
+  max-width: 800px;
   margin: 0 auto;
   box-shadow: 0px 0px 5px #000000;
 }
 
-/* line 162, ../../../styles/_style.scss */
+/* line 185, ../../../styles/_style.scss */
 .wt-header {
   color: #fff;
   background-color: #8CC63E;
   padding: 15px;
 }
 
-/* line 167, ../../../styles/_style.scss */
+/* line 190, ../../../styles/_style.scss */
 .wt-header h1 {
   color: #fff;
   padding: 0px;
@@ -7814,15 +7849,27 @@ ul {
   font-size: 18px;
 }
 
-/* line 173, ../../../styles/_style.scss */
+/* line 196, ../../../styles/_style.scss */
 .wt-header a {
   color: #fff;
   opacity: 0.7;
 }
 
-/* line 177, ../../../styles/_style.scss */
+/* line 200, ../../../styles/_style.scss */
 .wt-step {
   padding: 15px;
+}
+
+/* line 203, ../../../styles/_style.scss */
+.profile-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* line 207, ../../../styles/_style.scss */
+.profile-header img {
+  border: 3px solid #fff;
+  border-radius: 100px;
 }
 
 @font-face {

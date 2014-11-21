@@ -10,8 +10,22 @@
 
 					<form>
 						<div class="form-group">
-							{{textarea value=status cols="40" rows="3" placeholder="What are you looking at?" class="form-control"}}
+							{{#if session.isAuthenticated}}
+								{{textarea value=status cols="40" rows="3" placeholder="What are you looking at?" class="form-control"}}
+							{{else }}
+								{{textarea value=status cols="40" rows="3" placeholder="What are you looking at?" class="form-control" disabled=entryNotAllowed }}
+							{{/if }}
 						</div>
+						<div class="alert alert-warning">
+							{{#if errors.status }}
+							{{ errors.status }}
+							{{/if }}
+							{{#if session.isAuthenticated}}
+							{{else}}
+							<a {{ action 'login' }}>Login with Github</a> to share your status
+							{{/if}}							
+						</div>
+						{{#if session.isAuthenticated}}
 						<div class="form-group">
 							<div class="col-sm-12">
 								<span id="selected-image"></span>
@@ -24,15 +38,8 @@
 									Share
 								</button>
 							</div>
-
-							{{#if errors.status }}
-							{{ errors.status }}
-							{{/if }}
-							{{#if session.isAuthenticated}}
-							{{else}}
-							<a {{ action 'login' }}>Login with Github</a> to share your status
-							{{/if}}
 						</div>
+						{{/if}}
 
 					</form>
 				</div>
@@ -49,7 +56,10 @@
 				{{ partial 'feed' }}
 				{{/with}}
 				{{ else }}
-				Login!
+					<div class="blank-slate">
+						Log in and follow some people to see your personalised feed!<br>&nbsp;<br>
+						<a {{ action 'login' }} class="btn btn-primary">Login with Github</a>
+					</div>
 				{{/if}}
 			</div>
 		</div>
