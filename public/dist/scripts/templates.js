@@ -577,6 +577,6 @@ helpers = this.merge(helpers, Ember.Handlebars.helpers); data = data || {};
   
 
 
-  data.buffer.push("<span class=\"btn btn-default btn-file\"> <span class=\"icon-image\"></span> Add image\n	<input type=\"file\">\n</span>");
+  data.buffer.push("<span class=\"btn btn-default btn-file\"> <span class=\"icon-image\"></span> Add image\n	<input type=\"file\" id=\"profilePhotoFileUpload\">\n</span>");
   
 });
