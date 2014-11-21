@@ -43,7 +43,7 @@
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav">
-						{{#link-to "index" tagName="li" href=false}}<a {{bind-attr href="view.href"}}>Feed</a>{{/link-to}}
+						{{#link-to "index" tagName="li" href=false}}<a {{bind-attr href="view.href"}}>Home</a>{{/link-to}}
 						{{#link-to "people" tagName="li" href=false}}<a {{bind-attr href="view.href"}}>People</a>{{/link-to}}
 						{{#if session.isAuthenticated}}
 							{{#link-to "profile" username tagName="li" href=false}}<a {{bind-attr href="view.href"}}>Profile</a>{{/link-to}}
