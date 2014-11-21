@@ -1,11 +1,19 @@
-<h2>Follow some people</h2>
+<h2 class="centered">Follow some people</h2>
 
-{{#unless session.isAuthenticated}}
-<div>
-	<a {{ action 'login' }}>Login with Github to follow people</a>
+<div class="row">
+	<div class="col-md-6 col-md-offset-3 tight">
+		<div class="panel">
+			{{#unless session.isAuthenticated}}
+			<div class="centered">
+				Log in with Github to follow people<br/>
+				<a {{ action 'login' }} class="btn btn-primary">Login</a>
+			</div>
+			{{/unless}}
+			<ul class="user-list">
+			{{# each model }}
+				{{app-user user=this session=session }}
+			{{/each }}
+			</ul>
+		</div>
+	</div>
 </div>
-{{/unless}}
-
-{{# each model }}
-	{{app-user user=this session=session }}
-{{/each }}

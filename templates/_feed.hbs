@@ -1,7 +1,9 @@
 <div class="newsfeed">
 	{{# if feed.new }}
-		Yeaaa there are new activities
-		<button {{action 'reload'}}>Show them</button>
+		<div class="alert alert-warning centered">
+			Whooooop! There are new activities!<br/>
+			<button class="btn btn-default" {{action 'reload'}}>Show them</button>
+		</div>
 	{{/if}}
 	
 	{{# if feed.activities }}

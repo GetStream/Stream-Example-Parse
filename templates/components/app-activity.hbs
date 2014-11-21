@@ -1,34 +1,41 @@
 <li class="activity-container">
-  <img {{ bind-attr src=userImageUrl }} class="actor">
-  <div class="activity-time">
-    {{ ago }} <span class="icon-clock"></span>
-  </div>              
-  <div class="activity-text">
-    {{#link-to 'profile' username}}{{username}}{{/link-to}} {{ activity.verb }}
-  </div>
-  {{# if activity.object_parse.attributes.tweet }}
-  <div class="activity-content">
-    {{ activity.object_parse.attributes.tweet }}
-  </div>
-  {{/if }}
-  {{# if isUpload }}
-  	<img class="activity-image" {{ bind-attr src=imageUrl}}>
+    <img {{ bind-attr src=userImageUrl }} class="actor">
+    
+    <div class="activity-time">
+   		{{ ago }} <span class="icon-clock"></span>
+  	</div>              
+	
+	<div class="activity-text">
+	    {{#link-to 'profile' username}}{{username}}{{/link-to}} {{ activity.verb }}
+	</div>
+
+    {{# if activity.object_parse.attributes.tweet }}
+	    <div class="activity-content">
+	        {{ activity.object_parse.attributes.tweet }}
+	    </div>
 	{{/if }}
+
+    {{# if isUpload }}
+  		<img class="activity-image" {{ bind-attr src=imageUrl}}>
+    {{/if }}
+
 	{{# if isLike }}
 		<div class="activity-content">
-			{{ username }} likes a {{ likedActivity.className }} activity
+			{{ username }} likes an {{ likedActivity.className }} activity
 		</div>
 	{{/if }}
 	
 	{{# if isFollow }}
-		<div class="activity-content">
+		<div class="activity-content centered">
 			{{ activity.actor_parse.attributes.username }} followed
-			{{ activity.object_parse.attributes.username }}
-			<img {{ bind-attr src=followImageUrl}} width="150px"/>
+			{{ activity.object_parse.attributes.username }}<br/>
+			<img {{ bind-attr src=userImageUrl }} class="user-image"> &raquo;
+			<img {{ bind-attr src=followImageUrl}} class="user-image"/>
 		</div>
-	{{/if }}  
-  <div class="activity-actions">
-	{{# unless isLike }}
+	{{/if }}
+
+  	<div class="activity-actions">
+		{{# unless isLike }}
 			{{#if activity.liked }}
 				<a class="pull-right upper" {{action 'unlike' activity}}>
 					Unlike
@@ -42,7 +49,7 @@
 				{{ partial 'loading' }}
 			{{/if}}
 		{{/unless }}
-    <span class="icon-thumbs-up"></span> x {{ activity.object_parse.likes }}
-  </div>
+    	<span class="icon-thumbs-up"></span> x {{ activity.object_parse.likes }}
+  	</div>
 </li> 
 
