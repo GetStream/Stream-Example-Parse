@@ -34,3 +34,7 @@ App.AppUserComponent = Ember.Component.extend({
 		}
 	}
 }); 
+
+App.AppUserHeaderComponent = App.AppUserComponent.extend({
+	
+});

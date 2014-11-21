@@ -1,8 +1,5 @@
-<div class="profile-header">
-	<img {{ bind-attr src=model.profile.attributes.image._url }} width="128px"/>
-	<h2 class="centered">{{ model.profile.attributes.username }}</h2>
-	<a href="#" class="btn btn-primary">FOLLOW</a>
-</div>
+{{app-user-header user=model.profile session=session }}
+
 <div class="row">
 	<div class="col-md-6 col-md-offset-3 tight">
 		<div class="panel feed">
