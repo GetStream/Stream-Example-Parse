@@ -81884,7 +81884,7 @@ exports.sign = function(secret, value) {
 });
 (function(global) {
 
-Ember.libraries.register('Ember Simple Auth', '0.6.7');
+Ember.libraries.register('Ember Simple Auth', '0.7.1');
 
 var define, requireModule;
 
@@ -82048,7 +82048,7 @@ define("simple-auth/authenticators/base",
         Authenticates the session with the specified `options`. These options vary
         depending on the actual authentication mechanism the authenticator
         implements (e.g. a set of credentials or a Facebook account id etc.). __The
-        session will invoke this method when an action in the appliaction triggers
+        session will invoke this method when an action in the application triggers
         authentication__ (see
         [SimpleAuth.AuthenticationControllerMixin.actions#authenticate](#SimpleAuth-AuthenticationControllerMixin-authenticate)).
 
@@ -82155,6 +82155,7 @@ define("simple-auth/configuration",
       authorizer:                  null,
       session:                     'simple-auth-session:main',
       store:                       'simple-auth-session-store:local-storage',
+      localStorageKey:             'ember_simple_auth:session',
       crossOriginWhitelist:        [],
       applicationRootUrl:          null
     };
@@ -82162,12 +82163,11 @@ define("simple-auth/configuration",
     /**
       Ember Simple Auth's configuration object.
 
-      To change any of these values, define a global environment object for Ember
-      Simple Auth and define the values there:
+      To change any of these values, set them on the application's environment
+      object:
 
       ```js
-      window.ENV = window.ENV || {};
-      window.ENV['simple-auth'] = {
+      ENV['simple-auth'] = {
         authenticationRoute: 'sign-in'
       };
       ```
@@ -82263,6 +82263,15 @@ define("simple-auth/configuration",
         @default simple-auth-session-store:local-storage
       */
       store: defaults.store,
+
+      /**
+        The key the store stores the data in.
+
+        @property key
+        @type String
+        @default 'ember_simple_auth:session'
+      */
+      localStorageKey: defaults.localStorageKey,
 
       /**
         Ember Simple Auth will never authorize requests going to a different origin
@@ -82503,10 +82512,17 @@ define("simple-auth/mixins/application-route-mixin",
           the Ember.js application's router (see
           http://emberjs.com/guides/routing/#toc_specifying-a-root-url).
 
+          If your Ember.js application will be used in an environment where the
+          users don't have direct access to any data stored on the client (e.g.
+          [cordova](http://cordova.apache.org)) this action can be overridden to
+          simply transition to the `'index'` route.
+
           @method actions.sessionInvalidationSucceeded
         */
         sessionInvalidationSucceeded: function() {
-          window.location.replace(Configuration.applicationRootUrl);
+          if (!Ember.testing) {
+            window.location.replace(Configuration.applicationRootUrl);
+          }
         },
 
         /**
@@ -82910,9 +82926,11 @@ define("simple-auth/session",
       */
       authenticate: function(authenticator, options) {
         Ember.assert('Session#authenticate requires the authenticator factory to be specified, was ' + authenticator, !Ember.isEmpty(authenticator));
-        var _this = this;
+        var _this            = this;
+        var theAuthenticator = this.container.lookup(authenticator);
+        Ember.assert('No authenticator for factory "' + authenticator + '" could be found', !Ember.isNone(theAuthenticator));
         return new Ember.RSVP.Promise(function(resolve, reject) {
-          _this.container.lookup(authenticator).authenticate(options).then(function(content) {
+          theAuthenticator.authenticate(options).then(function(content) {
             _this.setup(authenticator, content, true);
             resolve();
           }, function(error) {
@@ -83095,6 +83113,9 @@ define("simple-auth/setup",
     var Ephemeral = __dependency4__["default"];
 
     function extractLocationOrigin(location) {
+      if (location === '*'){
+          return location;
+      }
       if (Ember.typeOf(location) === 'string') {
         var link = document.createElement('a');
         link.href = location;
@@ -83115,7 +83136,7 @@ define("simple-auth/setup",
     var urlOrigins     = {};
     var crossOriginWhitelist;
     function shouldAuthorizeRequest(options) {
-      if (options.crossDomain === false) {
+      if (options.crossDomain === false || crossOriginWhitelist.indexOf('*') > -1) {
         return true;
       }
       var urlOrigin = urlOrigins[options.url] = urlOrigins[options.url] || extractLocationOrigin(options.url);
@@ -83127,6 +83148,8 @@ define("simple-auth/setup",
       container.register('simple-auth-session-store:ephemeral', Ephemeral);
       container.register('simple-auth-session:main', Session);
     }
+
+    var didSetupAjaxHooks = false;
 
     /**
       @method setup
@@ -83151,17 +83174,20 @@ define("simple-auth/setup",
         var authorizer = container.lookup(Configuration.authorizer);
         if (!!authorizer) {
           authorizer.set('session', session);
-          Ember.$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-            if (!authorizer.isDestroyed && shouldAuthorizeRequest(options)) {
-              jqXHR.__simple_auth_authorized__ = true;
-              authorizer.authorize(jqXHR, options);
-            }
-          });
-          Ember.$(document).ajaxError(function(event, jqXHR, setting, exception) {
-            if (!!jqXHR.__simple_auth_authorized__ && jqXHR.status === 401) {
-              session.trigger('authorizationFailed');
-            }
-          });
+          if (!didSetupAjaxHooks) {
+            Ember.$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+              if (!authorizer.isDestroyed && shouldAuthorizeRequest(options)) {
+                jqXHR.__simple_auth_authorized__ = true;
+                authorizer.authorize(jqXHR, options);
+              }
+            });
+            Ember.$(document).ajaxError(function(event, jqXHR, setting, exception) {
+              if (!!jqXHR.__simple_auth_authorized__ && jqXHR.status === 401) {
+                session.trigger('authorizationFailed');
+              }
+            });
+            didSetupAjaxHooks = true;
+          }
         }
       } else {
         Ember.Logger.info('No authorizer was configured for Ember Simple Auth - specify one if backend requests need to be authorized.');
@@ -83174,10 +83200,10 @@ define("simple-auth/setup",
     }
   });
 define("simple-auth/stores/base", 
-  ["../utils/flat-objects-are-equal","exports"],
+  ["../utils/objects-are-equal","exports"],
   function(__dependency1__, __exports__) {
     "use strict";
-    var flatObjectsAreEqual = __dependency1__["default"];
+    var objectsAreEqual = __dependency1__["default"];
 
     /**
       The base for all store types. __This serves as a starting point for
@@ -83185,12 +83211,11 @@ define("simple-auth/stores/base",
 
       Stores are used to persist the session's state so it survives a page reload
       and is synchronized across multiple tabs or windows of the same application.
-      The store to be used with the application can be configured in the global
-      configuration object:
+      The store to be used with the application can be configured on the
+      application's environment object:
 
       ```js
-      window.ENV = window.ENV || {};
-      window.ENV['simple-auth'] = {
+      ENV['simple-auth'] = {
         store: 'simple-auth-session-store:local-storage'
       }
       ```
@@ -83311,12 +83336,12 @@ define("simple-auth/stores/ephemeral",
     });
   });
 define("simple-auth/stores/local-storage", 
-  ["./base","../utils/flat-objects-are-equal","simple-auth/utils/get-global-config","exports"],
+  ["./base","../utils/objects-are-equal","../configuration","exports"],
   function(__dependency1__, __dependency2__, __dependency3__, __exports__) {
     "use strict";
     var Base = __dependency1__["default"];
-    var flatObjectsAreEqual = __dependency2__["default"];
-    var getGlobalConfig = __dependency3__["default"];
+    var objectsAreEqual = __dependency2__["default"];
+    var Configuration = __dependency3__["default"];
 
     /**
       Store that saves its data in the browser's `localStorage`.
@@ -83346,8 +83371,7 @@ define("simple-auth/stores/local-storage",
         @private
       */
       init: function() {
-        var globalConfig = getGlobalConfig('simple-auth');
-        this.key         = globalConfig.localStorageKey || this.key;
+        this.key = Configuration.localStorageKey;
 
         this.bindToStorageEvents();
       },
@@ -83395,40 +83419,13 @@ define("simple-auth/stores/local-storage",
         var _this = this;
         Ember.$(window).bind('storage', function(e) {
           var data = _this.restore();
-          if (!flatObjectsAreEqual(data, _this._lastData)) {
+          if (!objectsAreEqual(data, _this._lastData)) {
             _this._lastData = data;
             _this.trigger('sessionDataUpdated', data);
           }
         });
       }
     });
-  });
-define("simple-auth/utils/flat-objects-are-equal", 
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    /**
-      @method flatObjectsAreEqual
-      @private
-    */
-    __exports__["default"] = function(a, b) {
-      function sortObject(object) {
-        var array = [];
-        for (var property in object) {
-          array.push([property, object[property]]);
-        }
-        return array.sort(function(a, b) {
-          if (a[0] < b[0]) {
-            return -1;
-          } else if (a[0] > b[0]) {
-            return 1;
-          } else {
-            return 0;
-          }
-        });
-      }
-      return JSON.stringify(sortObject(a)) === JSON.stringify(sortObject(b));
-    }
   });
 define("simple-auth/utils/get-global-config", 
   ["exports"],
@@ -83438,21 +83435,6 @@ define("simple-auth/utils/get-global-config",
 
     __exports__["default"] = function(scope) {
       return Ember.get(global, 'ENV.' + scope) || {};
-    }
-  });
-define("simple-auth/utils/is-secure-url", 
-  ["exports"],
-  function(__exports__) {
-    "use strict";
-    /**
-      @method isSecureUrl
-      @private
-    */
-    __exports__["default"] = function(url) {
-      var link  = document.createElement('a');
-      link.href = url;
-      link.href = link.href;
-      return link.protocol == 'https:';
     }
   });
 define("simple-auth/utils/load-config", 
@@ -83473,6 +83455,54 @@ define("simple-auth/utils/load-config",
       };
     }
   });
+define("simple-auth/utils/objects-are-equal", 
+  ["exports"],
+  function(__exports__) {
+    "use strict";
+    /**
+      @method objectsAreEqual
+      @private
+    */
+    function objectsAreEqual(a, b) {
+      if (a === b) {
+        return true;
+      }
+      if (!(a instanceof Object) || !(b instanceof Object)) {
+        return false;
+      }
+      if(a.constructor !== b.constructor) {
+        return false;
+      }
+
+      for (var property in a) {
+        if (!a.hasOwnProperty(property)) {
+          continue;
+        }
+        if (!b.hasOwnProperty(property)) {
+          return false;
+        }
+        if (a[property] === b[property]) {
+          continue;
+        }
+        if (Ember.typeOf(a[property]) !== 'object') {
+          return false;
+        }
+        if (!objectsAreEqual(a[property], b[property])) {
+          return false;
+        }
+      }
+
+      for (property in b) {
+        if (b.hasOwnProperty(property) && !a.hasOwnProperty(property)) {
+          return false;
+        }
+      }
+
+      return true;
+    }
+
+    __exports__["default"] = objectsAreEqual;
+  });
 var initializer                   = requireModule('simple-auth/initializer')['default'];
 var Configuration                 = requireModule('simple-auth/configuration')['default'];
 var Session                       = requireModule('simple-auth/session')['default'];
@@ -83481,8 +83511,7 @@ var BaseAuthorizer                = requireModule('simple-auth/authorizers/base'
 var BaseStore                     = requireModule('simple-auth/stores/base')['default'];
 var LocalStorageStore             = requireModule('simple-auth/stores/local-storage')['default'];
 var EphemeralStore                = requireModule('simple-auth/stores/ephemeral')['default'];
-var flatObjectsAreEqual           = requireModule('simple-auth/utils/flat-objects-are-equal')['default'];
-var isSecureUrl                   = requireModule('simple-auth/utils/is-secure-url')['default'];
+var objectsAreEqual               = requireModule('simple-auth/utils/objects-are-equal')['default'];
 var getGlobalConfig               = requireModule('simple-auth/utils/get-global-config')['default'];
 var loadConfig                    = requireModule('simple-auth/utils/load-config')['default'];
 var ApplicationRouteMixin         = requireModule('simple-auth/mixins/application-route-mixin')['default'];
@@ -83511,10 +83540,9 @@ global.SimpleAuth = {
   },
 
   Utils: {
-    flatObjectsAreEqual: flatObjectsAreEqual,
-    isSecureUrl:         isSecureUrl,
-    getGlobalConfig:     getGlobalConfig,
-    loadConfig:          loadConfig
+    objectsAreEqual: objectsAreEqual,
+    getGlobalConfig: getGlobalConfig,
+    loadConfig:      loadConfig
   },
 
   ApplicationRouteMixin:         ApplicationRouteMixin,
@@ -83525,6 +83553,4 @@ global.SimpleAuth = {
 };
 
 requireModule('simple-auth/ember');
-
-Ember.libraries.register('Ember Simple Auth', '0.6.7');
 })((typeof global !== 'undefined') ? global : window);

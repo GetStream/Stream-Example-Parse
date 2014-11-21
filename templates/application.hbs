@@ -1,6 +1,39 @@
+<div class="walkthrough-container">
+	<div class="walkthrough">
+		<div class="wt-header">
+			<h1>Parse cloud code, getstream.io &amp; EmberJS</h1>
+			This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.
+			The code with explanation is on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>.
+		</div>
+		
+
+		<div class="wt-step">
+		{{#if session.isAuthenticated}}
+			{{# if posted }}
+				{{# if followed }}
+					<strong>Step 4</strong><br/>
+					Great, your {{#link-to 'index'}}feed{{/link-to}} will show the content from the people you follow.
+					The best part, it works with 3 users and keeps on working with 3m users.
+					Check out the code &amp; tutorial on <a target="_blank" href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
+				{{else}}
+					<strong>Step 3</strong><br/>
+					Nice one! Your own feed is still empty though. How about you follow some {{#link-to 'people'}}people{{/link-to}}?
+				{{/if }}
+			{{else}}
+				<strong>Step 2</strong><br/>
+				Hi {{ displayName }}, welcome! Now give the example a try by posting your favourite surfing picture.
+			{{/if }}	
+		{{else}}
+			<strong>Step 1</strong><br/>
+			As we're demoing a social app, you'll need to login:</br>
+			<a {{ action 'login' }} class="btn btn-primary">Login with Github</a>
+		{{/if }}
+		</div>
+	</div>
+</div>
+
 <div class="container">
 	<div class="row clearfix">
-		<div class="col-md-12 column">
 			<nav class="navbar navbar-default" role="navigation">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
@@ -34,41 +67,11 @@
 				</div>
 
 			</nav>
-			<div class="jumbotron">
-				<h1>Parse cloud code, getstream.io &amp; EmberJS</h1>
-				<p>
-					This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.
-					The code with explanation is on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>.
-				</p>
-				<p style="font-weight:bolder;">
-				{{#if session.isAuthenticated}}
-					{{# if posted }}
-						{{# if followed }}
-							Great, your {{#link-to 'index'}}feed{{/link-to}} will show the content from the people you follow.
-							The best part, it works with 3 users and keeps on working with 3m users.
-							Check out the code &amp; tutorial on <a target="_blank" href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
-						{{else}}
-							Nice one! Your own feed is still empty though. How about you follow some {{#link-to 'people'}}people{{/link-to}}?
-						{{/if }}
-					{{else}}
-						Hi {{ displayName }}, welcome! Now give the example a try by posting your favourite surfing picture.
-					{{/if }}	
-				{{else}}
-					As we're demoing a social app, you'll need to login:
-				{{/if }}
-				</p>
-				
-				{{#unless session.isAuthenticated}}
-				<a {{ action 'login' }}>Login with Github</a>
-				{{/unless }}
-				
-			</div>
 			<div class="row clearfix">
 				<div class="col-md-12 column">
 					{{outlet}}
 				</div>
 			</div>
-		</div>
 	</div>
 </div>
 

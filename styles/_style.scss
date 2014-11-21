@@ -144,3 +144,36 @@ ul {
     cursor: inherit;
     display: block;
 }
+
+.walkthrough-container {
+	position: fixed;
+	bottom: 30px;
+	width: 100%;
+	z-index: 100;	
+}
+.walkthrough {
+	border-radius: 5px;
+	border: 3px solid #8CC63E;
+	background-color: #fff;
+	width: 800px;
+	margin: 0 auto;
+	box-shadow: 0px 0px 5px #000000;
+}
+.wt-header {
+	color: #fff;
+	background-color: #8CC63E;
+	padding: 15px;
+}
+.wt-header h1 {
+	color: #fff;
+	padding: 0px;
+	margin: 0px;
+	font-size: 18px;
+}
+.wt-header a {
+	color: #fff;
+	opacity: 0.7;
+}
+.wt-step {
+	padding: 15px;
+}
