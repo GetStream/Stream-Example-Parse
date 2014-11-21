@@ -1,0 +1,8 @@
+<div class="profile-header">
+	<img {{ bind-attr src=user.attributes.image._url }} width="128px"/>
+	<h2 class="centered">{{ user.attributes.username }}</h2>
+	<a href="#" class="btn btn-primary" {{action 'follow' user}}>FOLLOW</a>
+	{{#if loading }}
+		{{ partial 'loading' }}
+	{{/if }}
+</div>
