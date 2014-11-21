@@ -4,15 +4,18 @@ html, body {
 	font-family: 'Raleway', sans-serif;
 	font-size: 12px;
 	font-weight: 300;	
+	padding-bottom: 200px;
 }
 
 .navbar-default {
 	background-color: #8CC63E;
 	border:none;
+	box-shadow:  -3px 0px 15px -3px #777777;	
 }
 .navbar-default .navbar-nav > li > a {
 	color: #FFF !important;
 	font-weight: 700;
+	text-transform: uppercase;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
 	color: #FFF !important;
@@ -207,4 +210,52 @@ ul {
 .profile-header img {
 	border: 3px solid #fff;
 	border-radius: 100px;
+	box-shadow:  -3px 0px 15px 0px #777777;
+}
+
+.user-list {
+	margin-top: 20px;
+}
+.user-list li {
+	padding: 10px 0;
+	border-top: 1px solid #ccc;
+}
+.user-list button {
+	margin-top: 16px;
+}
+.user-list .username {
+	display: inline-block;
+	padding-left: 10px;
+	font-size: 22px;
+	margin-top: 16px;
+}
+
+.activity-content .user-image {
+	width: 80px;
+	border: 3px solid #fff;
+	border-radius: 100px;
+	box-shadow: -3px 0px 15px 0px #777777;
+	margin-top: 5px;
+}
+.new-notice {
+	background-color: #F29B00;
+	color: #fff;
+	padding: 10px;
+	margin-bottom: 20px;
+	text-align: center;
+}
+.loading {
+	text-align: center;
+}
+.loading img {
+	width: 24px;
+	height: 24px;
+}
+#preember {
+	text-align: center;
+	padding: 100px;
+}
+#preember img {
+	width: 24px;
+	height: 24px;
 }

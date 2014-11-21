@@ -7592,37 +7592,40 @@ html, body {
   font-family: 'Raleway', sans-serif;
   font-size: 12px;
   font-weight: 300;
+  padding-bottom: 200px;
 }
 
-/* line 9, ../../../styles/_style.scss */
+/* line 10, ../../../styles/_style.scss */
 .navbar-default {
   background-color: #8CC63E;
   border: none;
+  box-shadow: -3px 0px 15px -3px #777777;
 }
 
-/* line 13, ../../../styles/_style.scss */
+/* line 15, ../../../styles/_style.scss */
 .navbar-default .navbar-nav > li > a {
   color: #FFF !important;
   font-weight: 700;
+  text-transform: uppercase;
 }
 
-/* line 17, ../../../styles/_style.scss */
+/* line 20, ../../../styles/_style.scss */
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: #FFF !important;
 }
 
-/* line 20, ../../../styles/_style.scss */
+/* line 23, ../../../styles/_style.scss */
 .navbar-default .navbar-nav > .active > a {
   background-color: #B9DD7F;
 }
 
-/* line 23, ../../../styles/_style.scss */
+/* line 26, ../../../styles/_style.scss */
 .tight {
   padding-right: 0px;
   padding-left: 0px;
 }
 
-/* line 28, ../../../styles/_style.scss */
+/* line 31, ../../../styles/_style.scss */
 .panel {
   box-shadow: -3px 0px 15px -3px #777777;
   border-radius: 0px;
@@ -7630,22 +7633,22 @@ html, body {
   padding: 15px;
 }
 
-/* line 34, ../../../styles/_style.scss */
+/* line 37, ../../../styles/_style.scss */
 .panel.feed {
   min-height: 1000px;
 }
 
-/* line 37, ../../../styles/_style.scss */
+/* line 40, ../../../styles/_style.scss */
 .centered {
   text-align: center;
 }
 
-/* line 40, ../../../styles/_style.scss */
+/* line 43, ../../../styles/_style.scss */
 .upper {
   text-transform: uppercase;
 }
 
-/* line 43, ../../../styles/_style.scss */
+/* line 46, ../../../styles/_style.scss */
 h1 {
   font-family: 'Raleway', sans-serif;
   font-size: 12px;
@@ -7655,43 +7658,43 @@ h1 {
   margin-top: 0px;
 }
 
-/* line 51, ../../../styles/_style.scss */
+/* line 54, ../../../styles/_style.scss */
 h2 {
   color: #8CC63E;
 }
 
-/* line 54, ../../../styles/_style.scss */
+/* line 57, ../../../styles/_style.scss */
 a {
   color: #8CC63E;
   cursor: pointer;
 }
 
-/* line 58, ../../../styles/_style.scss */
+/* line 61, ../../../styles/_style.scss */
 a:hover, a:active {
   color: #8CC63E;
   opacity: 0.8;
 }
 
-/* line 62, ../../../styles/_style.scss */
+/* line 65, ../../../styles/_style.scss */
 ul {
   margin: 0px;
   padding: 0px;
   list-style-type: none;
 }
 
-/* line 67, ../../../styles/_style.scss */
+/* line 70, ../../../styles/_style.scss */
 .logo-container {
   padding: 30px;
 }
 
-/* line 70, ../../../styles/_style.scss */
+/* line 73, ../../../styles/_style.scss */
 .form-control {
   border: none;
   background-color: #fff;
   border-radius: 0px;
 }
 
-/* line 76, ../../../styles/_style.scss */
+/* line 79, ../../../styles/_style.scss */
 .btn {
   border: none;
   text-transform: uppercase;
@@ -7701,38 +7704,38 @@ ul {
   line-height: 12px;
 }
 
-/* line 85, ../../../styles/_style.scss */
+/* line 88, ../../../styles/_style.scss */
 .btn-primary {
   background-color: #8CC63E;
   color: #fff;
 }
 
-/* line 89, ../../../styles/_style.scss */
+/* line 92, ../../../styles/_style.scss */
 .btn-primary:hover, .btn-primary:active {
   background-color: #8CC63E;
   opacity: 0.8;
 }
 
-/* line 93, ../../../styles/_style.scss */
+/* line 96, ../../../styles/_style.scss */
 .btn-default {
   background-color: #dddddd;
   color: #000;
 }
 
-/* line 97, ../../../styles/_style.scss */
+/* line 100, ../../../styles/_style.scss */
 .btn-default:hover, .btn-default:active {
   background-color: #dddddd;
   opacity: 0.8;
 }
 
-/* line 101, ../../../styles/_style.scss */
+/* line 104, ../../../styles/_style.scss */
 .activity-container {
   position: relative;
   padding-left: 50px;
   margin-bottom: 35px;
 }
 
-/* line 106, ../../../styles/_style.scss */
+/* line 109, ../../../styles/_style.scss */
 .activity-container .actor {
   position: absolute;
   left: 0;
@@ -7740,7 +7743,7 @@ ul {
   width: 35px;
 }
 
-/* line 112, ../../../styles/_style.scss */
+/* line 115, ../../../styles/_style.scss */
 .activity-text {
   font-size: 10px;
   text-transform: uppercase;
@@ -7748,19 +7751,19 @@ ul {
   padding: 3px 0px 5px;
 }
 
-/* line 118, ../../../styles/_style.scss */
+/* line 121, ../../../styles/_style.scss */
 .activity-content {
   padding: 15px;
   background-color: #eee;
 }
 
-/* line 122, ../../../styles/_style.scss */
+/* line 125, ../../../styles/_style.scss */
 .activity-image {
   width: 100%;
   background-color: #e9e9e9;
 }
 
-/* line 126, ../../../styles/_style.scss */
+/* line 129, ../../../styles/_style.scss */
 .activity-time {
   text-align: right;
   font-weight: 100;
@@ -7769,30 +7772,30 @@ ul {
   padding-top: 3px;
 }
 
-/* line 133, ../../../styles/_style.scss */
+/* line 136, ../../../styles/_style.scss */
 .activity-actions {
   color: #999;
   font-size: 10px;
   padding-top: 4px;
 }
 
-/* line 138, ../../../styles/_style.scss */
+/* line 141, ../../../styles/_style.scss */
 .activity-actions a {
   font-weight: 700;
 }
 
-/* line 142, ../../../styles/_style.scss */
+/* line 145, ../../../styles/_style.scss */
 .form-group .btn {
   width: 100%;
 }
 
-/* line 146, ../../../styles/_style.scss */
+/* line 149, ../../../styles/_style.scss */
 .btn-file {
   position: relative;
   overflow: hidden;
 }
 
-/* line 150, ../../../styles/_style.scss */
+/* line 153, ../../../styles/_style.scss */
 .btn-file input[type=file] {
   position: absolute;
   top: 0;
@@ -7809,13 +7812,13 @@ ul {
   display: block;
 }
 
-/* line 165, ../../../styles/_style.scss */
+/* line 168, ../../../styles/_style.scss */
 .blank-slate {
   padding: 30px;
   text-align: center;
 }
 
-/* line 170, ../../../styles/_style.scss */
+/* line 173, ../../../styles/_style.scss */
 .walkthrough-container {
   position: fixed;
   bottom: 30px;
@@ -7823,7 +7826,7 @@ ul {
   z-index: 100;
 }
 
-/* line 176, ../../../styles/_style.scss */
+/* line 179, ../../../styles/_style.scss */
 .walkthrough {
   border-radius: 5px;
   border: 3px solid #8CC63E;
@@ -7834,14 +7837,14 @@ ul {
   box-shadow: 0px 0px 5px #000000;
 }
 
-/* line 185, ../../../styles/_style.scss */
+/* line 188, ../../../styles/_style.scss */
 .wt-header {
   color: #fff;
   background-color: #8CC63E;
   padding: 15px;
 }
 
-/* line 190, ../../../styles/_style.scss */
+/* line 193, ../../../styles/_style.scss */
 .wt-header h1 {
   color: #fff;
   padding: 0px;
@@ -7849,27 +7852,93 @@ ul {
   font-size: 18px;
 }
 
-/* line 196, ../../../styles/_style.scss */
+/* line 199, ../../../styles/_style.scss */
 .wt-header a {
   color: #fff;
   opacity: 0.7;
 }
 
-/* line 200, ../../../styles/_style.scss */
+/* line 203, ../../../styles/_style.scss */
 .wt-step {
   padding: 15px;
 }
 
-/* line 203, ../../../styles/_style.scss */
+/* line 206, ../../../styles/_style.scss */
 .profile-header {
   text-align: center;
   margin-bottom: 30px;
 }
 
-/* line 207, ../../../styles/_style.scss */
+/* line 210, ../../../styles/_style.scss */
 .profile-header img {
   border: 3px solid #fff;
   border-radius: 100px;
+  box-shadow: -3px 0px 15px 0px #777777;
+}
+
+/* line 216, ../../../styles/_style.scss */
+.user-list {
+  margin-top: 20px;
+}
+
+/* line 219, ../../../styles/_style.scss */
+.user-list li {
+  padding: 10px 0;
+  border-top: 1px solid #ccc;
+}
+
+/* line 223, ../../../styles/_style.scss */
+.user-list button {
+  margin-top: 16px;
+}
+
+/* line 226, ../../../styles/_style.scss */
+.user-list .username {
+  display: inline-block;
+  padding-left: 10px;
+  font-size: 22px;
+  margin-top: 16px;
+}
+
+/* line 233, ../../../styles/_style.scss */
+.activity-content .user-image {
+  width: 80px;
+  border: 3px solid #fff;
+  border-radius: 100px;
+  box-shadow: -3px 0px 15px 0px #777777;
+  margin-top: 5px;
+}
+
+/* line 240, ../../../styles/_style.scss */
+.new-notice {
+  background-color: #F29B00;
+  color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* line 247, ../../../styles/_style.scss */
+.loading {
+  text-align: center;
+}
+
+/* line 250, ../../../styles/_style.scss */
+.loading img {
+  width: 24px;
+  height: 24px;
+}
+
+/* line 254, ../../../styles/_style.scss */
+#preember {
+  text-align: center;
+  padding: 100px;
+}
+
+/* line 258, ../../../styles/_style.scss */
+#preember img {
+  width: 24px;
+  height: 24px;
 }
 
 @font-face {

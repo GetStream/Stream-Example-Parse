@@ -1,9 +1,11 @@
-<li>
-	{{#link-to 'profile' user.attributes.username}}{{user.attributes.name}}{{/link-to}}
-	<img {{ bind-attr src=user.attributes.image._url }} width="64px"/>
-	<button {{action 'follow' user}}>
+<li class="clearfix">
+	<img {{ bind-attr src=user.attributes.image._url }} width="64px" class="pull-left"/>
+	<button {{action 'follow' user}} class="btn btn-lg btn-primary pull-right">
 		Follow
 	</button>
+	{{#link-to 'profile' user.attributes.username}}
+		<span class="username">{{user.attributes.name}}</span>
+	{{/link-to}}
 	{{#if loading }}
 		{{ partial 'loading' }}
 	{{/if }}
