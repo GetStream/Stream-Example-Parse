@@ -1,10 +1,7 @@
 
 
-<h2>Your Profile</h2>
+<h2>{{ model.profile.attributes.username }} Profile</h2>
 
-{{ user }}
-{{ user.attributes.username }}
-
-{{#with model as feed}}
+{{#with model.feed as feed}}
 	{{ partial 'feed' }}
 {{/with}}

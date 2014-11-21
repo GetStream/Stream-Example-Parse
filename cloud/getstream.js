@@ -5898,6 +5898,7 @@ var StreamFeed = _dereq_('./feed');
 var signing = _dereq_('./signing');
 var errors = _dereq_('./errors');
 var crypto = _dereq_('crypto');
+var utils = _dereq_('./utils');
 
 var StreamClient = function() {
     this.initialize.apply(this, arguments);
@@ -6004,6 +6005,9 @@ StreamClient.prototype = {
         if (feedSlug.indexOf(':') != -1) {
         	throw new errors.FeedError('Please initialize the feed using client.feed("user", "1") not client.feed("user:1")');
         }
+        
+        utils.validateFeedSlug(feedSlug);
+		utils.validateUserId(userId);
 
         // raise an error if there is no token
         if (!this.apiSecret && !token) {
@@ -6108,7 +6112,7 @@ StreamClient.prototype = {
 
 module.exports = StreamClient;
 }).call(this,_dereq_("1YiZ5S"))
-},{"./errors":26,"./feed":27,"./signing":29,"1YiZ5S":21,"crypto":4,"request":28}],26:[function(_dereq_,module,exports){
+},{"./errors":26,"./feed":27,"./signing":29,"./utils":30,"1YiZ5S":21,"crypto":4,"request":28}],26:[function(_dereq_,module,exports){
 var errors = module.exports;
 
 var canCapture = ( typeof Error.captureStackTrace === 'function');
@@ -6148,6 +6152,7 @@ errors.SiteError.prototype = new ErrorAbstract();
 
 },{}],27:[function(_dereq_,module,exports){
 var errors = _dereq_('./errors');
+var utils = _dereq_('./utils');
 
 var StreamFeed = function() {
 	this.initialize.apply(this, arguments);
@@ -6230,6 +6235,8 @@ StreamFeed.prototype = {
 		 * or
 		 * feed.follow('user', '1', callback);
 		 */
+		utils.validateFeedSlug(targetSlug);
+		utils.validateUserId(targetUserId);
 		var targetToken;
 		var last = arguments[arguments.length - 1];
 		// callback is always the last argument
@@ -6261,6 +6268,8 @@ StreamFeed.prototype = {
 		 * Unfollow the given feed, ie:
 		 * feed.unfollow('user', '2', callback);
 		 */
+		utils.validateFeedSlug(targetSlug);
+		utils.validateUserId(targetUserId);
 		var targetFeedId = targetSlug + ':' + targetUserId;
 		var xhr = this.client.delete( {
 			'url' : 'feed/' + this.feedUrl + '/follows/' + targetFeedId + '/',
@@ -6367,7 +6376,7 @@ StreamFeed.prototype = {
 };
 
 module.exports = StreamFeed; 
-},{"./errors":26,"faye":15}],28:[function(_dereq_,module,exports){
+},{"./errors":26,"./utils":30,"faye":15}],28:[function(_dereq_,module,exports){
 
 /*
  * Simple wrapper to make make parse httprequest look 
@@ -6431,6 +6440,53 @@ exports.sign = function(apiSecret, feedId) {
 	var token = makeUrlSafe(digest);
 	return token;
 };
-},{"crypto":4}]},{},[24])
+},{"crypto":4}],30:[function(_dereq_,module,exports){
+var validRe = /^\w+$/;
+
+
+function validateFeedId(feedId) {
+	/*
+	 * Validate that the feedId matches the spec user:1
+	 */
+	var parts = feedId.split(':');
+	if (parts.length != 2) {
+        throw new errors.FeedError('Invalid feedId, expected something like user:1 got ' + feedId);
+	}
+	var feedSlug = parts[0];
+	var userId = parts[1];
+	validateFeedSlug(feedSlug);
+	validateUserId(userId);
+	return feedId;
+}
+exports.validateFeedId = validateFeedId;
+
+
+function validateFeedSlug(feedSlug) {
+	/*
+	 * Validate that the feedSlug matches \w
+	 */
+	var valid = validRe.test(feedSlug);
+	if (!valid) {
+        throw new errors.FeedError('Invalid feedSlug, please use letters, numbers or _ got: ' + feedSlug);
+	}
+	return feedSlug;
+}
+exports.validateFeedSlug = validateFeedSlug;
+
+
+function validateUserId(userId) {
+	/*
+	 * Validate the userId matches \w
+	 */
+	var valid = validRe.test(userId);
+	if (!valid) {
+        throw new errors.FeedError('Invalid feedSlug, please use letters, numbers or _ got: ' + userId);
+	}
+	return userId;	
+}
+exports.validateUserId = validateUserId;
+
+
+},{}]},{},[24])
 (24)
 });

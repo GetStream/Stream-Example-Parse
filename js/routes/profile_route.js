@@ -1,17 +1,21 @@
 		
 App.ProfileRoute = Ember.Route.extend(
-	SimpleAuth.AuthenticatedRouteMixin,
-	{
+{
 	user: Ember.computed.alias('session.content.user'),
 	model : function(params) {
-		var user = this.get('user');
-		var feedId = 'user:' + user.id;
-		var promise = Parse.Cloud.run('feed', {
-			feed : feedId
+		q = new Parse.Query(Parse.User);
+		q.equalTo('username', params.username);
+		var userPromise = q.first();
+		var modelPromise = userPromise.then(function(user) {
+			return feedPromise = Parse.Cloud.run('feed', {
+				feed : 'user:' + user.id
+			}).then(function(feed) {
+				return {profile: user, feed:feed};
+			});
 		});
-		return promise;
+		return modelPromise;
 	}
-}); 	
+});
 		
 		
 		
