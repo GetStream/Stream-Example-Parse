@@ -558,7 +558,10 @@ function program16(depth0,data) {
   data.buffer.push("  \n  <div class=\"activity-actions\">\n	");
   stack1 = helpers.unless.call(depth0, "isLike", {hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(11, program11, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("\n    <span class=\"icon-thumbs-up\"></span> x 10\n  </div>\n</li> \n\n");
+  data.buffer.push("\n    <span class=\"icon-thumbs-up\"></span> x ");
+  stack1 = helpers._triageMustache.call(depth0, "activity.object_parse.likes", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  data.buffer.push("\n  </div>\n</li> \n\n");
   return buffer;
   
 });

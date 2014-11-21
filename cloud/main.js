@@ -98,3 +98,28 @@ Parse.Cloud.define("feed", function(request, response) {
 	}, utils.createHandler(response));
 });
 
+/*
+ * Bit of extra logic for likes
+ */
+
+
+Parse.Cloud.afterSave("Like", function(request) {
+	// get the related object
+	var like = request.object;
+	var activityType = like.get('activity_type');
+	var activity = like.get('activity_' + activityType);
+	// increment the likes
+	activity.increment('likes');
+	activity.save();
+});
+
+Parse.Cloud.afterDelete("Like", function(request) {
+	// get the related object
+	var like = request.object;
+	var activityType = like.get('activity_type');
+	var activity = like.get('activity_' + activityType);
+	// increment the likes
+	activity.decrement('likes');
+	activity.save();
+});
+
