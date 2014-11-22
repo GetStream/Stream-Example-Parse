@@ -15,6 +15,11 @@ App.AppActivityComponent = Ember.Component.extend({
 		return ago;
 	}.property('time'),
 	
+	likes: function() {
+		var likes = this.get('activity.foreign_id_parse.attributes.likes') || 0;
+		return likes;
+	}.property('activity'),
+	
 	likedActivity: function() {
 		var likeActivity = this.get('activity.object_parse');
 		if (likeActivity) {

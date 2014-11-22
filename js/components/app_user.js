@@ -15,6 +15,7 @@ App.AppUserComponent = Ember.Component.extend({
 			follow.set('feedUserId', currentUser.id);
 			
 			follow.set('to', ['user:all']);
+			follow.set('likes', 0);
 			follow.save({
 				actor : currentUser,
 				verb : 'follow',

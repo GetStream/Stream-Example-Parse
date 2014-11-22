@@ -11,20 +11,20 @@
 		{{#if session.isAuthenticated}}
 			{{# if posted }}
 				{{# if followed }}
-					<strong>Step 4</strong><br/>
-					Great, your {{#link-to 'index'}}feed{{/link-to}} will show the content from the people you follow.
+					<strong>Step 4/4</strong><br/>
+					Great, your {{#link-to 'index'}}feed{{/link-to}}&nbsp;will show the content from the people you follow.
 					The best part, it works with 3 users and keeps on working with 3m users.
 					Check out the code &amp; tutorial on <a target="_blank" href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
 				{{else}}
-					<strong>Step 3</strong><br/>
+					<strong>Step 3/4</strong><br/>
 					Nice one! Your own feed is still empty though. How about you follow some {{#link-to 'people'}}people{{/link-to}}?
 				{{/if }}
 			{{else}}
-				<strong>Step 2</strong><br/>
+				<strong>Step 2/4</strong><br/>
 				Hi {{ displayName }}, welcome! Now give the example a try by posting your favourite surfing picture.
 			{{/if }}	
 		{{else}}
-			<strong>Step 1</strong><br/>
+			<strong>Step 1/4</strong><br/>
 			As we're demoing a social app, you'll need to login:</br>
 			<a {{ action 'login' }} class="btn btn-primary">Login with Github</a>
 		{{/if }}
@@ -53,7 +53,7 @@
 						{{#if session.isAuthenticated}}
 						<li>
 							Hi {{ username }}, having a good day?
-							<img {{ bind-attr src=userImageUrl }} width="64px"/>
+							<img {{ bind-attr src=userImageUrl }}/>
 						</li>
 						<li>
 							<a {{ action 'logout' }}>Logout</a>

@@ -3,14 +3,21 @@ html, body {
 	min-height: 100%;
 	font-family: 'Raleway', sans-serif;
 	font-size: 12px;
-	font-weight: 300;	
-	padding-bottom: 200px;
+	font-weight: 400;	
+	padding-bottom: 100px;
 }
 
 .navbar-default {
 	background-color: #8CC63E;
 	border:none;
 	box-shadow:  -3px 0px 15px -3px #777777;	
+}
+.navbar-default .navbar-nav > li {
+  color: #fff;
+  img {
+    height: 50px;
+    padding: 9px;
+  }
 }
 .navbar-default .navbar-nav > li > a {
 	color: #FFF !important;
@@ -47,7 +54,7 @@ h1 {
 	font-family: 'Raleway', sans-serif;
 	font-size: 12px;
 	padding: 25px;
-	font-weight: 200;
+	font-weight: 300;
 	border-bottom: solid 1px #8CC63E;
 	margin-top: 0px;
 }
@@ -80,7 +87,7 @@ ul {
 	border: none;
 	text-transform: uppercase;
 	font-size: 12px;
-	font-weight: 100;
+	font-weight: 400;
 	border-radius: 3px;
 	line-height: 12px;
 }
@@ -128,7 +135,7 @@ ul {
 }
 .activity-time {
 	text-align: right;
-	font-weight: 100;
+	font-weight: 300;
 	float: right;
 	font-size: 10px;
 	padding-top: 3px;
@@ -174,7 +181,8 @@ ul {
 	position: fixed;
 	bottom: 30px;
 	width: 100%;
-	z-index: 100;	
+	z-index: 100;
+	font-size: 13px;
 }
 .walkthrough {
 	border-radius: 5px;
@@ -184,6 +192,9 @@ ul {
 	max-width: 800px;
 	margin: 0 auto;
 	box-shadow: 0px 0px 5px #000000;
+	h1 {
+	  font-weight: 400;
+	}
 }
 .wt-header {
 	color: #fff;
@@ -207,9 +218,10 @@ ul {
 	text-align: center;
 	margin-bottom: 30px;
 }
-.profile-header img {
+.profile-header .profile-image {
 	border: 3px solid #fff;
 	border-radius: 100px;
+	width: 100px;
 	box-shadow:  -3px 0px 15px 0px #777777;
 }
 
@@ -222,6 +234,10 @@ ul {
 }
 .user-list button {
 	margin-top: 16px;
+}
+.loading-container {
+  float: right;
+  padding-top: 20px;
 }
 .user-list .username {
 	display: inline-block;

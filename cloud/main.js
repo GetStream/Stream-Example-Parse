@@ -25,8 +25,6 @@ _.each(settings.activityModels, function(model) {
 		var activity = utils.parseToActivity(request.object);
 		var feed = client.feed(activity.feed_slug, activity.feed_user_id);
 		// remove by foreign id
-		console.log('foreignId');
-		console.log(activity.foreign_id);
 		feed.removeActivity({
 			foreignId : activity.foreign_id
 		}, utils.createHandler());
@@ -102,18 +100,30 @@ Parse.Cloud.define("feed", function(request, response) {
  * Bit of extra logic for likes
  */
 
-
 Parse.Cloud.afterSave("Like", function(request) {
+	// trigger fanout
+	var activity = utils.parseToActivity(request.object);
+	var feed = client.feed(activity.feed_slug, activity.feed_user_id);
+	feed.addActivity(activity, utils.createHandler());
 	// get the related object
 	var like = request.object;
 	var activityType = like.get('activity_type');
 	var activity = like.get('activity_' + activityType);
+	console.log('incremeting like');
+	console.log(activityType);
 	// increment the likes
 	activity.increment('likes');
 	activity.save();
 });
 
 Parse.Cloud.afterDelete("Like", function(request) {
+	// trigger fanout to remove
+	var activity = utils.parseToActivity(request.object);
+	var feed = client.feed(activity.feed_slug, activity.feed_user_id);
+	// remove by foreign id
+	feed.removeActivity({
+		foreignId : activity.foreign_id
+	}, utils.createHandler());
 	// get the related object
 	var like = request.object;
 	var activityType = like.get('activity_type');
@@ -122,4 +132,5 @@ Parse.Cloud.afterDelete("Like", function(request) {
 	activity.decrement('likes');
 	activity.save();
 });
+
 

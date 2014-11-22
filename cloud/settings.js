@@ -3,7 +3,7 @@
  */
 
 // define which parse models you want to treat as getstream.io activities
-exports.activityModels = ['Tweet', 'Picture', 'Like'];
+exports.activityModels = ['Tweet', 'Picture'];
 // define which parse model stores your follow state
 exports.followModel = 'Follow';
 

@@ -2,13 +2,14 @@ App.IndexController = Ember.Controller.extend({
 	status : '',
 	errors: {},
 	loading: null,
+	posting: null,
 	
 	feedId : function() {
 		return 'user:everybody';
 		return 'flat:' + this.get('user').id;
 	}.property('user'),
 	
-	newActivities: {},
+	newActivities: false,
 	user: Ember.computed.alias('session.content.user'),
 	userImageUrl: function() {
 		var user = this.get('user');
@@ -41,7 +42,7 @@ App.IndexController = Ember.Controller.extend({
 			if (feed) {
 				console.log('listening to', feed);
 				feed.subscribe(function callback(data) {
-				    controller.set('model.' + feedName + '.new', true);
+				    controller.set('model.globalFeed.new', true);
 				});
 			}
 		});
@@ -56,7 +57,7 @@ App.IndexController = Ember.Controller.extend({
 			
 			
 			if (msg || imageUpload) {
-				controller.set('loading', true);
+				controller.set('posting', true);
 				var update = (imageUpload) ? new Picture() : new Tweet();
 				var verb = (imageUpload) ? 'upload' : 'tweet';
 				
@@ -68,6 +69,7 @@ App.IndexController = Ember.Controller.extend({
 				update.set('actor', user);
 				update.set('verb', verb);
 				update.set('tweet', msg);
+				update.set('likes', 0);
 				// to is also often used for things such as @mentions
 				// see the docs https://getstream.io/docs/#targetting
 				// think of it as ccing an email
@@ -88,13 +90,13 @@ App.IndexController = Ember.Controller.extend({
 				 
 				update.save(null, {
 					success : function(object) {
-						controller.set('loading', false);
+						controller.set('posting', false);
 						console.log('saved', verb);
 						$("form").get(0).reset();
 						controller.send('posted');
 					},
 					error : function(model, error) {
-						controller.set('loading', false);
+						controller.set('posting', false);
 						var errors = {status: error};
 						controller.set('errors', errors);
 					}

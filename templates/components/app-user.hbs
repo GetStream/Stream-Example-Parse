@@ -1,12 +1,13 @@
 <li class="clearfix">
 	<img {{ bind-attr src=user.attributes.image._url }} width="64px" class="pull-left"/>
-	<button {{action 'follow' user}} class="btn btn-lg btn-primary pull-right">
-		Follow
-	</button>
+	{{#if loading }}
+		<div class="loading-container">{{ partial 'loading' }}</div>
+	{{ else }}
+		<button {{action 'follow' user}} class="btn btn-lg btn-primary pull-right">
+			Follow
+		</button>
+	{{/if }}
 	{{#link-to 'profile' user.attributes.username}}
 		<span class="username">{{user.attributes.name}}</span>
 	{{/link-to}}
-	{{#if loading }}
-		{{ partial 'loading' }}
-	{{/if }}
 </li>

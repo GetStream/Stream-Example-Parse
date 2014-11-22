@@ -11,68 +11,79 @@
 					<form>
 						<div class="form-group">
 							{{#if session.isAuthenticated}}
-								{{textarea value=status cols="40" rows="3" placeholder="What are you looking at?" class="form-control"}}
+								{{textarea value=status cols="40" rows="3" placeholder="Which city are you in right now?" class="form-control"}}
 							{{else }}
-								{{textarea value=status cols="40" rows="3" placeholder="What are you looking at?" class="form-control" disabled=entryNotAllowed }}
+								{{textarea value=status cols="40" rows="3" placeholder="Which city are you in right now?" class="form-control" disabled=entryNotAllowed }}
 							{{/if }}
 						</div>
-						<div class="alert alert-warning">
+						
 							{{#if errors.status }}
-							{{ errors.status }}
+							<div class="alert alert-danger">{{ errors.status }}</div>
 							{{/if }}
 							{{#if session.isAuthenticated}}
 							{{else}}
-							<a {{ action 'login' }}>Login with Github</a> to share your status
+							<div class="alert alert-warning">
+								<a {{ action 'login' }}>Login with Github</a> to share your status
+							</div>
 							{{/if}}							
-						</div>
+						
 						{{#if session.isAuthenticated}}
-						<div class="form-group">
-							<div class="col-sm-12">
-								<span id="selected-image"></span>
-							</div>
-							<div class="col-sm-6">
-								{{view "customFileInput" }}
-							</div>
-							<div class="col-sm-6">
-								<button class="btn btn-primary table-cell" {{action 'status'}}>
-									Share
-								</button>
-							</div>
-						</div>
-						{{/if}}
-
+							{{# if posting }}
+								&nbsp;
+								{{ partial 'loading' }}
+							{{ else }}
+								<div class="form-group">
+									<div class="col-sm-12">
+										<span id="selected-image"></span>
+									</div>
+									<div class="col-sm-6">
+										{{view "customFileInput" }}
+									</div>
+									<div class="col-sm-6">
+										<button class="btn btn-primary table-cell" {{action 'status'}}>
+											Share
+										</button>
+									</div>
+								</div>
+							{{/if}}
+						{{/if }}
 					</form>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-4 tight">
-			<div class="panel feed">
-				<h1 class="centered upper">People you follow</h1>
-				{{# if loading }}
+		<div class="col-md-8 tight">
+			{{# if model.globalFeed.new }}
+				<div class="alert alert-warning centered">
+					Whooooop! There are new activities!<br/>
+					<button class="btn btn-default" {{action 'reload'}}>Show them</button>
+				</div>
+			{{/if }}			
+			{{# if loading }}
 				&nbsp;
 				{{ partial 'loading' }}
-				{{/if }}
-				{{# if model.flatFeed }}
-				{{#with model.flatFeed as feed}}
-				{{ partial 'feed' }}
-				{{/with}}
-				{{ else }}
-					<div class="blank-slate">
-						Log in and follow some people to see your personalised feed!<br>&nbsp;<br>
-						<a {{ action 'login' }} class="btn btn-primary">Login with Github</a>
-					</div>
-				{{/if}}
+			{{/if }}			
+			<div class="col-md-6 tight">
+				<div class="panel feed">
+					<h1 class="centered upper">People you follow</h1>
+					{{# if model.flatFeed }}
+					{{#with model.flatFeed as feed}}
+					{{ partial 'feed' }}
+					{{/with}}
+					{{ else }}
+						<div class="blank-slate">
+							Log in and follow some people to see your personalised feed!<br>&nbsp;<br>
+							<a {{ action 'login' }} class="btn btn-primary">Login with Github</a>
+						</div>
+					{{/if}}
+				</div>
 			</div>
-		</div>
-		<div class="col-md-4 tight">
-			<div class="panel feed">
-				<h1 class="centered upper">Everyone</h1>
-				{{# if loading }}
-				{{ partial 'loading' }}
-				{{/if }}
-				{{#with model.globalFeed as feed}}
-				{{ partial 'feed' }}
-				{{/with}}
+			<div class="col-md-6 tight">
+				<div class="panel feed">
+					<h1 class="centered upper">Everyone</h1>
+					{{#with model.globalFeed as feed}}
+					{{ partial 'feed' }}
+					{{/with}}
+				</div>
 			</div>
 		</div>
 	</div>

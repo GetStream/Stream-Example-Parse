@@ -1,13 +1,5 @@
 <div class="newsfeed">
-	{{# if feed.new }}
-		<div class="alert alert-warning centered">
-			Whooooop! There are new activities!<br/>
-			<button class="btn btn-default" {{action 'reload'}}>Show them</button>
-		</div>
-	{{/if}}
-	
 	{{# if feed.activities }}
-	
 		<ul>
 			{{# each feed.activities }}
 				{{app-activity activity=this }}
