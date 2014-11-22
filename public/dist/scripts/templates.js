@@ -77,7 +77,7 @@ function program3(depth0,data) {
   data.buffer.push("\n					<strong>Step 4/4</strong><br/>\n					Great, your ");
   stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(4, program4, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "index", options) : helperMissing.call(depth0, "link-to", "index", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push("&nbsp;will show the content from the people you follow.\n					The best part, it works with 3 users and keeps on working with 3m users.\n					Check out the code &amp; tutorial on <a target=\"_blank\" href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>!\n				");
+  data.buffer.push("&nbsp;now shows the content from the people you follow.\n					It works with 3 users and keeps on working with 3 million users.\n					To understand the API powering this try the <a target=\"_blank\" href=\"https://getstream.io/get_started/\">getting started</a> for getstream.io.\n				");
   return buffer;
   }
 function program4(depth0,data) {
@@ -89,7 +89,7 @@ function program4(depth0,data) {
 function program6(depth0,data) {
   
   var buffer = '', stack1, helper, options;
-  data.buffer.push("\n					<strong>Step 3/4</strong><br/>\n					Nice one! Your own feed is still empty though. How about you follow some ");
+  data.buffer.push("\n					<strong>Step 3/4</strong><br/>\n					Nice one! Your own feed is still empty though. How about you try following some ");
   stack1 = (helper = helpers['link-to'] || (depth0 && depth0['link-to']),options={hash:{},hashTypes:{},hashContexts:{},inverse:self.noop,fn:self.program(7, program7, data),contexts:[depth0],types:["STRING"],data:data},helper ? helper.call(depth0, "people", options) : helperMissing.call(depth0, "link-to", "people", options));
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("?\n				");
@@ -107,14 +107,14 @@ function program9(depth0,data) {
   data.buffer.push("\n				<strong>Step 2/4</strong><br/>\n				Hi ");
   stack1 = helpers._triageMustache.call(depth0, "displayName", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
-  data.buffer.push(", welcome! Now give the example a try by posting your favourite surfing picture.\n			");
+  data.buffer.push(", welcome! Now give the example a try by posting a status update about the city you're currently in.\n			");
   return buffer;
   }
 
 function program11(depth0,data) {
   
   var buffer = '';
-  data.buffer.push("\n			<strong>Step 1/4</strong><br/>\n			As we're demoing a social app, you'll need to login:</br>\n			<a ");
+  data.buffer.push("\n			<strong>Step 1/4</strong><br/>\n			As we're demoing a social app, you'll need to login to give it a try.\n			<a ");
   data.buffer.push(escapeExpression(helpers.action.call(depth0, "login", {hash:{},hashTypes:{},hashContexts:{},contexts:[depth0],types:["STRING"],data:data})));
   data.buffer.push(" class=\"btn btn-primary\">Login with Github</a>\n		");
   return buffer;
@@ -190,7 +190,7 @@ function program22(depth0,data) {
   return buffer;
   }
 
-  data.buffer.push("<div class=\"walkthrough-container\">\n	<div class=\"walkthrough\">\n		<div class=\"wt-header\">\n			<h1>Parse cloud code, getstream.io &amp; EmberJS</h1>\n			This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.\n			The code with explanation is on <a href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>.\n		</div>\n		\n\n		<div class=\"wt-step\">\n		");
+  data.buffer.push("<div class=\"walkthrough-container\">\n	<div class=\"walkthrough\">\n		<div class=\"wt-header\">\n			<h1><a href=\"https://parse.com/docs/cloud_code_guide\" target=\"_blank\">Parse cloud code</a>, <a href=\"https://getstream.io/\" target=\"_blank\">getstream.io</a> &amp; <a href=\"http://emberjs.com/\" target=\"_blank\">EmberJS</a></h1>\n			This example app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.\n			The code is on <a href=\"https://github.com/tschellenbach/Stream-Example-Parse\">Github</a>.\n		</div>\n		\n\n		<div class=\"wt-step\">\n		");
   stack1 = helpers['if'].call(depth0, "session.isAuthenticated", {hash:{},hashTypes:{},hashContexts:{},inverse:self.program(11, program11, data),fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],data:data});
   if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
   data.buffer.push("\n		</div>\n	</div>\n</div>\n\n<div class=\"container\">\n	<div class=\"row clearfix\">\n			<nav class=\"navbar navbar-default\" role=\"navigation\">\n				<div class=\"navbar-header\">\n					<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\"#bs-example-navbar-collapse-1\">\n						<span class=\"sr-only\">Toggle navigation</span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span><span class=\"icon-bar\"></span>\n					</button>\n				</div>	\n				\n				<div class=\"collapse navbar-collapse\" id=\"bs-example-navbar-collapse-1\">\n					<ul class=\"nav navbar-nav\">\n						");

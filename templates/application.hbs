@@ -1,9 +1,9 @@
 <div class="walkthrough-container">
 	<div class="walkthrough">
 		<div class="wt-header">
-			<h1>Parse cloud code, getstream.io &amp; EmberJS</h1>
-			This app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.
-			The code with explanation is on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>.
+			<h1><a href="https://parse.com/docs/cloud_code_guide" target="_blank">Parse cloud code</a>, <a href="https://getstream.io/" target="_blank">getstream.io</a> &amp; <a href="http://emberjs.com/" target="_blank">EmberJS</a></h1>
+			This example app shows you how to build scalable newsfeeds using GetStream.io &amp; parse cloud.
+			The code is on <a href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>.
 		</div>
 		
 
@@ -12,20 +12,20 @@
 			{{# if posted }}
 				{{# if followed }}
 					<strong>Step 4/4</strong><br/>
-					Great, your {{#link-to 'index'}}feed{{/link-to}}&nbsp;will show the content from the people you follow.
-					The best part, it works with 3 users and keeps on working with 3m users.
-					Check out the code &amp; tutorial on <a target="_blank" href="https://github.com/tschellenbach/Stream-Example-Parse">Github</a>!
+					Great, your {{#link-to 'index'}}feed{{/link-to}}&nbsp;now shows the content from the people you follow.
+					It works with 3 users and keeps on working with 3 million users.
+					To understand the API powering this try the <a target="_blank" href="https://getstream.io/get_started/">getting started</a> for getstream.io.
 				{{else}}
 					<strong>Step 3/4</strong><br/>
-					Nice one! Your own feed is still empty though. How about you follow some {{#link-to 'people'}}people{{/link-to}}?
+					Nice one! Your own feed is still empty though. How about you try following some {{#link-to 'people'}}people{{/link-to}}?
 				{{/if }}
 			{{else}}
 				<strong>Step 2/4</strong><br/>
-				Hi {{ displayName }}, welcome! Now give the example a try by posting your favourite surfing picture.
+				Hi {{ displayName }}, welcome! Now give the example a try by posting a status update about the city you're currently in.
 			{{/if }}	
 		{{else}}
 			<strong>Step 1/4</strong><br/>
-			As we're demoing a social app, you'll need to login:</br>
+			As we're demoing a social app, you'll need to login to give it a try.
 			<a {{ action 'login' }} class="btn btn-primary">Login with Github</a>
 		{{/if }}
 		</div>
