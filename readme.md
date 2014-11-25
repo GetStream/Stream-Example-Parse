@@ -77,7 +77,7 @@ var promise = Parse.Cloud.run('feed', {
 
 Will retrieve the user feed for user 1.
 
-### Running this example app
+### Advanced: Running this example app
 
 #### Settings
 
