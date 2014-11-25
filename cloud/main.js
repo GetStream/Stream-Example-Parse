@@ -108,12 +108,13 @@ Parse.Cloud.afterSave("Like", function(request) {
 	// get the related object
 	var like = request.object;
 	var activityType = like.get('activity_type');
-	var activity = like.get('activity_' + activityType);
-	console.log('incremeting like');
-	console.log(activityType);
-	// increment the likes
-	activity.increment('likes');
-	activity.save();
+	var pointer = like.get('activity_' + activityType);
+	var query = new Parse.Query(pointer.className);
+	query.get(pointer.id, function(activity){
+		// increment the likes
+		activity.increment('likes');
+		activity.save();
+	});
 });
 
 Parse.Cloud.afterDelete("Like", function(request) {
@@ -127,10 +128,13 @@ Parse.Cloud.afterDelete("Like", function(request) {
 	// get the related object
 	var like = request.object;
 	var activityType = like.get('activity_type');
-	var activity = like.get('activity_' + activityType);
-	// increment the likes
-	activity.decrement('likes');
-	activity.save();
+	var pointer = like.get('activity_' + activityType);
+	var query = new Parse.Query(pointer.className);
+	query.get(pointer.id, function(activity){
+		// decrement the likes
+		activity.increment('likes', -1);
+		activity.save();
+	});
 });
 
 

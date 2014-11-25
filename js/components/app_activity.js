@@ -55,8 +55,8 @@ App.AppActivityComponent = Ember.Component.extend({
 	}.property('activity'),
 	
 	likedActivity: function() {
-		var activityType = this.get('activity.object_parse.attributes.activityType');
-		var activity = this.get('activity.object_parse.attributes.activity_' + activityType);
+		var activityType = this.get('activity.foreign_id_parse.attributes.activityType');
+		var activity = this.get('activity.foreign_id_parse.attributes.activity_' + activityType);
 		return activity;
 	}.property('activity'),
 
@@ -87,6 +87,8 @@ App.AppActivityComponent = Ember.Component.extend({
 				activity_type : activityType
 			}, {
 				success : function(object) {
+					var newLikes = component.get('likes') + 1;
+					component.set('activity.foreign_id_parse.attributes.likes', newLikes);
 					component.set('loading', false);
 					component.set('activity.liked', true);
 					console.log('saved like');

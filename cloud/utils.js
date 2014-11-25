@@ -47,6 +47,8 @@ exports.parseToActivity = function parseToActivity(parseObject) {
 	activity.foreign_id = serializeId(parseObject);
 	activity.feed_slug = parseObject.get('feedSlug');
 	activity.feed_user_id = parseObject.get('feedUserId');
+	// time and foreign id together ensure uniqueness
+	activity.time = parseObject.createdAt.toISOString();
 	return activity;
 };
 
