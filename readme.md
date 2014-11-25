@@ -1,4 +1,4 @@
-GetStream.io, parse cloud code & EmberJS
+GetStream.io, Parse cloud code & EmberJS
 ========================================
 
 This example app helps you create activity streams & newsfeeds with [Parse Cloud Code](https://parse.com/docs/cloud_code_guide) and [GetStream.io](https://getstream.io).
@@ -28,51 +28,42 @@ The example app is based on [EmberJS](http://emberjs.com/) and showcases a Twitt
 ### Tutorial
 
 #### Installing the Stream library
-
-The Parse Cloud ecosystem is unique. You can find the adapted client for getstream.io in [cloud/getstream.js](https://github.com/tschellenbach/Stream-Example-Parse/blob/master/cloud/getstream.js).
+The Parse cloud compatible client can be found in  [cloud/getstream.js](https://github.com/tschellenbach/Stream-Example-Parse/blob/master/cloud/getstream.js).
 The documentation for the client can be found on [getstream.io/docs](https://getstream.io/docs/)
+If you haven't tried out getstream.io before I recommend the [getting started](https://getstream.io/get_started/#intro).
+The interactive API tutorial will get you up to speed in a few minutes.
 
-```
-// initialize the getstream.io client
-var stream = require('cloud/getstream.js');
-var client = stream.connect(settings.streamApiKey, settings.streamApiSecret, settings.streamApp);
-```
-
-The easiest way to get started is to copy over this entire repo.
-
-#### Setting up the backend & syncing to getstream.io
+#### Syncing activities to getstream.io
 
 To build your activity stream you need to notifity getstream.io of 2 things:
 
 1. When activities are added/removed
-2. When follow relationships are changed
+2. When follow relationships change
 
-If you haven't tried out getstream.io before I recommend you try the getting started first:
-https://getstream.io/get_started/#intro
-The interactive API tutorial will get you up to speed in a few minutes.
-
-The code to notify GetStream.io of these events can be found in cloud/main.js
+The code to notify GetStream.io of these events can be found in [cloud/main.js](https://github.com/tschellenbach/Stream-Example-Parse/blob/master/cloud/main.js)
 For each model defined in settings.activityModels we'll listen to the Parse.Cloud.afterSave and Parse.Cloud.afterDelete methods.
 
 Furthermore we also listen to the changes in settings.followModel and sync the changes.
 
 #### Creating activities
 
-Now that our backend is correctly setup we can create activity's via Parse and they will get automatically send to getstream.io
+Now that our Parse Cloud code is correctly setup, activities created via Parse will get published to getstream.io
 
 ```
-// define your parse models
-Activity = Parse.Object.extend("Activity");
-Tweet = Activity.extend("Tweet");
+// create a new tweet
 var tweet = new Tweet();
-tweet.set('actor', Parse.User.current());
+// we write to the user feed
+tweet.set('feedSlug', 'user');
+tweet.set('feedUserId', user.id);
+// the tweet's data
+tweet.set('actor', user);
 tweet.set('verb', 'tweet');
-tweet.set('tweet', 'Happy times');
-tweet.save()
+tweet.set('tweet', 'hello world');
+tweet.set('likes', 0);
+tweet.save();
 ```
 
-Now when you call tweet.save the Parse object is stored. You can verify by visiting the parse data browser.
-If you open your GetStream.io data browser you'll see the newly created feed containing the first activity.
+When you call tweet.save() the Parse object is created. After the tweet is created the Parse.Cloud.afterSave trigger will publish the activity to getstream.io.
 
 #### Reading feeds
 
@@ -80,9 +71,11 @@ You can read feeds by using a Parse.Cloud.run('feed') call, for example:
 
 ```
 var promise = Parse.Cloud.run('feed', {
-	feed : 'user:all'
+	feed : 'user:1'
 });
 ```
+
+Will retrieve the user feed for user 1.
 
 ### Running this example app
 
