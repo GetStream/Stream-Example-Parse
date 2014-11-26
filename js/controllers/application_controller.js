@@ -13,9 +13,15 @@ App.ApplicationController = Ember.Controller.extend({
 		}
 	}.property('user'),
 	userImageUrl: function() {
+		var url;
 		var user = this.get('user');
 		var image = user.get('image');
-		return image.url();
+		if (image) {
+			url = image.url();
+		} else {
+			url = 'https://getstream.parseapp.com/images/profile-pic.png';
+		}
+		return url;
 	}.property('user'),
 	displayName: function() {
 		var username = this.get('username');

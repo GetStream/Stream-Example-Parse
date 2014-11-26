@@ -45,13 +45,17 @@ App.AppActivityComponent = Ember.Component.extend({
 	}.property('activity'),
 	
 	userImageUrl: function() {
-		var parseObject = this.get('activity.actor_parse.attributes.image._url');
-		return parseObject;
+		var parseImage = this.get('activity.actor_parse.attributes.image');
+		var defaultImage = 'https://getstream.parseapp.com/images/profile-pic.png';
+		var image = (parseImage) ? parseImage.url() : defaultImage;
+		return image;
 	}.property('activity'),
 	
 	followImageUrl: function() {
-		var parseObject = this.get('activity.object_parse.attributes.image._url');
-		return parseObject;
+		var parseImage = this.get('activity.object_parse.attributes.image');
+		var defaultImage = 'https://getstream.parseapp.com/images/profile-pic.png';
+		var image = (parseImage) ? parseImage.url() : defaultImage;
+		return image;
 	}.property('activity'),
 	
 	likedActivity: function() {

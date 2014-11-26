@@ -52,7 +52,7 @@ html, body {
 }
 h1 {
 	font-family: 'Raleway', sans-serif;
-	font-size: 12px;
+	font-size: 20px;
 	padding: 25px;
 	font-weight: 300;
 	border-bottom: solid 1px #8CC63E;
@@ -182,7 +182,7 @@ ul {
 	bottom: 30px;
 	width: 100%;
 	z-index: 100;
-	font-size: 13px;
+	font-size: 18px;
 }
 .walkthrough {
 	border-radius: 5px;
@@ -205,11 +205,12 @@ ul {
 	color: #fff;
 	padding: 0px;
 	margin: 0px;
-	font-size: 18px;
+	font-size: 22px;
 }
 .wt-header a {
 	color: #fff;
-	opacity: 0.7;
+	opacity: 1;
+	text-decoration: underline;
 }
 .wt-step {
 	padding: 15px;
