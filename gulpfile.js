@@ -82,16 +82,18 @@ var libsSrc = [
   	'bower_components/momentjs/moment.js',
   	'js/libs/underscore.js',
   	'js/libs/handlebars-v1.3.0.js',
-  	'js/libs/ember-1.8.1.js',
+  	'js/libs/ember.min.js',
   	'bower_components/ember-data/ember-data.js',
   	'js/libs/ember-parse-adapter.js',
   	'bower_components/getstream/dist/js/getstream.js',
   	'bower_components/ember-simple-auth/simple-auth.js',
 ];
 
-gulp.task('libs_dev', function() {
+gulp.task('libs', function() {
   return gulp.src(libsSrc)
     .pipe(concat('libs.js').on('error', gutil.log))
+    .pipe(stripDebug())
+    .pipe(uglify())
     .pipe(gulp.dest('public/dist/scripts').on('error', gutil.log));
 });
 
