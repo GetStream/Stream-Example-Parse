@@ -73,7 +73,7 @@ Parse.Cloud.define("feed", function(request, response) {
 	var feedSlug = feedParts[0];
 	var userId = feedParts[1];
 	var id_lte = request.params.id_lte || undefined;
-	var limit = request.params.limit || 50;
+	var limit = request.params.limit || 100;
 	var params = {
 		limit : limit
 	};
