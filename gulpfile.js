@@ -54,6 +54,8 @@ gulp.task('templates', function() {
       namespace: 'Ember.TEMPLATES'
     }))
     .pipe(concat('templates.js'))
+    .pipe(stripDebug())
+    .pipe(uglify())
     .pipe(gulp.dest('public/dist/scripts'));
 });
 
@@ -135,7 +137,7 @@ gulp.task('watch', function() {
   gulp.run("url");
 });
 
-gulp.task('default', ['css', 'templates', 'scripts_dev', 'libs_dev', 'watch']);
+gulp.task('default', ['css', 'templates', 'scripts_prod', 'libs', 'watch']);
 
 gulp.task('build', ['css', 'templates', 'scripts_prod']);
 
