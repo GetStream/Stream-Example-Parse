@@ -16,7 +16,7 @@ App.ApplicationController = Ember.Controller.extend({
 		var url;
 		var user = this.get('user');
 		var image = user.get('image');
-		if (image) {
+		if (image && image.url) {
 			url = image.url();
 		} else {
 			url = 'https://getstream.parseapp.com/images/profile-pic.png';

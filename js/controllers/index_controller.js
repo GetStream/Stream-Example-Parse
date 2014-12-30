@@ -14,7 +14,13 @@ App.IndexController = Ember.Controller.extend({
 	userImageUrl: function() {
 		var user = this.get('user');
 		var image = user.get('image');
-		return image.url();
+		var url;
+		if (image && image.url) {
+			url = image.url();
+		} else {
+			url = 'https://getstream.parseapp.com/images/profile-pic.png';
+		}
+		return url;
 	}.property('user'),
 	
 	getFeedData: function(name) {

@@ -38,7 +38,7 @@ App.AppActivityComponent = Ember.Component.extend({
 		var parseObject = this.get('activity').object_parse;
 		if (parseObject) {
 			var image = parseObject.get('image');
-			if (image) {
+			if (image && image.url) {
 				return image.url();
 			}
 		}
@@ -47,14 +47,14 @@ App.AppActivityComponent = Ember.Component.extend({
 	userImageUrl: function() {
 		var parseImage = this.get('activity.actor_parse.attributes.image');
 		var defaultImage = 'https://getstream.parseapp.com/images/profile-pic.png';
-		var image = (parseImage) ? parseImage.url() : defaultImage;
+		var image = (parseImage && parseImage.url) ? parseImage.url() : defaultImage;
 		return image;
 	}.property('activity'),
 	
 	followImageUrl: function() {
 		var parseImage = this.get('activity.object_parse.attributes.image');
 		var defaultImage = 'https://getstream.parseapp.com/images/profile-pic.png';
-		var image = (parseImage) ? parseImage.url() : defaultImage;
+		var image = (parseImage && parseImage.url) ? parseImage.url() : defaultImage;
 		return image;
 	}.property('activity'),
 	

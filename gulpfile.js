@@ -139,5 +139,5 @@ gulp.task('watch', function() {
 
 gulp.task('default', ['css', 'templates', 'scripts_prod', 'libs', 'watch']);
 
-gulp.task('build', ['css', 'templates', 'scripts_prod']);
+gulp.task('build', ['css', 'templates', 'scripts_prod', 'libs']);
 
