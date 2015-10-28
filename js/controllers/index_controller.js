@@ -27,8 +27,9 @@ App.IndexController = Ember.Controller.extend({
 		var data = this.get('model.' + name);
 		if (data) {
 			var token = data.token;
-			var feedId = data.feed;
-			var feed = StreamClient.feed(feedId, token);
+			var feedSlug = data.feed.split(':')[0];
+			var feedId = data.feed.split(':')[1];
+			var feed = StreamClient.feed(feedSlug, feedId, token);
 			return feed;
 		}
 	},

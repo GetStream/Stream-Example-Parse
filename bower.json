@@ -9,7 +9,7 @@
     "moment": "~2.8.1",
     "jquery-cookie": "~1.4.1",
     "ember-uploader": "~0.2.8",
-    "getstream": "1.0.7",
+    "getstream": "2.2.2",
     "ember-simple-auth": "~0.7.1",
     "momentjs": "~2.8.3"
   }
