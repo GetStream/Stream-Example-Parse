@@ -1,9 +1,13 @@
 GetStream.io, Parse cloud code & EmberJS
 ========================================
 
-This example app helps you create activity streams & newsfeeds with [Parse Cloud Code](https://parse.com/docs/cloud_code_guide) and [GetStream.io](https://getstream.io).
+## Warning
+
+Support for Parse has been discontinued. Some of this integration might still work, but you're on your own as it's no longer supported.
 
 ###Activity Streams & Newsfeeds
+
+This example app helps you create activity streams & newsfeeds with [Parse Cloud Code](https://parse.com/docs/cloud_code_guide) and [GetStream.io](https://getstream.io).
 
 ![](https://dvqg2dogggmn6.cloudfront.net/images/mood-home.png)
 
