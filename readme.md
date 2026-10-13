@@ -1,3 +1,5 @@
+> **This repository is archived and no longer maintained.** For a current alternative, see [the Feeds v3 JavaScript docs](https://getstream.io/activity-feeds/docs/javascript/).
+
 GetStream.io, Parse cloud code & EmberJS
 ========================================
 
